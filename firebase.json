@@ -1,0 +1,18 @@
+{
+  "hosting": {
+    "target": "rentledger",
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      ".firebaserc",
+      ".github",
+      ".gitignore"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="theme-color" content="#0d1117"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="RentLedger"/>
+<meta name="application-name" content="RentLedger"/>
+<meta name="description" content="RentLedger — Landlord Rent Management System for Ghana. Track tenants, payments and expiry dates."/>
+<meta property="og:title" content="RentLedger — Landlord Rent Management"/>
+<meta property="og:description" content="Track tenants, payments and expiry alerts for all your properties."/>
+<meta property="og:url" content="https://rentledger.web.app"/>
+<title>RentLedger — Landlord Rent Management</title>
+<link rel="apple-touch-icon" id="apple-icon"/>
+<link rel="icon" id="favicon-icon"/>
+<link rel="manifest" id="pwa-manifest"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+<script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>
+:root{
+  --bg:#0d1117;--bg2:#161b22;--bg3:#1c2128;
+  --green:#22c55e;--green2:#16a34a;
+  --red:#ef4444;--amber:#f59e0b;--blue:#3b82f6;
+  --text:#e6edf3;--text2:#8b949e;--text3:#484f58;
+  --border:#30363d;--border2:#21262d;
+  --fm:'Plus Jakarta Sans',sans-serif;--fd:'DM Mono',monospace;
+  --nh:60px;--radius:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{background:var(--bg);color:var(--text);font-family:var(--fm);min-height:100vh;}
+input,select,button{font-family:var(--fm);}
+.app{display:flex;height:100vh;overflow:hidden;}
+.sidebar{width:220px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0;}
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+.content{flex:1;overflow-y:auto;padding:16px;}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:50px;border-bottom:1px solid var(--border);background:var(--bg2);flex-shrink:0;gap:10px;}
+.topbar-title{font-size:13px;font-weight:700;}
+.sb-logo{padding:18px 16px 14px;border-bottom:1px solid var(--border);}
+.sb-logo-main{font-family:var(--fd);font-size:15px;font-weight:700;color:var(--green);}
+.sb-logo-sub{font-size:9px;letter-spacing:2px;color:var(--text3);margin-top:3px;}
+.sb-nav{padding:8px;}
+.sb-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:500;color:var(--text2);transition:all .15s;border:none;background:none;width:100%;text-align:left;}
+.sb-item:hover{background:var(--bg3);color:var(--text);}
+.sb-item.active{background:#22c55e18;color:var(--green);}
+.dev-pill{font-size:7px;background:var(--green);color:#0d1117;padding:2px 5px;border-radius:3px;font-weight:800;letter-spacing:1px;margin-left:4px;}
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--bg2);border-top:1px solid var(--border);z-index:50;padding-bottom:env(safe-area-inset-bottom,0px);}
+.bn-inner{display:flex;height:var(--nh);}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;color:var(--text3);font-size:7px;letter-spacing:1px;text-transform:uppercase;border:none;background:none;font-family:var(--fm);min-height:44px;}
+.bn-item.active{color:var(--green);}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px;}
+.sec-title{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text2);font-weight:600;margin-bottom:12px;}
+.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px;}
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:14px;}
+.stat-label{font-size:9px;letter-spacing:2px;color:var(--text2);text-transform:uppercase;margin-bottom:6px;}
+.stat-val{font-family:var(--fd);font-size:22px;font-weight:700;}
+.stat-sub{font-size:10px;color:var(--text3);margin-top:3px;}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:var(--green);color:#0d1117;border:none;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;}
+.btn:hover{background:var(--green2);}
+.btn:disabled{opacity:.5;cursor:not-allowed;}
+.btn-outline{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:transparent;color:var(--text);border:1px solid var(--border);border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;}
+.btn-outline:hover{border-color:var(--green);color:var(--green);}
+.btn-sm{padding:4px 9px;font-size:9px;letter-spacing:1px;text-transform:uppercase;background:transparent;color:var(--green);border:1px solid #22c55e44;border-radius:5px;cursor:pointer;font-family:var(--fm);}
+.btn-danger{padding:4px 9px;font-size:9px;background:transparent;color:var(--red);border:1px solid #ef444444;border-radius:5px;cursor:pointer;font-family:var(--fm);}
+.inp{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:9px 12px;color:var(--text);font-size:13px;outline:none;transition:border .15s;}
+.inp:focus{border-color:var(--green);}
+.sel{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:9px 12px;color:var(--text);font-size:13px;outline:none;}
+.lbl{font-size:10px;letter-spacing:1px;color:var(--text2);text-transform:uppercase;font-weight:600;display:block;margin-bottom:5px;}
+.field{margin-bottom:12px;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.auth-wrap{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px;background:radial-gradient(ellipse at 50% 0%,#22c55e0a 0%,transparent 70%);}
+.auth-box{width:100%;max-width:400px;}
+.auth-logo{font-family:var(--fd);font-size:34px;font-weight:700;color:var(--green);letter-spacing:-1px;margin-bottom:4px;text-align:center;}
+.auth-tagline{font-size:9px;letter-spacing:4px;color:var(--text3);margin-bottom:32px;text-align:center;text-transform:uppercase;}
+.auth-tabs{display:flex;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:3px;margin-bottom:20px;}
+.auth-tab{flex:1;padding:8px;text-align:center;font-size:11px;font-weight:600;border-radius:6px;cursor:pointer;border:none;background:none;color:var(--text2);font-family:var(--fm);}
+.auth-tab.active{background:var(--green);color:#0d1117;}
+.notice{padding:10px 14px;border-radius:6px;font-size:11px;margin-bottom:12px;}
+.notice-ok{background:#22c55e11;border:1px solid #22c55e33;color:var(--green);}
+.notice-err{background:#ef444411;border:1px solid #ef444433;color:var(--red);}
+.notice-warn{background:#f59e0b11;border:1px solid #f59e0b33;color:var(--amber);}
+.notice-blue{background:#3b82f611;border:1px solid #3b82f633;color:var(--blue);}
+.tag{display:inline-flex;align-items:center;font-size:8px;padding:2px 7px;border-radius:99px;font-weight:700;letter-spacing:1px;}
+.tag-green{background:#22c55e22;color:var(--green);border:1px solid #22c55e44;}
+.tag-red{background:#ef444422;color:var(--red);border:1px solid #ef444444;}
+.tag-amber{background:#f59e0b22;color:var(--amber);border:1px solid #f59e0b44;}
+.tag-blue{background:#3b82f622;color:var(--blue);border:1px solid #3b82f644;}
+.tag-grey{background:#48505822;color:var(--text3);border:1px solid #48505844;}
+.tbl{width:100%;border-collapse:collapse;font-size:12px;}
+.tbl th{text-align:left;font-size:8px;letter-spacing:2px;color:var(--text3);padding:8px 10px;text-transform:uppercase;border-bottom:1px solid var(--border);}
+.tbl td{padding:10px;border-bottom:1px solid var(--border2);vertical-align:middle;}
+.modal-ov{position:fixed;inset:0;background:#000c;z-index:100;display:flex;align-items:center;justify-content:center;padding:16px;}
+.modal-box{background:var(--bg2);border:1px solid var(--border);border-radius:12px;width:100%;max-width:460px;max-height:90vh;overflow-y:auto;}
+.modal-hdr{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border);}
+.modal-body{padding:20px;}
+.modal-foot{display:flex;gap:10px;justify-content:flex-end;padding:16px 20px;border-top:1px solid var(--border);}
+.empty-state{text-align:center;padding:40px 20px;color:var(--text3);}
+.empty-ico{font-size:40px;margin-bottom:12px;}
+.loading{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;gap:12px;}
+.spinner{width:28px;height:28px;border:2px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite;}
+.plan-card{cursor:pointer;background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:16px 12px;text-align:center;transition:all .2s;}
+.plan-card.sel{background:var(--bg3);border-color:var(--green);}
+.receipt{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:16px;font-family:var(--fd);font-size:11px;line-height:2;}
+.exp-bar{height:4px;border-radius:2px;background:var(--border);overflow:hidden;margin-top:6px;}
+.exp-fill{height:100%;border-radius:2px;}
+.report-tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
+.report-tab{padding:6px 12px;font-size:10px;border-radius:6px;cursor:pointer;border:1px solid var(--border);background:none;color:var(--text2);font-family:var(--fm);}
+.report-tab.active{background:var(--green);color:#0d1117;border-color:var(--green);}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.fade-in{animation:fadeIn .25s ease;}
+@media(max-width:768px){
+  .sidebar{display:none;}
+  .bottom-nav{display:block;}
+  .content{padding:12px;padding-bottom:calc(var(--nh) + env(safe-area-inset-bottom,0px) + 16px);}
+  .form-grid{grid-template-columns:1fr;}
+  .hide-mob{display:none;}
+}
+</style>
+</head>
+<body>
+<div id="root"><div class="loading"><div class="spinner"></div><div style="font-size:10px;letter-spacing:3px;color:var(--text3)">LOADING…</div></div></div>
+
+<script>
+function makeIcon(size){
+  const c=document.createElement('canvas');c.width=c.height=size;
+  const ctx=c.getContext('2d');
+  ctx.fillStyle='#0d1117';ctx.fillRect(0,0,size,size);
+  ctx.fillStyle='#22c55e';ctx.beginPath();ctx.arc(size/2,size/2,size*.44,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#0d1117';ctx.beginPath();ctx.arc(size/2,size/2,size*.36,0,Math.PI*2);ctx.fill();
+  ctx.font=`${size*.34}px Arial`;ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText('🏠',size/2,size/2+size*.03);
+  return c.toDataURL('image/png');
+}
+const i192=makeIcon(192),i512=makeIcon(512);
+document.getElementById('apple-icon').href=i192;
+document.getElementById('favicon-icon').href=i192;
+const mf={name:'RentLedger',short_name:'RentLedger',description:'Landlord Rent Management System',
+  start_url:'/',scope:'/',display:'standalone',orientation:'portrait-primary',
+  background_color:'#0d1117',theme_color:'#0d1117',
+  icons:[{src:i192,sizes:'192x192',type:'image/png',purpose:'any maskable'},{src:i512,sizes:'512x512',type:'image/png',purpose:'any maskable'}]};
+document.getElementById('pwa-manifest').href='data:application/manifest+json,'+encodeURIComponent(JSON.stringify(mf));
+</script>
+
+<script>
+const FIREBASE_CONFIG={
+  apiKey:"AIzaSyDglQqNZedd7Pj6AJ-298pkhPp90aXMXiM",
+  authDomain:"rentledger-60d3e.firebaseapp.com",
+  projectId:"rentledger-60d3e",
+  storageBucket:"rentledger-60d3e.firebasestorage.app",
+  messagingSenderId:"758702081957",
+  appId:"1:758702081957:web:5e7472f6eea236eb75ca4c"
+};
+const FIREBASE_CONFIGURED=true;
+let db=null;
+if(FIREBASE_CONFIGURED){try{firebase.initializeApp(FIREBASE_CONFIG);db=firebase.firestore();}catch(e){console.warn(e);}}
+</script>
+
+<script type="text/babel">
+const {useState,useEffect,useRef,useCallback}=React;
+
+// ── Constants ──────────────────────────────────────────────────────
+const DEV_U='amisco4u2',DEV_P='Amiena702$';
+const OWNER={name:'Amin Moro Mohammed',mtn:'0243911216',telecel:'0505027255'};
+const TRIAL_DAYS=7;
+const PLANS={
+  basic:{id:'basic',name:'Basic',price:3000,label:'GH₵30/mo',rooms:5,color:'#3b82f6'},
+  standard:{id:'standard',name:'Standard',price:6000,label:'GH₵60/mo',rooms:20,color:'#22c55e'},
+  premium:{id:'premium',name:'Premium',price:10000,label:'GH₵100/mo',rooms:999,color:'#f59e0b'},
+};
+const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const ROOM_TYPES=['Single Room','Chamber & Hall','2 Bedroom','3 Bedroom','Self-Contained','Studio','Apartment','Shop/Store','Office Space'];
+const PROP_TYPES=['House','Compound House','Apartment Block','Commercial Building','Mixed Use'];
+
+// ── Helpers ────────────────────────────────────────────────────────
+const lsGet=k=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):null;}catch{return null;}};
+const lsSet=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));}catch{}};
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const today=()=>new Date().toISOString().slice(0,10);
+const fmt=n=>n||n===0?'GH₵'+Number(n/100).toLocaleString('en-GH',{minimumFractionDigits:2}):'—';
+const hashStr=s=>{let h=0;for(let i=0;i<s.length;i++)h=(Math.imul(31,h)+s.charCodeAt(i))|0;return h.toString(36);};
+const fmtDate=d=>{if(!d)return'—';try{return new Date(d).toLocaleDateString('en-GH',{day:'numeric',month:'short',year:'numeric'});}catch{return d;}};
+const daysFromNow=d=>{try{return Math.ceil((new Date(d)-new Date())/86400000);}catch{return 0;}};
+const addMonths=(ds,m)=>{const d=new Date(ds);d.setMonth(d.getMonth()+m);return d.toISOString().slice(0,10);};
+
+// ── Sub helpers ────────────────────────────────────────────────────
+const getSub=u=>lsGet(`rlg-sub-${u}`);
+const setSub=(u,d)=>lsSet(`rlg-sub-${u}`,d);
+const subStatus=u=>{
+  if(u===DEV_U)return{active:true,trial:false,expired:false,plan:'premium',unlimited:true};
+  const s=getSub(u);if(!s)return{active:false,trial:false,expired:true};
+  const now=Date.now();
+  if(s.trialEnd&&now<s.trialEnd&&!s.paid)return{active:true,trial:true,daysLeft:Math.ceil((s.trialEnd-now)/86400000),plan:s.plan};
+  if(s.paid&&s.paidUntil&&now<s.paidUntil)return{active:true,trial:false,plan:s.plan,paidUntil:s.paidUntil};
+  return{active:false,trial:false,expired:true,plan:s.plan};
+};
+const startTrial=u=>{if(!getSub(u))setSub(u,{plan:'standard',trialEnd:Date.now()+TRIAL_DAYS*86400000,paid:false,created:Date.now()});};
+
+// ── Firebase helpers ───────────────────────────────────────────────
+const getUsers=async()=>{
+  if(db)try{const d=await db.collection('rlg_users').doc('index').get();if(d.exists)return d.data().users||{};}catch{}
+  return lsGet('rlg-users')||{};
+};
+const saveUsers=async u=>{lsSet('rlg-users',u);if(db)try{await db.collection('rlg_users').doc('index').set({users:u});}catch{}};
+const loadData=async u=>{
+  if(db)try{const d=await db.collection('rlg_data').doc(u).get();if(d.exists)return d.data();}catch{}
+  return lsGet(`rlg-data-${u}`)||null;
+};
+const saveData=async(u,data)=>{lsSet(`rlg-data-${u}`,data);if(db)try{await db.collection('rlg_data').doc(u).set(data);}catch{}};
+
+// ── Expiry status ──────────────────────────────────────────────────
+function expiryStatus(d){
+  if(!d)return{label:'No date',tag:'tag-grey',color:'var(--text3)',urgent:false};
+  const days=daysFromNow(d);
+  if(days<0)return{label:`Expired ${Math.abs(days)}d ago`,tag:'tag-red',color:'var(--red)',urgent:true,days};
+  if(days<=30)return{label:`${days}d left`,tag:'tag-red',color:'var(--red)',urgent:true,days};
+  if(days<=60)return{label:`${days}d left`,tag:'tag-amber',color:'var(--amber)',urgent:true,days};
+  if(days<=90)return{label:`${days}d left`,tag:'tag-blue',color:'var(--blue)',urgent:false,days};
+  return{label:`${days}d left`,tag:'tag-green',color:'var(--green)',urgent:false,days};
+}
+
+// ── Icons ──────────────────────────────────────────────────────────
+const I={
+  home:<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M3 12L12 3l9 9M9 21V12h6v9"/></svg>,
+  building:<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h.01M15 9h.01M9 15h.01M15 15h.01"/></svg>,
+  users:<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>,
+  cash:<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>,
+  report:<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>,
+  admin:<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M21 12h-2M19.07 19.07l-1.41-1.41M12 21v-2M4.93 19.07l1.41-1.41M3 12h2M4.93 4.93l1.41 1.41"/></svg>,
+  bell:<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>,
+  logout:<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>,
+  plus:<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>,
+  receipt:<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M9 7H6a2 2 0 00-2 2v9a2 2 0 002 2h12a2 2 0 002-2V9a2 2 0 00-2-2h-3"/><rect x="9" y="3" width="6" height="6" rx="1"/><line x1="9" y1="14" x2="15" y2="14"/></svg>,
+};
+
+// ── AUTH ───────────────────────────────────────────────────────────
+function Auth({onLogin}){
+  const [tab,setTab]=useState('signin');
+  const [f,setF]=useState({u:'',p:'',c:'',b:''});
+  const [err,setErr]=useState('');
+  const [busy,setBusy]=useState(false);
+  const sv=(k,v)=>setF(p=>({...p,[k]:v}));
+
+  async function doSignIn(){
+    setErr('');setBusy(true);
+    const users=await getUsers();
+    const ukey=f.u.toLowerCase().trim();
+    const usr=users[ukey];
+    if(!usr){setErr('Account not found.');setBusy(false);return;}
+    if(usr.hash!==hashStr(f.p)){setErr('Incorrect password.');setBusy(false);return;}
+    const sess={username:ukey,business:usr.business,isDev:!!usr.isDev};
+    lsSet('rlg-session',sess);onLogin(sess);setBusy(false);
+  }
+  async function doSignUp(){
+    setErr('');setBusy(true);
+    const ukey=f.u.toLowerCase().trim();
+    if(!ukey||!f.p||!f.b.trim()){setErr('All fields required.');setBusy(false);return;}
+    if(f.p.length<6){setErr('Password min 6 chars.');setBusy(false);return;}
+    if(f.p!==f.c){setErr('Passwords do not match.');setBusy(false);return;}
+    const users=await getUsers();
+    if(users[ukey]){setErr('Username taken.');setBusy(false);return;}
+    users[ukey]={hash:hashStr(f.p),business:f.b.trim(),isDev:false,created:Date.now()};
+    await saveUsers(users);
+    if(db)try{await db.collection('rlg_data').doc(ukey).set({properties:[],tenants:[],payments:[]});}catch{}
+    const sess={username:ukey,business:f.b.trim(),isDev:false};
+    lsSet('rlg-session',sess);onLogin(sess);setBusy(false);
+  }
+
+  return(
+    <div className="auth-wrap">
+      <div className="auth-box fade-in">
+        <div className="auth-logo">🏠 RentLedger</div>
+        <div className="auth-tagline">LANDLORD RENT MANAGEMENT SYSTEM</div>
+        <div className="auth-tabs">
+          {[['signin','Sign In'],['signup','Sign Up']].map(([t,l])=>(
+            <button key={t} className={`auth-tab${tab===t?' active':''}`} onClick={()=>{setTab(t);setErr('')}}>{l}</button>
+          ))}
+        </div>
+        {err&&<div className="notice notice-err">{err}</div>}
+        <div className="field"><label className="lbl">Username</label>
+          <input className="inp" value={f.u} onChange={e=>sv('u',e.target.value)} onKeyDown={e=>e.key==='Enter'&&(tab==='signin'?doSignIn():doSignUp())} placeholder="your_username" autoCapitalize="none"/>
+        </div>
+        {tab==='signup'&&<div className="field"><label className="lbl">Property / Business Name</label>
+          <input className="inp" value={f.b} onChange={e=>sv('b',e.target.value)} placeholder="e.g. Mensah Properties, Kofi Realty"/>
+        </div>}
+        <div className="field"><label className="lbl">Password</label>
+          <input className="inp" type="password" value={f.p} onChange={e=>sv('p',e.target.value)} onKeyDown={e=>e.key==='Enter'&&(tab==='signin'?doSignIn():doSignUp())} placeholder="••••••••"/>
+        </div>
+        {tab==='signup'&&<div className="field"><label className="lbl">Confirm Password</label>
+          <input className="inp" type="password" value={f.c} onChange={e=>sv('c',e.target.value)} placeholder="••••••••"/>
+        </div>}
+        <button className="btn" style={{width:'100%',justifyContent:'center',padding:'12px'}} onClick={tab==='signin'?doSignIn:doSignUp} disabled={busy}>
+          {busy?'Please wait…':tab==='signin'?'Sign In →':'Create Account →'}
+        </button>
+        {tab==='signin'&&<p style={{textAlign:'center',fontSize:10,color:'var(--text3)',marginTop:12}}>
+          No account? <span style={{color:'var(--green)',cursor:'pointer'}} onClick={()=>{setTab('signup');setErr('')}}>Sign up free</span>
+        </p>}
+        <div style={{marginTop:20,fontSize:9,color:'var(--text3)',letterSpacing:2,textAlign:'center',opacity:.4}}>RENTLEDGER.WEB.APP</div>
+      </div>
+    </div>
+  );
+}
+
+// ── SUBSCRIPTION WALL ──────────────────────────────────────────────
+function SubWall({username,onActivated}){
+  const [sel,setSel]=useState('standard');
+  const [step,setStep]=useState('plans');
+  const plan=PLANS[sel];
+  const sub=subStatus(username);
+
+  function doTrial(){startTrial(username);onActivated();}
+  function doPay(){
+    const p={username,plan:sel,amount:plan.price,requestedAt:Date.now()};
+    lsSet(`rlg-pending-${username}`,p);
+    if(db)db.collection('rlg_pending').doc(username).set(p).catch(()=>{});
+    setStep('pay');
+  }
+  function checkActivation(){
+    const s=subStatus(username);
+    if(s.active)onActivated();
+    else alert('Not yet activated. Send your MoMo reference to owner on WhatsApp and wait for activation.');
+  }
+
+  return(
+    <div className="auth-wrap">
+      <div style={{width:'100%',maxWidth:440}} className="fade-in">
+        <div className="auth-logo">🏠 RentLedger</div>
+        <div className="auth-tagline">LANDLORD RENT MANAGEMENT SYSTEM</div>
+        {sub.expired&&<div className="notice notice-err">Your {sub.trial?'free trial':'subscription'} has expired. Choose a plan to continue.</div>}
+        {step==='plans'&&(
+          <>
+            <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:8,marginBottom:14}}>
+              {Object.values(PLANS).map(p=>(
+                <div key={p.id} className={`plan-card${sel===p.id?' sel':''}`} onClick={()=>setSel(p.id)}>
+                  <div style={{fontSize:9,color:sel===p.id?p.color:'var(--text3)',letterSpacing:2,textTransform:'uppercase',marginBottom:4}}>{p.name}</div>
+                  <div style={{fontSize:17,fontWeight:800,color:sel===p.id?p.color:'var(--text)',fontFamily:'var(--fd)',marginBottom:3}}>{p.label}</div>
+                  <div style={{fontSize:9,color:'var(--text3)'}}>{p.rooms===999?'Unlimited':p.rooms} rooms</div>
+                </div>
+              ))}
+            </div>
+            <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10}}>
+              <button className="btn-outline" style={{padding:'13px',justifyContent:'center'}} onClick={doTrial}>🎁 7-Day Free Trial</button>
+              <button className="btn" style={{padding:'13px',justifyContent:'center'}} onClick={doPay}>📱 Pay via MoMo</button>
+            </div>
+            <div style={{marginTop:14,fontSize:10,color:'var(--text3)',textAlign:'center'}}>
+              Signed in as <span style={{color:'var(--green)'}}>{username}</span> ·
+              <span style={{color:'var(--red)',cursor:'pointer',marginLeft:6}} onClick={()=>{lsSet('rlg-session',null);window.location.reload()}}>Sign out</span>
+            </div>
+          </>
+        )}
+        {step==='pay'&&(
+          <div>
+            <div className="card" style={{border:'1px solid var(--green)'}}>
+              <div className="sec-title" style={{color:'var(--green)'}}>Payment Instructions</div>
+              <div style={{background:'var(--bg3)',borderRadius:8,padding:14,textAlign:'center',marginBottom:14}}>
+                <div style={{fontSize:11,color:'var(--text3)',marginBottom:4}}>Amount to Send</div>
+                <div style={{fontSize:30,fontWeight:800,color:'var(--green)',fontFamily:'var(--fd)'}}>{plan.label.replace('/mo','')}</div>
+                <div style={{fontSize:10,color:'var(--text3)',marginTop:3}}>{plan.name} Plan · 30 days</div>
+              </div>
+              {['Open your MTN or Telecel MoMo app',`Send ${plan.label.replace('/mo','')} to number below`,'Copy the transaction reference/ID',`WhatsApp reference + username "${username}" to owner`,"Tap 'I've Paid' below — activated within minutes"].map((s,i)=>(
+                <div key={i} style={{display:'flex',gap:10,marginBottom:10,alignItems:'flex-start'}}>
+                  <div style={{width:20,height:20,borderRadius:'50%',background:'var(--green)',color:'#0d1117',fontSize:10,fontWeight:800,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>{i+1}</div>
+                  <div style={{fontSize:12,color:'var(--text2)',paddingTop:2,lineHeight:1.6}}>{s}</div>
+                </div>
+              ))}
+              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8,marginTop:10}}>
+                <div style={{background:'#f59e0b22',border:'1px solid #f59e0b44',borderRadius:8,padding:12,textAlign:'center'}}>
+                  <div style={{fontSize:8,letterSpacing:2,color:'var(--amber)',fontWeight:700,marginBottom:3}}>MTN MOMO</div>
+                  <div style={{fontSize:16,fontWeight:800,color:'var(--amber)',fontFamily:'var(--fd)'}}>{OWNER.mtn}</div>
+                  <div style={{fontSize:9,color:'var(--text3)',marginTop:2}}>{OWNER.name}</div>
+                </div>
+                <div style={{background:'#ef444422',border:'1px solid #ef444444',borderRadius:8,padding:12,textAlign:'center'}}>
+                  <div style={{fontSize:8,letterSpacing:2,color:'var(--red)',fontWeight:700,marginBottom:3}}>TELECEL</div>
+                  <div style={{fontSize:16,fontWeight:800,color:'var(--red)',fontFamily:'var(--fd)'}}>{OWNER.telecel}</div>
+                  <div style={{fontSize:9,color:'var(--text3)',marginTop:2}}>{OWNER.name}</div>
+                </div>
+              </div>
+            </div>
+            <button className="btn" style={{width:'100%',padding:14,justifyContent:'center',marginBottom:10}} onClick={checkActivation}>✓ I've Paid — Check Activation</button>
+            <button className="btn-outline" style={{width:'100%',padding:12,justifyContent:'center'}} onClick={()=>setStep('plans')}>← Back to Plans</button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ── MOBILE NAV ─────────────────────────────────────────────────────
+function MobileNav({NAV,view,setView,onLogout,session,syncState}){
+  const [open,setOpen]=useState(false);
+  const main=NAV.slice(0,4),more=NAV.slice(4);
+  const syncColor={saving:'var(--amber)',saved:'var(--green)',error:'var(--red)'}[syncState]||'var(--text3)';
+  function go(id){setView(id);setOpen(false);}
+  return(
+    <>
+      {open&&(
+        <div style={{position:'fixed',inset:0,zIndex:199}} onClick={()=>setOpen(false)}>
+          <div style={{position:'absolute',bottom:'calc(var(--nh) + env(safe-area-inset-bottom,0px))',left:0,right:0,background:'var(--bg2)',borderTop:'1px solid var(--border)',borderRadius:'16px 16px 0 0',padding:'16px 12px 10px'}} onClick={e=>e.stopPropagation()}>
+            <div style={{display:'flex',alignItems:'center',gap:6,marginBottom:14,paddingBottom:12,borderBottom:'1px solid var(--border)'}}>
+              <div style={{width:7,height:7,borderRadius:'50%',background:syncColor,flexShrink:0}}/>
+              <span style={{fontSize:10,color:'var(--text3)',flex:1}}>{syncState==='saving'?'Saving…':'All saved'}</span>
+              <span style={{fontSize:10,color:'var(--text3)'}}>@{session.username}</span>
+            </div>
+            <div style={{display:'grid',gridTemplateColumns:`repeat(${more.length},1fr)`,gap:8,marginBottom:12}}>
+              {more.map(n=>(
+                <button key={n.id} onClick={()=>go(n.id)} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:5,padding:'14px 8px',background:view===n.id?'#22c55e18':'var(--bg)',border:`1px solid ${view===n.id?'var(--green)':'var(--border)'}`,borderRadius:10,cursor:'pointer',color:view===n.id?'var(--green)':'var(--text2)',fontFamily:'var(--fm)',fontSize:9,letterSpacing:1,textTransform:'uppercase'}}>
+                  <span style={{fontSize:20}}>{n.ico}</span>{n.label}
+                </button>
+              ))}
+            </div>
+            <button onClick={onLogout} style={{width:'100%',display:'flex',alignItems:'center',justifyContent:'center',gap:8,padding:13,background:'#ef444411',border:'1px solid #ef444433',borderRadius:10,color:'var(--red)',fontFamily:'var(--fm)',fontSize:11,letterSpacing:2,textTransform:'uppercase',cursor:'pointer'}}>
+              Sign Out
+            </button>
+          </div>
+        </div>
+      )}
+      <nav className="bottom-nav">
+        <div className="bn-inner">
+          {main.map(n=>(
+            <button key={n.id} className={`bn-item${view===n.id?' active':''}`} onClick={()=>setView(n.id)}>
+              <span style={{fontSize:20}}>{n.ico}</span>
+              <span>{n.label.split(' ')[0]}</span>
+            </button>
+          ))}
+          <button className={`bn-item${open?' active':''}`} onClick={()=>setOpen(o=>!o)}>
+            <span style={{fontSize:20}}>⋯</span>
+            <span>More</span>
+          </button>
+        </div>
+      </nav>
+    </>
+  );
+}
+
+// ── DASHBOARD ──────────────────────────────────────────────────────
+function VDash({properties,tenants,payments,session,setView}){
+  const active=tenants.filter(t=>t.status==='active');
+  const allRooms=properties.flatMap(p=>(p.rooms||[]).map(r=>({...r,propName:p.name})));
+  const totalRooms=allRooms.length;
+  const now=new Date();
+  const monthPays=payments.filter(p=>{const d=new Date(p.datePaid);return d.getMonth()===now.getMonth()&&d.getFullYear()===now.getFullYear();});
+  const monthTotal=monthPays.reduce((s,p)=>s+p.amount,0);
+  const yearTotal=payments.filter(p=>new Date(p.datePaid).getFullYear()===now.getFullYear()).reduce((s,p)=>s+p.amount,0);
+  const expiring=active.filter(t=>t.expiryDate&&daysFromNow(t.expiryDate)<=60).sort((a,b)=>new Date(a.expiryDate)-new Date(b.expiryDate));
+  const expired=active.filter(t=>t.expiryDate&&daysFromNow(t.expiryDate)<0);
+
+  return(
+    <div>
+      {(expired.length>0||expiring.filter(t=>daysFromNow(t.expiryDate)<=30&&daysFromNow(t.expiryDate)>=0).length>0)&&(
+        <div className="notice notice-err" style={{display:'flex',alignItems:'center',gap:8}}>
+          <span style={{fontSize:16}}>🔔</span>
+          <span style={{flex:1,fontSize:11}}>
+            {expired.length>0&&<><strong>{expired.length}</strong> tenant{expired.length>1?'s':''} expired! </>}
+            {expiring.filter(t=>daysFromNow(t.expiryDate)>0&&daysFromNow(t.expiryDate)<=30).length>0&&<><strong>{expiring.filter(t=>daysFromNow(t.expiryDate)>0&&daysFromNow(t.expiryDate)<=30).length}</strong> expiring in ≤30 days</>}
+          </span>
+          <button className="btn-sm" style={{fontSize:8}} onClick={()=>setView('tenants')}>View →</button>
+        </div>
+      )}
+      <div className="stats-grid">
+        <div className="stat-card" style={{border:'1px solid var(--green)'}}>
+          <div style={{fontSize:26,marginBottom:4}}>🏠</div>
+          <div className="stat-label" style={{color:'var(--green)',marginBottom:2}}>{session.business}</div>
+          <div className="stat-val" style={{fontSize:18}}>{properties.length}</div>
+          <div className="stat-sub">{active.length}/{totalRooms} rooms occupied</div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-label">This Month</div>
+          <div className="stat-val" style={{fontSize:16,color:'var(--green)'}}>{fmt(monthTotal)}</div>
+          <div className="stat-sub">{monthPays.length} payment{monthPays.length!==1?'s':''}</div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-label">This Year</div>
+          <div className="stat-val" style={{fontSize:16}}>{fmt(yearTotal)}</div>
+          <div className="stat-sub">total collected</div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-label">Alerts</div>
+          <div className="stat-val" style={{fontSize:18,color:expired.length>0?'var(--red)':expiring.length>0?'var(--amber)':'var(--green)'}}>{expired.length+expiring.filter(t=>daysFromNow(t.expiryDate)>=0).length}</div>
+          <div className="stat-sub">{expired.length} expired · {expiring.filter(t=>daysFromNow(t.expiryDate)>=0).length} expiring</div>
+        </div>
+      </div>
+
+      {/* Expiry alerts */}
+      <div className="card">
+        <div className="sec-title">🔔 Expiry Alerts — Next 60 Days</div>
+        {expiring.length===0
+          ?<div style={{fontSize:11,color:'var(--text3)'}}>No tenants expiring in next 60 days ✓</div>
+          :expiring.map(t=>{
+            const es=expiryStatus(t.expiryDate);
+            const room=allRooms.find(r=>r.id===t.roomId);
+            return(
+              <div key={t.id} style={{display:'flex',alignItems:'center',gap:10,padding:'9px 0',borderBottom:'1px solid var(--border2)'}}>
+                <div style={{flex:1}}>
+                  <div style={{fontWeight:600,fontSize:12,marginBottom:2}}>{t.name}</div>
+                  <div style={{fontSize:10,color:'var(--text3)'}}>{room?.propName||'—'} · Room {room?.number||'—'}</div>
+                </div>
+                <div style={{textAlign:'right'}}>
+                  <span className={`tag ${es.tag}`}>{es.label}</span>
+                  <div style={{fontSize:9,color:'var(--text3)',marginTop:3}}>{fmtDate(t.expiryDate)}</div>
+                </div>
+              </div>
+            );
+          })
+        }
+      </div>
+
+      {/* Recent payments */}
+      <div className="card">
+        <div className="sec-title">Recent Payments</div>
+        {payments.length===0?<div style={{fontSize:11,color:'var(--text3)'}}>No payments yet.</div>
+          :payments.slice().sort((a,b)=>new Date(b.datePaid)-new Date(a.datePaid)).slice(0,6).map(p=>{
+            const t=tenants.find(t=>t.id===p.tenantId);
+            return(
+              <div key={p.id} style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'8px 0',borderBottom:'1px solid var(--border2)'}}>
+                <div>
+                  <div style={{fontWeight:600,fontSize:12,marginBottom:1}}>{t?.name||'—'}</div>
+                  <div style={{fontSize:10,color:'var(--text3)'}}>{fmtDate(p.datePaid)} · {p.months} month{p.months!==1?'s':''}</div>
+                </div>
+                <div style={{fontWeight:700,color:'var(--green)',fontFamily:'var(--fd)',fontSize:13}}>{fmt(p.amount)}</div>
+              </div>
+            );
+          })
+        }
+      </div>
+    </div>
+  );
+}
+
+// ── PROPERTIES ─────────────────────────────────────────────────────
+function VProperties({properties,tenants,setProperties}){
+  const [modal,setModal]=useState(null);
+  const [exp,setExp]=useState(null);
+  const active=tenants.filter(t=>t.status==='active');
+
+  function saveProp(d){setProperties(pp=>d.id?pp.map(p=>p.id===d.id?d:p):[...pp,{...d,id:uid(),rooms:[]}]);setModal(null);}
+  function delProp(id){if(!confirm('Delete property and all rooms?'))return;setProperties(pp=>pp.filter(p=>p.id!==id));}
+  function saveRoom(propId,room){
+    setProperties(pp=>pp.map(p=>{
+      if(p.id!==propId)return p;
+      const rooms=room.id?p.rooms.map(r=>r.id===room.id?room:r):[...(p.rooms||[]),{...room,id:uid()}];
+      return{...p,rooms};
+    }));setModal(null);
+  }
+  function delRoom(propId,roomId){if(!confirm('Delete room?'))return;setProperties(pp=>pp.map(p=>p.id!==propId?p:{...p,rooms:p.rooms.filter(r=>r.id!==roomId)}));}
+
+  return(
+    <div>
+      <div style={{display:'flex',justifyContent:'flex-end',marginBottom:14}}>
+        <button className="btn" onClick={()=>setModal({type:'prop',data:null})}>{I.plus} Add Property</button>
+      </div>
+      {properties.length===0&&<div className="card empty-state"><div className="empty-ico">🏘️</div><div style={{fontSize:12,letterSpacing:2}}>NO PROPERTIES YET</div><div style={{fontSize:11,marginTop:8}}>Add your first property to start tracking</div></div>}
+      {properties.map(prop=>{
+        const rooms=prop.rooms||[];
+        const occupied=rooms.filter(r=>active.some(t=>t.roomId===r.id)).length;
+        const isExp=exp===prop.id;
+        return(
+          <div key={prop.id} className="card" style={{marginBottom:10}}>
+            <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',cursor:'pointer',gap:10}} onClick={()=>setExp(isExp?null:prop.id)}>
+              <div style={{flex:1}}>
+                <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:3,flexWrap:'wrap'}}>
+                  <span style={{fontWeight:700,fontSize:14}}>{prop.name}</span>
+                  <span className="tag tag-grey">{prop.type}</span>
+                </div>
+                <div style={{fontSize:11,color:'var(--text3)',marginBottom:4}}>{prop.address}</div>
+                <div style={{display:'flex',gap:12,fontSize:10,color:'var(--text2)'}}>
+                  <span>🏠 {rooms.length} rooms</span><span>👤 {occupied} occupied</span><span>📭 {rooms.length-occupied} vacant</span>
+                </div>
+              </div>
+              <span style={{color:'var(--text3)',fontSize:12}}>{isExp?'▲':'▼'}</span>
+            </div>
+            {isExp&&(
+              <div style={{marginTop:14,paddingTop:14,borderTop:'1px solid var(--border)'}}>
+                <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:12,flexWrap:'wrap',gap:8}}>
+                  <span style={{fontSize:9,letterSpacing:2,color:'var(--text3)',textTransform:'uppercase'}}>Rooms ({rooms.length})</span>
+                  <div style={{display:'flex',gap:6}}>
+                    <button className="btn-sm" onClick={()=>setModal({type:'prop',data:prop})}>Edit</button>
+                    <button className="btn-sm" onClick={()=>setModal({type:'room',propId:prop.id,data:null})}>+ Room</button>
+                    <button className="btn-danger" onClick={()=>delProp(prop.id)}>Delete</button>
+                  </div>
+                </div>
+                {rooms.length===0&&<div style={{fontSize:11,color:'var(--text3)'}}>No rooms yet.</div>}
+                <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(150px,1fr))',gap:8}}>
+                  {rooms.map(r=>{
+                    const t=active.find(t=>t.roomId===r.id);
+                    const es=t?.expiryDate?expiryStatus(t.expiryDate):null;
+                    return(
+                      <div key={r.id} style={{background:'var(--bg)',border:`1px solid ${t?'var(--green)':'var(--border)'}`,borderRadius:8,padding:12}}>
+                        <div style={{display:'flex',justifyContent:'space-between',marginBottom:5}}>
+                          <span style={{fontWeight:700,fontSize:13}}>Room {r.number}</span>
+                          <div style={{display:'flex',gap:4}}>
+                            <button className="btn-sm" style={{padding:'2px 6px',fontSize:8}} onClick={()=>setModal({type:'room',propId:prop.id,data:r})}>Edit</button>
+                            <button className="btn-danger" style={{padding:'2px 6px',fontSize:8}} onClick={()=>delRoom(prop.id,r.id)}>Del</button>
+                          </div>
+                        </div>
+                        <div style={{fontSize:9,color:'var(--text3)',marginBottom:3}}>{r.type}</div>
+                        <div style={{fontSize:11,fontWeight:700,color:'var(--green)',fontFamily:'var(--fd)'}}>{fmt(r.rent)}<span style={{fontSize:8,color:'var(--text3)',fontWeight:400}}>/mo</span></div>
+                        {t?<div style={{marginTop:6}}><div style={{fontSize:10,fontWeight:500,marginBottom:2}}>{t.name}</div>{es&&<span className={`tag ${es.tag}`}>{es.label}</span>}</div>
+                         :<div style={{marginTop:6}}><span className="tag tag-grey">VACANT</span></div>}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+        );
+      })}
+      {modal?.type==='prop'&&<PropModal data={modal.data} onSave={saveProp} onClose={()=>setModal(null)}/>}
+      {modal?.type==='room'&&<RoomModal data={modal.data} propId={modal.propId} onSave={saveRoom} onClose={()=>setModal(null)}/>}
+    </div>
+  );
+}
+
+function PropModal({data,onSave,onClose}){
+  const [f,setF]=useState(data||{name:'',address:'',type:'House',notes:''});
+  const sv=(k,v)=>setF(p=>({...p,[k]:v}));
+  return(
+    <div className="modal-ov" onClick={onClose}>
+      <div className="modal-box" onClick={e=>e.stopPropagation()}>
+        <div className="modal-hdr"><span style={{fontWeight:700}}>{data?'Edit':'Add'} Property</span>
+          <button style={{background:'none',border:'none',color:'var(--text3)',cursor:'pointer',fontSize:18}} onClick={onClose}>✕</button></div>
+        <div className="modal-body">
+          <div className="field"><label className="lbl">Property Name</label><input className="inp" value={f.name} onChange={e=>sv('name',e.target.value)} placeholder="e.g. Kumasi House"/></div>
+          <div className="field"><label className="lbl">Type</label><select className="sel" value={f.type} onChange={e=>sv('type',e.target.value)}>{PROP_TYPES.map(t=><option key={t}>{t}</option>)}</select></div>
+          <div className="field"><label className="lbl">Address / Location</label><input className="inp" value={f.address} onChange={e=>sv('address',e.target.value)} placeholder="e.g. Adum, Kumasi"/></div>
+          <div className="field"><label className="lbl">Notes (optional)</label><input className="inp" value={f.notes} onChange={e=>sv('notes',e.target.value)} placeholder="Any details…"/></div>
+        </div>
+        <div className="modal-foot"><button className="btn-outline" onClick={onClose}>Cancel</button>
+          <button className="btn" onClick={()=>f.name.trim()&&onSave(f)} disabled={!f.name.trim()}>Save</button></div>
+      </div>
+    </div>
+  );
+}
+
+function RoomModal({data,propId,onSave,onClose}){
+  const [f,setF]=useState(data||{number:'',type:'Single Room',rent:0,notes:''});
+  const sv=(k,v)=>setF(p=>({...p,[k]:v}));
+  return(
+    <div className="modal-ov" onClick={onClose}>
+      <div className="modal-box" onClick={e=>e.stopPropagation()}>
+        <div className="modal-hdr"><span style={{fontWeight:700}}>{data?'Edit':'Add'} Room</span>
+          <button style={{background:'none',border:'none',color:'var(--text3)',cursor:'pointer',fontSize:18}} onClick={onClose}>✕</button></div>
+        <div className="modal-body">
+          <div className="form-grid">
+            <div className="field"><label className="lbl">Room Number</label><input className="inp" value={f.number} onChange={e=>sv('number',e.target.value)} placeholder="e.g. A1, 001"/></div>
+            <div className="field"><label className="lbl">Room Type</label><select className="sel" value={f.type} onChange={e=>sv('type',e.target.value)}>{ROOM_TYPES.map(t=><option key={t}>{t}</option>)}</select></div>
+          </div>
+          <div className="field"><label className="lbl">Monthly Rent (GH₵)</label><input className="inp" type="number" value={f.rent/100||''} onChange={e=>sv('rent',Math.round(parseFloat(e.target.value||0)*100))} placeholder="500"/></div>
+          <div className="field"><label className="lbl">Notes</label><input className="inp" value={f.notes} onChange={e=>sv('notes',e.target.value)} placeholder="Includes water, electricity…"/></div>
+        </div>
+        <div className="modal-foot"><button className="btn-outline" onClick={onClose}>Cancel</button>
+          <button className="btn" onClick={()=>f.number.trim()&&onSave(propId,f)} disabled={!f.number.trim()}>Save</button></div>
+      </div>
+    </div>
+  );
+}
+
+// ── TENANTS ────────────────────────────────────────────────────────
+function VTenants({properties,tenants,setTenants,payments}){
+  const [modal,setModal]=useState(null);
+  const [filter,setFilter]=useState('active');
+  const [search,setSearch]=useState('');
+  const allRooms=properties.flatMap(p=>(p.rooms||[]).map(r=>({...r,propName:p.name,propId:p.id})));
+
+  function save(d){setTenants(tt=>d.id?tt.map(t=>t.id===d.id?{...d,status:d.status||'active'}:t):[...tt,{...d,id:uid(),status:'active'}]);setModal(null);}
+  function vacate(id){if(!confirm('Mark as vacated?'))return;setTenants(tt=>tt.map(t=>t.id===id?{...t,status:'vacated',vacatedDate:today()}:t));}
+  function del(id){if(!confirm('Delete tenant permanently?'))return;setTenants(tt=>tt.filter(t=>t.id!==id));}
+
+  const list=tenants.filter(t=>{
+    if(filter==='active'&&t.status!=='active')return false;
+    if(filter==='vacated'&&t.status!=='vacated')return false;
+    if(search&&!t.name.toLowerCase().includes(search.toLowerCase())&&!(t.phone||'').includes(search))return false;
+    return true;
+  }).sort((a,b)=>{
+    if(!a.expiryDate&&!b.expiryDate)return 0;
+    if(!a.expiryDate)return 1;if(!b.expiryDate)return -1;
+    return new Date(a.expiryDate)-new Date(b.expiryDate);
+  });
+
+  return(
+    <div>
+      <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:12,flexWrap:'wrap',gap:8}}>
+        <div style={{display:'flex',gap:6}}>
+          {['active','vacated','all'].map(f=>(
+            <button key={f} className={filter===f?'btn':'btn-outline'} style={{padding:'6px 12px',fontSize:10,textTransform:'capitalize'}} onClick={()=>setFilter(f)}>{f}</button>
+          ))}
+        </div>
+        <button className="btn" onClick={()=>setModal({data:null})}>{I.plus} Add Tenant</button>
+      </div>
+      <div className="card" style={{marginBottom:12}}>
+        <input className="inp" placeholder="Search name or phone…" value={search} onChange={e=>setSearch(e.target.value)}/>
+      </div>
+      {list.length===0&&<div className="card empty-state"><div className="empty-ico">👤</div><div style={{fontSize:12,letterSpacing:2}}>NO TENANTS FOUND</div></div>}
+      {list.map(t=>{
+        const room=allRooms.find(r=>r.id===t.roomId);
+        const es=t.expiryDate?expiryStatus(t.expiryDate):null;
+        const paid=payments.filter(p=>p.tenantId===t.id).reduce((s,p)=>s+p.amount,0);
+        return(
+          <div key={t.id} className="card" style={{marginBottom:10,border:es?.urgent?`1px solid ${es.color}44`:'1px solid var(--border)'}}>
+            <div style={{display:'flex',justifyContent:'space-between',gap:10,marginBottom:10}}>
+              <div style={{flex:1}}>
+                <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:4,flexWrap:'wrap'}}>
+                  <span style={{fontWeight:700,fontSize:14}}>{t.name}</span>
+                  {es&&<span className={`tag ${es.tag}`}>{es.label}</span>}
+                  {t.status==='vacated'&&<span className="tag tag-grey">VACATED</span>}
+                </div>
+                <div style={{fontSize:11,color:'var(--text3)',marginBottom:2}}>📞 {t.phone||'—'}</div>
+                <div style={{fontSize:11,color:'var(--text3)',marginBottom:2}}>🏠 {room?.propName||'—'} · Room {room?.number||'—'}</div>
+                <div style={{fontSize:11,color:'var(--text3)'}}>Move-in: {fmtDate(t.moveIn)}{t.expiryDate&&` · Expires: ${fmtDate(t.expiryDate)}`}</div>
+              </div>
+              <div style={{textAlign:'right',flexShrink:0}}>
+                <div style={{fontFamily:'var(--fd)',fontSize:14,fontWeight:700,color:'var(--green)'}}>{fmt(paid)}</div>
+                <div style={{fontSize:9,color:'var(--text3)'}}>total paid</div>
+              </div>
+            </div>
+            {es&&t.expiryDate&&(
+              <div style={{marginBottom:10}}>
+                <div className="exp-bar"><div className="exp-fill" style={{width:`${Math.min(100,Math.max(0,100-((daysFromNow(t.expiryDate)||0)/365*100)))}%`,background:es.color}}/></div>
+              </div>
+            )}
+            <div style={{display:'flex',gap:6,flexWrap:'wrap'}}>
+              <button className="btn-sm" onClick={()=>setModal({data:t})}>Edit</button>
+              {t.status==='active'&&<button className="btn-sm" style={{color:'var(--amber)',borderColor:'#f59e0b44'}} onClick={()=>vacate(t.id)}>Vacate</button>}
+              <button className="btn-danger" onClick={()=>del(t.id)}>Delete</button>
+            </div>
+          </div>
+        );
+      })}
+      {modal&&<TenantModal data={modal.data} properties={properties} tenants={tenants} onSave={save} onClose={()=>setModal(null)}/>}
+    </div>
+  );
+}
+
+function TenantModal({data,properties,tenants,onSave,onClose}){
+  const allRooms=properties.flatMap(p=>(p.rooms||[]).map(r=>({...r,propName:p.name,propId:p.id})));
+  const [f,setF]=useState(data||{name:'',phone:'',roomId:'',propertyId:'',moveIn:today(),expiryDate:'',deposit:0,notes:''});
+  const sv=(k,v)=>setF(p=>({...p,[k]:v}));
+  const occupied=tenants.filter(t=>t.status==='active'&&(!data||t.id!==data.id)).map(t=>t.roomId);
+  const available=allRooms.filter(r=>!occupied.includes(r.id)||r.id===f.roomId);
+
+  function handleRoom(id){const r=allRooms.find(r=>r.id===id);sv('roomId',id);if(r)sv('propertyId',r.propId);}
+  function calcExpiry(m){if(f.moveIn&&m){const e=addMonths(f.moveIn,parseInt(m));sv('expiryDate',e);}}
+
+  return(
+    <div className="modal-ov" onClick={onClose}>
+      <div className="modal-box" onClick={e=>e.stopPropagation()}>
+        <div className="modal-hdr"><span style={{fontWeight:700}}>{data?'Edit':'Add'} Tenant</span>
+          <button style={{background:'none',border:'none',color:'var(--text3)',cursor:'pointer',fontSize:18}} onClick={onClose}>✕</button></div>
+        <div className="modal-body">
+          <div className="form-grid">
+            <div className="field"><label className="lbl">Full Name</label><input className="inp" value={f.name} onChange={e=>sv('name',e.target.value)} placeholder="Tenant name"/></div>
+            <div className="field"><label className="lbl">Phone</label><input className="inp" value={f.phone} onChange={e=>sv('phone',e.target.value)} placeholder="0244000000"/></div>
+          </div>
+          <div className="field"><label className="lbl">Room</label>
+            <select className="sel" value={f.roomId} onChange={e=>handleRoom(e.target.value)}>
+              <option value="">Select room…</option>
+              {available.map(r=><option key={r.id} value={r.id}>{r.propName} · Room {r.number} ({r.type}) — {fmt(r.rent)}/mo</option>)}
+            </select>
+          </div>
+          <div className="form-grid">
+            <div className="field"><label className="lbl">Move-In Date</label><input className="inp" type="date" value={f.moveIn} onChange={e=>sv('moveIn',e.target.value)}/></div>
+            <div className="field"><label className="lbl">Calculate Expiry</label>
+              <select className="sel" onChange={e=>calcExpiry(e.target.value)} defaultValue="">
+                <option value="">Select…</option>
+                {[['6','6 months'],['12','1 year'],['24','2 years'],['36','3 years']].map(([v,l])=><option key={v} value={v}>{l}</option>)}
+              </select>
+            </div>
+          </div>
+          <div className="field"><label className="lbl">Expiry / Renewal Date</label><input className="inp" type="date" value={f.expiryDate} onChange={e=>sv('expiryDate',e.target.value)}/></div>
+          <div className="field"><label className="lbl">Security Deposit (GH₵)</label><input className="inp" type="number" value={f.deposit/100||''} onChange={e=>sv('deposit',Math.round(parseFloat(e.target.value||0)*100))} placeholder="0"/></div>
+          <div className="field"><label className="lbl">Notes</label><input className="inp" value={f.notes} onChange={e=>sv('notes',e.target.value)} placeholder="Any notes…"/></div>
+        </div>
+        <div className="modal-foot"><button className="btn-outline" onClick={onClose}>Cancel</button>
+          <button className="btn" onClick={()=>f.name.trim()&&f.roomId&&onSave(f)} disabled={!f.name.trim()||!f.roomId}>Save Tenant</button></div>
+      </div>
+    </div>
+  );
+}
+
+// ── PAYMENTS ───────────────────────────────────────────────────────
+function VPayments({properties,tenants,payments,setPayments,setTenants}){
+  const [modal,setModal]=useState(false);
+  const [receipt,setReceipt]=useState(null);
+  const [search,setSearch]=useState('');
+  const allRooms=properties.flatMap(p=>(p.rooms||[]).map(r=>({...r,propName:p.name})));
+
+  function save(d){
+    setPayments(pp=>[...pp,{...d,id:uid()}]);
+    if(d.newExpiryDate)setTenants(tt=>tt.map(t=>t.id===d.tenantId?{...t,expiryDate:d.newExpiryDate}:t));
+    setModal(false);
+  }
+  function del(id){if(!confirm('Delete payment?'))return;setPayments(pp=>pp.filter(p=>p.id!==id));}
+
+  const list=payments.filter(p=>{
+    if(!search)return true;
+    const t=tenants.find(t=>t.id===p.tenantId);
+    return t?.name.toLowerCase().includes(search.toLowerCase());
+  }).sort((a,b)=>new Date(b.datePaid)-new Date(a.datePaid));
+
+  return(
+    <div>
+      <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:12,flexWrap:'wrap',gap:8}}>
+        <input className="inp" style={{maxWidth:200}} placeholder="Search tenant…" value={search} onChange={e=>setSearch(e.target.value)}/>
+        <button className="btn" onClick={()=>setModal(true)}>{I.plus} Record Payment</button>
+      </div>
+      {list.length===0&&<div className="card empty-state"><div className="empty-ico">💰</div><div style={{fontSize:12,letterSpacing:2}}>NO PAYMENTS YET</div></div>}
+      {list.map(p=>{
+        const t=tenants.find(t=>t.id===p.tenantId);
+        const room=allRooms.find(r=>r.id===p.roomId);
+        return(
+          <div key={p.id} className="card" style={{marginBottom:8}}>
+            <div style={{display:'flex',justifyContent:'space-between',gap:10}}>
+              <div style={{flex:1}}>
+                <div style={{fontWeight:700,fontSize:13,marginBottom:3}}>{t?.name||'Unknown'}</div>
+                <div style={{fontSize:10,color:'var(--text3)',marginBottom:2}}>{room?.propName||'—'} · Room {room?.number||'—'}</div>
+                <div style={{fontSize:10,color:'var(--text3)',marginBottom:2}}>Paid: {fmtDate(p.datePaid)} · {p.months} month{p.months!==1?'s':''}</div>
+                {p.newExpiryDate&&<div style={{fontSize:10,color:'var(--text3)'}}>Valid to: {fmtDate(p.newExpiryDate)}</div>}
+                {p.notes&&<div style={{fontSize:10,color:'var(--text3)'}}>📝 {p.notes}</div>}
+              </div>
+              <div style={{textAlign:'right'}}>
+                <div style={{fontFamily:'var(--fd)',fontWeight:700,fontSize:15,color:'var(--green)',marginBottom:6}}>{fmt(p.amount)}</div>
+                <div style={{display:'flex',gap:5,justifyContent:'flex-end'}}>
+                  <button className="btn-sm" style={{fontSize:8}} onClick={()=>setReceipt({p,t,room})}>{I.receipt} Receipt</button>
+                  <button className="btn-danger" style={{fontSize:8}} onClick={()=>del(p.id)}>Del</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+      {modal&&<PaymentModal tenants={tenants.filter(t=>t.status==='active')} properties={properties} onSave={save} onClose={()=>setModal(false)}/>}
+      {receipt&&<ReceiptModal p={receipt.p} t={receipt.t} room={receipt.room} onClose={()=>setReceipt(null)}/>}
+    </div>
+  );
+}
+
+function PaymentModal({tenants,properties,onSave,onClose}){
+  const allRooms=properties.flatMap(p=>(p.rooms||[]).map(r=>({...r,propName:p.name,propId:p.id})));
+  const [f,setF]=useState({tenantId:'',roomId:'',amount:0,months:1,datePaid:today(),newExpiryDate:'',notes:''});
+  const sv=(k,v)=>setF(p=>({...p,[k]:v}));
+  const selT=tenants.find(t=>t.id===f.tenantId);
+
+  function handleTenant(id){
+    const t=tenants.find(t=>t.id===id);sv('tenantId',id);
+    if(t){sv('roomId',t.roomId);}
+  }
+  function handleMonths(m){
+    sv('months',m);
+    const r=allRooms.find(r=>r.id===f.roomId);
+    if(r?.rent)sv('amount',r.rent*m);
+    const base=selT?.expiryDate&&daysFromNow(selT.expiryDate)>0?selT.expiryDate:today();
+    sv('newExpiryDate',addMonths(base,m));
+  }
+
+  return(
+    <div className="modal-ov" onClick={onClose}>
+      <div className="modal-box" onClick={e=>e.stopPropagation()}>
+        <div className="modal-hdr"><span style={{fontWeight:700}}>Record Payment</span>
+          <button style={{background:'none',border:'none',color:'var(--text3)',cursor:'pointer',fontSize:18}} onClick={onClose}>✕</button></div>
+        <div className="modal-body">
+          <div className="field"><label className="lbl">Tenant</label>
+            <select className="sel" value={f.tenantId} onChange={e=>handleTenant(e.target.value)}>
+              <option value="">Select tenant…</option>
+              {tenants.map(t=>{const r=allRooms.find(r=>r.id===t.roomId);return<option key={t.id} value={t.id}>{t.name} — {r?.propName||'?'} Room {r?.number||'?'}</option>;})}
+            </select>
+          </div>
+          {selT?.expiryDate&&(
+            <div className={`notice ${daysFromNow(selT.expiryDate)<0?'notice-err':daysFromNow(selT.expiryDate)<=30?'notice-warn':'notice-blue'}`} style={{fontSize:11}}>
+              Current expiry: <strong>{fmtDate(selT.expiryDate)}</strong>
+              {daysFromNow(selT.expiryDate)<0?' — EXPIRED':` — ${daysFromNow(selT.expiryDate)} days left`}
+            </div>
+          )}
+          <div className="form-grid">
+            <div className="field"><label className="lbl">Months Paid</label>
+              <select className="sel" value={f.months} onChange={e=>handleMonths(parseInt(e.target.value))}>
+                {[1,2,3,6,9,12,18,24].map(m=><option key={m} value={m}>{m} month{m>1?'s':''}</option>)}
+              </select>
+            </div>
+            <div className="field"><label className="lbl">Amount (GH₵)</label>
+              <input className="inp" type="number" value={f.amount/100||''} onChange={e=>sv('amount',Math.round(parseFloat(e.target.value||0)*100))} placeholder="0"/>
+            </div>
+          </div>
+          <div className="form-grid">
+            <div className="field"><label className="lbl">Date Paid</label><input className="inp" type="date" value={f.datePaid} onChange={e=>sv('datePaid',e.target.value)}/></div>
+            <div className="field"><label className="lbl">New Expiry Date</label><input className="inp" type="date" value={f.newExpiryDate} onChange={e=>sv('newExpiryDate',e.target.value)}/></div>
+          </div>
+          {f.amount>0&&<div className="notice notice-ok" style={{textAlign:'center',fontSize:12}}>
+            <strong>{fmt(f.amount)}</strong> for {f.months} month{f.months>1?'s':''}
+            {f.newExpiryDate&&<> · New expiry: <strong>{fmtDate(f.newExpiryDate)}</strong></>}
+          </div>}
+          <div className="field"><label className="lbl">Notes (optional)</label><input className="inp" value={f.notes} onChange={e=>sv('notes',e.target.value)} placeholder="Cash, MoMo, cheque…"/></div>
+        </div>
+        <div className="modal-foot"><button className="btn-outline" onClick={onClose}>Cancel</button>
+          <button className="btn" onClick={()=>f.tenantId&&f.amount&&onSave(f)} disabled={!f.tenantId||!f.amount}>Save Payment</button></div>
+      </div>
+    </div>
+  );
+}
+
+function ReceiptModal({p,t,room,onClose}){
+  const txt=`🏠 RENT RECEIPT\n${'─'.repeat(24)}\nTenant: ${t?.name||'—'}\nPhone: ${t?.phone||'—'}\nProperty: ${room?.propName||'—'}\nRoom: ${room?.number||'—'} (${room?.type||'—'})\nAmount: ${p.amount/100} GHS\nMonths: ${p.months}\nDate: ${fmtDate(p.datePaid)}\n${p.newExpiryDate?`Valid To: ${fmtDate(p.newExpiryDate)}\n`:''}\n${p.notes?`Notes: ${p.notes}\n`:''}\n${'─'.repeat(24)}\nRentLedger — Landlord Rent Manager`.trim();
+  function share(){if(navigator.share)navigator.share({title:'Rent Receipt',text:txt});else navigator.clipboard.writeText(txt).then(()=>alert('Copied!'));}
+  return(
+    <div className="modal-ov" onClick={onClose}>
+      <div className="modal-box" onClick={e=>e.stopPropagation()}>
+        <div className="modal-hdr"><span style={{fontWeight:700}}>Payment Receipt</span>
+          <button style={{background:'none',border:'none',color:'var(--text3)',cursor:'pointer',fontSize:18}} onClick={onClose}>✕</button></div>
+        <div className="modal-body">
+          <div className="receipt">
+            <div style={{textAlign:'center',marginBottom:12,fontSize:14,fontWeight:700,color:'var(--green)'}}>🏠 RENT RECEIPT</div>
+            {[['Tenant',t?.name],['Phone',t?.phone],['Property',room?.propName],['Room',`${room?.number||'—'} (${room?.type||'—'})`],['Amount',fmt(p.amount)],['Months',`${p.months} month${p.months!==1?'s':''}`],['Date Paid',fmtDate(p.datePaid)],p.newExpiryDate&&['Valid To',fmtDate(p.newExpiryDate)],p.notes&&['Notes',p.notes]].filter(Boolean).map(([k,v])=>(
+              <div key={k} style={{display:'flex',gap:10,padding:'3px 0',borderBottom:'1px dashed var(--border)'}}>
+                <span style={{color:'var(--text3)',minWidth:80,flexShrink:0}}>{k}</span>
+                <span style={{color:'var(--text)',fontWeight:600}}>{v||'—'}</span>
+              </div>
+            ))}
+            <div style={{textAlign:'center',marginTop:12,fontSize:9,color:'var(--text3)',letterSpacing:2}}>POWERED BY RENTLEDGER</div>
+          </div>
+        </div>
+        <div className="modal-foot"><button className="btn-outline" onClick={onClose}>Close</button>
+          <button className="btn" onClick={share}>📤 Share / Copy</button></div>
+      </div>
+    </div>
+  );
+}
+
+// ── REPORTS ────────────────────────────────────────────────────────
+function VReports({properties,tenants,payments}){
+  const [yr,setYr]=useState(new Date().getFullYear().toString());
+  const active=tenants.filter(t=>t.status==='active');
+  const allRooms=properties.flatMap(p=>(p.rooms||[]).map(r=>({...r,propName:p.name})));
+  const yPays=payments.filter(p=>new Date(p.datePaid).getFullYear().toString()===yr);
+  const yTotal=yPays.reduce((s,p)=>s+p.amount,0);
+  const occ=allRooms.length>0?Math.round(active.length/allRooms.length*100):0;
+  const exp30=active.filter(t=>t.expiryDate&&daysFromNow(t.expiryDate)>=0&&daysFromNow(t.expiryDate)<=30).length;
+  const exp60=active.filter(t=>t.expiryDate&&daysFromNow(t.expiryDate)>30&&daysFromNow(t.expiryDate)<=60).length;
+  const expd=active.filter(t=>t.expiryDate&&daysFromNow(t.expiryDate)<0).length;
+  const monthly=MONTHS.map(m=>{const mp=yPays.filter(p=>new Date(p.datePaid).toLocaleString('default',{month:'long'})===m);return{m,total:mp.reduce((s,p)=>s+p.amount,0),count:mp.length};});
+  const maxM=Math.max(...monthly.map(m=>m.total),1);
+
+  return(
+    <div>
+      <div className="card" style={{marginBottom:14}}>
+        <div style={{display:'flex',alignItems:'center',gap:10}}>
+          <label className="lbl" style={{margin:0}}>Year</label>
+          <select className="sel" style={{width:'auto',minWidth:90}} value={yr} onChange={e=>setYr(e.target.value)}>
+            {[...new Set([new Date().getFullYear().toString(),...payments.map(p=>new Date(p.datePaid).getFullYear().toString())])].sort().reverse().map(y=><option key={y}>{y}</option>)}
+          </select>
+          <span style={{marginLeft:'auto',fontWeight:700,color:'var(--green)',fontFamily:'var(--fd)',fontSize:16}}>{fmt(yTotal)}</span>
+        </div>
+      </div>
+      <div className="stats-grid" style={{gridTemplateColumns:'repeat(3,1fr)'}}>
+        <div className="stat-card"><div className="stat-label">Properties</div><div className="stat-val">{properties.length}</div></div>
+        <div className="stat-card"><div className="stat-label">Occupancy</div><div className="stat-val" style={{color:'var(--green)'}}>{occ}%</div><div className="stat-sub">{active.length}/{allRooms.length}</div></div>
+        <div className="stat-card"><div className="stat-label">Expired</div><div className="stat-val" style={{color:expd>0?'var(--red)':'var(--green)'}}>{expd}</div></div>
+      </div>
+      <div className="card" style={{marginBottom:14}}>
+        <div className="sec-title">Expiry Overview</div>
+        {[['Expired',expd,'var(--red)'],['≤30 days',exp30,'var(--amber)'],['31–60 days',exp60,'var(--blue)'],['All clear',active.length-expd-exp30-exp60,'var(--green)']].map(([l,n,c])=>(
+          <div key={l} style={{display:'flex',justifyContent:'space-between',padding:'8px 0',borderBottom:'1px solid var(--border2)'}}>
+            <span style={{fontSize:12,color:'var(--text2)'}}>{l}</span>
+            <span style={{fontWeight:700,color:c,fontFamily:'var(--fd)'}}>{n}</span>
+          </div>
+        ))}
+      </div>
+      <div className="card" style={{marginBottom:14}}>
+        <div className="sec-title">Monthly Collection — {yr}</div>
+        {monthly.map(({m,total,count})=>(
+          <div key={m} style={{marginBottom:10}}>
+            <div style={{display:'flex',justifyContent:'space-between',marginBottom:4}}>
+              <span style={{fontSize:11,color:'var(--text2)'}}>{m.slice(0,3)}</span>
+              <span style={{fontSize:11,fontWeight:600,color:total>0?'var(--green)':'var(--text3)',fontFamily:'var(--fd)'}}>{total>0?fmt(total):'—'}</span>
+            </div>
+            <div style={{height:6,background:'var(--border)',borderRadius:3,overflow:'hidden'}}>
+              <div style={{height:'100%',background:'var(--green)',width:`${total/maxM*100}%`,borderRadius:3,transition:'width .4s'}}/>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="card">
+        <div className="sec-title">By Property — {yr}</div>
+        {properties.length===0&&<div style={{fontSize:11,color:'var(--text3)'}}>No properties yet.</div>}
+        {properties.map(prop=>{
+          const pRooms=(prop.rooms||[]).map(r=>r.id);
+          const pTotal=yPays.filter(p=>pRooms.includes(p.roomId)).reduce((s,p)=>s+p.amount,0);
+          const pOcc=active.filter(t=>t.propertyId===prop.id).length;
+          return(
+            <div key={prop.id} style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'10px 0',borderBottom:'1px solid var(--border2)'}}>
+              <div>
+                <div style={{fontWeight:600,fontSize:12,marginBottom:2}}>{prop.name}</div>
+                <div style={{fontSize:10,color:'var(--text3)'}}>{prop.address} · {(prop.rooms||[]).length} rooms</div>
+              </div>
+              <div style={{fontWeight:700,fontFamily:'var(--fd)',color:'var(--green)',fontSize:13}}>{pTotal>0?fmt(pTotal):'—'}</div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+// ── ADMIN ──────────────────────────────────────────────────────────
+function VAdmin(){
+  const [tab,setTab]=useState('overview');
+  const [users,setUsers]=useState({});
+  const [pending,setPending]=useState([]);
+  const [search,setSearch]=useState('');
+  const [loading,setLoading]=useState(true);
+  const [customDays,setCustomDays]=useState({});
+
+  useEffect(()=>{
+    async function load(){
+      const u=await getUsers();setUsers(u);
+      if(db){
+        try{const snap=await db.collection('rlg_pending').get();setPending(snap.docs.map(d=>({id:d.id,...d.data()})));}catch{}
+      }
+      setLoading(false);
+    }
+    load();
+  },[]);
+
+  if(loading)return<div style={{textAlign:'center',padding:40}}><div className="spinner" style={{margin:'0 auto 10px'}}/>Loading admin data…</div>;
+
+  const allUsers=Object.keys(users).filter(u=>u!==DEV_U);
+  const filtered=allUsers.filter(u=>u.includes(search.toLowerCase())||(users[u]?.business||'').toLowerCase().includes(search.toLowerCase()));
+
+  async function activate(username,plan,days){
+    const paidUntil=Date.now()+days*86400000;
+    const sub={plan,paid:true,paidUntil,activatedAt:Date.now(),activatedBy:DEV_U};
+    setSub(username,sub);
+    if(db){
+      try{
+        await db.collection('rlg_subscriptions').doc(username).set(sub);
+        await db.collection('rlg_pending').doc(username).delete();
+      }catch{}
+    }
+    setPending(p=>p.filter(x=>x.id!==username));
+    alert(`✅ ${username} activated on ${plan} for ${days} days`);
+  }
+
+  async function deactivate(username){
+    if(!confirm(`Revoke access for ${username}?`))return;
+    setSub(username,{plan:null,paid:false,paidUntil:0,revoked:true});
+    if(db)try{await db.collection('rlg_subscriptions').doc(username).set({plan:null,paid:false,revoked:true});}catch{}
+    alert(`Access revoked for ${username}`);
+  }
+
+  const payingUsers=allUsers.filter(u=>{const s=subStatus(u);return s.active&&!s.trial;});
+  const trialUsers=allUsers.filter(u=>{const s=subStatus(u);return s.trial;});
+  const revenue=payingUsers.reduce((t,u)=>{const s=subStatus(u);return t+(PLANS[s.plan]?.price||0);},0);
+
+  return(
+    <div>
+      <div className="report-tabs">
+        {[['overview','📊 Overview'],['users','👤 Users'],['payments','💰 Payments'],['settings','⚙️ Settings']].map(([id,l])=>(
+          <button key={id} className={`report-tab${tab===id?' active':''}`} onClick={()=>setTab(id)}>{l}</button>
+        ))}
+      </div>
+
+      {tab==='overview'&&(
+        <div>
+          <div className="stats-grid">
+            <div className="stat-card"><div className="stat-label">Total Users</div><div className="stat-val">{allUsers.length}</div></div>
+            <div className="stat-card"><div className="stat-label">Paying</div><div className="stat-val" style={{color:'var(--green)'}}>{payingUsers.length}</div></div>
+            <div className="stat-card"><div className="stat-label">On Trial</div><div className="stat-val" style={{color:'var(--amber)'}}>{trialUsers.length}</div></div>
+            <div className="stat-card"><div className="stat-label">Monthly Rev</div><div className="stat-val" style={{fontSize:16,color:'var(--green)'}}>{fmt(revenue)}</div></div>
+          </div>
+          {pending.length>0&&(
+            <div className="card" style={{border:'1px solid var(--amber)'}}>
+              <div className="sec-title" style={{color:'var(--amber)'}}>⏳ Pending Payments ({pending.length})</div>
+              {pending.map(p=>{
+                const ageMins=Math.floor((Date.now()-p.requestedAt)/60000);
+                const age=ageMins<60?`${ageMins}m ago`:ageMins<1440?`${Math.floor(ageMins/60)}h ago`:`${Math.floor(ageMins/1440)}d ago`;
+                return(
+                  <div key={p.id} style={{padding:'10px 0',borderBottom:'1px solid var(--border2)'}}>
+                    <div style={{display:'flex',justifyContent:'space-between',marginBottom:8,flexWrap:'wrap',gap:6}}>
+                      <div>
+                        <span style={{fontWeight:700,fontSize:13,marginRight:8}}>{p.username}</span>
+                        <span className="tag tag-amber">{PLANS[p.plan]?.label||p.plan}</span>
+                      </div>
+                      <span style={{fontSize:10,color:'var(--text3)'}}>{age}</span>
+                    </div>
+                    <div style={{display:'flex',gap:6,flexWrap:'wrap'}}>
+                      <button className="btn-sm" style={{fontSize:9}} onClick={()=>activate(p.username,'basic',30)}>Activate Basic 30d</button>
+                      <button className="btn-sm" style={{fontSize:9}} onClick={()=>activate(p.username,'standard',30)}>Standard 30d</button>
+                      <button className="btn-sm" style={{fontSize:9}} onClick={()=>activate(p.username,'premium',30)}>Premium 30d</button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      )}
+
+      {tab==='users'&&(
+        <div>
+          <div className="card" style={{marginBottom:12}}>
+            <input className="inp" placeholder="Search username or business…" value={search} onChange={e=>setSearch(e.target.value)}/>
+          </div>
+          {filtered.map(u=>{
+            const usr=users[u];
+            const s=subStatus(u);
+            const days=customDays[u]||30;
+            return(
+              <div key={u} className="card" style={{marginBottom:8}}>
+                <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:8,flexWrap:'wrap',gap:6}}>
+                  <div>
+                    <div style={{fontWeight:700,fontSize:13,marginBottom:2}}>{usr?.business||u}</div>
+                    <div style={{fontSize:10,color:'var(--text3)',marginBottom:4}}>@{u} · Joined {usr?.created?new Date(usr.created).toLocaleDateString('en-GH'):'—'}</div>
+                    {s.active&&!s.trial&&s.paidUntil&&<div style={{fontSize:10,color:'var(--text3)'}}>Paid until: {new Date(s.paidUntil).toLocaleDateString('en-GH')}</div>}
+                  </div>
+                  <span className={`tag ${s.active&&!s.trial?'tag-green':s.trial?'tag-amber':'tag-red'}`}>
+                    {s.active&&!s.trial?`ACTIVE · ${s.plan?.toUpperCase()}`:(s.trial?`TRIAL · ${s.daysLeft}d left`:'EXPIRED')}
+                  </span>
+                </div>
+                <div style={{display:'flex',gap:6,flexWrap:'wrap',alignItems:'center'}}>
+                  <input type="number" value={days} onChange={e=>setCustomDays(c=>({...c,[u]:parseInt(e.target.value)||30}))} style={{width:60,padding:'4px 8px',background:'var(--bg)',border:'1px solid var(--border)',borderRadius:5,color:'var(--text)',fontSize:11}} min="1" max="365"/>
+                  <span style={{fontSize:9,color:'var(--text3)'}}>days</span>
+                  <button className="btn-sm" style={{fontSize:8}} onClick={()=>activate(u,'basic',days)}>Basic</button>
+                  <button className="btn-sm" style={{fontSize:8}} onClick={()=>activate(u,'standard',days)}>Standard</button>
+                  <button className="btn-sm" style={{fontSize:8}} onClick={()=>activate(u,'premium',days)}>Premium</button>
+                  <button className="btn-danger" style={{fontSize:8}} onClick={()=>deactivate(u)}>Revoke</button>
+                </div>
+              </div>
+            );
+          })}
+          {filtered.length===0&&<div className="card empty-state"><div className="empty-ico">👤</div><div>No users found</div></div>}
+        </div>
+      )}
+
+      {tab==='payments'&&(
+        <div>
+          <div className="card">
+            <div className="sec-title">Active Subscriptions</div>
+            {payingUsers.length===0?<div style={{fontSize:11,color:'var(--text3)'}}>No paying users yet.</div>
+              :payingUsers.map(u=>{
+                const s=subStatus(u);
+                return(
+                  <div key={u} style={{display:'flex',justifyContent:'space-between',padding:'9px 0',borderBottom:'1px solid var(--border2)'}}>
+                    <div>
+                      <div style={{fontWeight:600,fontSize:12}}>{users[u]?.business||u} <span style={{fontSize:9,color:'var(--text3)'}}>@{u}</span></div>
+                      <div style={{fontSize:10,color:'var(--text3)'}}>Until: {s.paidUntil?new Date(s.paidUntil).toLocaleDateString('en-GH'):'—'}</div>
+                    </div>
+                    <div>
+                      <div style={{fontFamily:'var(--fd)',fontWeight:700,color:'var(--green)',fontSize:13}}>{PLANS[s.plan]?.label||'—'}</div>
+                      <span className={`tag tag-green`} style={{fontSize:7}}>ACTIVE</span>
+                    </div>
+                  </div>
+                );
+              })
+            }
+          </div>
+          <div className="card">
+            <div className="sec-title">Pending Requests ({pending.length})</div>
+            {pending.length===0?<div style={{fontSize:11,color:'var(--text3)'}}>No pending payments.</div>
+              :pending.map(p=>(
+                <div key={p.id} style={{display:'flex',justifyContent:'space-between',padding:'9px 0',borderBottom:'1px solid var(--border2)'}}>
+                  <div>
+                    <div style={{fontWeight:600,fontSize:12}}>{p.username}</div>
+                    <div style={{fontSize:10,color:'var(--text3)'}}>{PLANS[p.plan]?.label||p.plan} · {new Date(p.requestedAt).toLocaleDateString()}</div>
+                  </div>
+                  <div style={{display:'flex',gap:6}}>
+                    <button className="btn-sm" style={{fontSize:9}} onClick={()=>activate(p.username,p.plan,30)}>Activate</button>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+          <div className="card">
+            <div className="sec-title">Revenue Summary</div>
+            {Object.values(PLANS).map(plan=>{
+              const count=payingUsers.filter(u=>subStatus(u).plan===plan.id).length;
+              return(
+                <div key={plan.id} style={{display:'flex',justifyContent:'space-between',padding:'8px 0',borderBottom:'1px solid var(--border2)'}}>
+                  <span style={{fontSize:12,color:'var(--text2)'}}>{plan.name} ({plan.label})</span>
+                  <div style={{textAlign:'right'}}>
+                    <div style={{fontWeight:700,color:'var(--green)',fontFamily:'var(--fd)',fontSize:12}}>{fmt(count*plan.price)}</div>
+                    <div style={{fontSize:9,color:'var(--text3)'}}>{count} user{count!==1?'s':''}</div>
+                  </div>
+                </div>
+              );
+            })}
+            <div style={{display:'flex',justifyContent:'space-between',padding:'10px 0'}}>
+              <span style={{fontWeight:700,fontSize:13}}>Total Monthly</span>
+              <span style={{fontWeight:800,color:'var(--green)',fontFamily:'var(--fd)',fontSize:15}}>{fmt(revenue)}</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {tab==='settings'&&(
+        <div>
+          <div className="card">
+            <div className="sec-title">Developer Account</div>
+            <div style={{fontSize:12,color:'var(--text2)',lineHeight:2}}>
+              <div>Username: <span style={{color:'var(--green)',fontFamily:'var(--fd)'}}>{DEV_U}</span><span className="dev-pill" style={{marginLeft:8}}>ADMIN</span></div>
+              <div>Business: <span style={{color:'var(--text)'}}>AMIN MOTORS & TRANSPORT</span></div>
+              <div>Access: <span style={{color:'var(--green)'}}>Unlimited · Premium · Never expires</span></div>
+            </div>
+          </div>
+          <div className="card">
+            <div className="sec-title">Payment Numbers</div>
+            <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10}}>
+              <div style={{background:'#f59e0b22',border:'1px solid #f59e0b44',borderRadius:8,padding:12,textAlign:'center'}}>
+                <div style={{fontSize:8,letterSpacing:2,color:'var(--amber)',fontWeight:700,marginBottom:3}}>MTN MOMO</div>
+                <div style={{fontSize:16,fontWeight:800,color:'var(--amber)',fontFamily:'var(--fd)'}}>{OWNER.mtn}</div>
+                <div style={{fontSize:9,color:'var(--text3)',marginTop:2}}>{OWNER.name}</div>
+              </div>
+              <div style={{background:'#ef444422',border:'1px solid #ef444444',borderRadius:8,padding:12,textAlign:'center'}}>
+                <div style={{fontSize:8,letterSpacing:2,color:'var(--red)',fontWeight:700,marginBottom:3}}>TELECEL</div>
+                <div style={{fontSize:16,fontWeight:800,color:'var(--red)',fontFamily:'var(--fd)'}}>{OWNER.telecel}</div>
+                <div style={{fontSize:9,color:'var(--text3)',marginTop:2}}>{OWNER.name}</div>
+              </div>
+            </div>
+          </div>
+          <div className="card">
+            <div className="sec-title">Plans</div>
+            <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:8}}>
+              {Object.values(PLANS).map(p=>(
+                <div key={p.id} style={{background:'var(--bg)',border:'1px solid var(--border)',borderRadius:8,padding:12,textAlign:'center'}}>
+                  <div style={{fontSize:9,color:p.color,letterSpacing:2,textTransform:'uppercase',marginBottom:4}}>{p.name}</div>
+                  <div style={{fontFamily:'var(--fd)',fontWeight:700,color:'var(--text)',fontSize:15,marginBottom:3}}>{p.label}</div>
+                  <div style={{fontSize:9,color:'var(--text3)'}}>{p.rooms===999?'Unlimited':p.rooms} rooms</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="card">
+            <div className="sec-title">App Stats</div>
+            <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10}}>
+              {[['Total Users',allUsers.length],['Paying',payingUsers.length],['On Trial',trialUsers.length],['Expired',allUsers.length-payingUsers.length-trialUsers.length],['Pending',pending.length],['Revenue',fmt(revenue)]].map(([l,v])=>(
+                <div key={l} style={{textAlign:'center',padding:10,background:'var(--bg)',borderRadius:8,border:'1px solid var(--border)'}}>
+                  <div style={{fontSize:8,color:'var(--text3)',letterSpacing:1,marginBottom:4,textTransform:'uppercase'}}>{l}</div>
+                  <div style={{fontWeight:700,color:'var(--green)',fontFamily:'var(--fd)'}}>{v}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── DASHBOARD COMPONENT ────────────────────────────────────────────
+function Dashboard({session,onLogout}){
+  const [view,setView]=useState('dashboard');
+  const [properties,setProperties]=useState([]);
+  const [tenants,setTenants]=useState([]);
+  const [payments,setPayments]=useState([]);
+  const [syncState,setSyncState]=useState('saved');
+  const [loaded,setLoaded]=useState(false);
+  const saveTimer=useRef(null);
+  const u=session.username;
+
+  // Load data
+  useEffect(()=>{
+    async function init(){
+      // Load from Firestore first, fallback to localStorage
+      if(db){
+        try{
+          const snap=await db.collection('rlg_data').doc(u).get();
+          if(snap.exists){
+            const d=snap.data();
+            setProperties(d.properties||[]);
+            setTenants(d.tenants||[]);
+            setPayments(d.payments||[]);
+            setLoaded(true);return;
+          }
+        }catch{}
+      }
+      const local=lsGet(`rlg-data-${u}`);
+      if(local){setProperties(local.properties||[]);setTenants(local.tenants||[]);setPayments(local.payments||[]);}
+      setLoaded(true);
+    }
+    init();
+  },[u]);
+
+  // Real-time listener
+  useEffect(()=>{
+    if(!db||!loaded)return;
+    const unsub=db.collection('rlg_data').doc(u).onSnapshot(snap=>{
+      if(snap.exists&&!snap.metadata.hasPendingWrites){
+        const d=snap.data();
+        setProperties(d.properties||[]);setTenants(d.tenants||[]);setPayments(d.payments||[]);
+      }
+    },()=>{});
+    return unsub;
+  },[u,loaded]);
+
+  // Auto-save
+  function doSave(p,t,pay){
+    clearTimeout(saveTimer.current);
+    setSyncState('saving');
+    saveTimer.current=setTimeout(async()=>{
+      const data={properties:p,tenants:t,payments:pay,updatedAt:Date.now()};
+      await saveData(u,data);
+      setSyncState('saved');
+    },1000);
+  }
+
+  function setP(fn){setProperties(pp=>{const n=typeof fn==='function'?fn(pp):fn;doSave(n,tenants,payments);return n;});}
+  function setT(fn){setTenants(tt=>{const n=typeof fn==='function'?fn(tt):fn;doSave(properties,n,payments);return n;});}
+  function setPay(fn){setPayments(pp=>{const n=typeof fn==='function'?fn(pp):fn;doSave(properties,tenants,n);return n;});}
+
+  const NAV=[
+    {id:'dashboard',label:'Overview',ico:'🏠'},
+    {id:'properties',label:'Properties',ico:'🏘️'},
+    {id:'tenants',label:'Tenants',ico:'👤'},
+    {id:'payments',label:'Payments',ico:'💰'},
+    {id:'reports',label:'Reports',ico:'📊'},
+    ...(session.isDev?[{id:'admin',label:'Admin',ico:'⚙️'}]:[]),
+  ];
+
+  if(!loaded)return<div className="loading"><div className="spinner"/><div style={{fontSize:10,letterSpacing:3,color:'var(--text3)'}}>LOADING DATA…</div></div>;
+
+  const syncColor={saving:'var(--amber)',saved:'var(--green)',error:'var(--red)'}[syncState]||'var(--text3)';
+
+  return(
+    <div className="app">
+      {/* Sidebar */}
+      <div className="sidebar">
+        <div className="sb-logo">
+          <div style={{fontSize:30,marginBottom:6}}>🏠</div>
+          <div className="sb-logo-main">RentLedger</div>
+          <div className="sb-logo-sub">{session.business}</div>
+          <div style={{fontSize:7,letterSpacing:2,color:'var(--text3)',marginTop:3,textTransform:'uppercase'}}>Rent Management System</div>
+        </div>
+        <div className="sb-nav">
+          {NAV.map(n=>(
+            <button key={n.id} className={`sb-item${view===n.id?' active':''}`} onClick={()=>setView(n.id)}>
+              <span style={{fontSize:16}}>{n.ico}</span>{n.label}
+            </button>
+          ))}
+        </div>
+        <div style={{marginTop:'auto',padding:'12px 8px',borderTop:'1px solid var(--border)'}}>
+          <div style={{display:'flex',alignItems:'center',gap:6,padding:'8px 10px',marginBottom:4}}>
+            <div style={{width:7,height:7,borderRadius:'50%',background:syncColor,flexShrink:0}}/>
+            <span style={{fontSize:10,color:'var(--text3)'}}>{syncState==='saving'?'Saving…':'All saved'}</span>
+          </div>
+          <button className="sb-item" style={{color:'var(--red)'}} onClick={onLogout}>{I.logout}Sign Out</button>
+        </div>
+      </div>
+
+      {/* Main */}
+      <div className="main">
+        <div className="topbar">
+          <div style={{display:'flex',alignItems:'center',gap:8}}>
+            <span style={{fontSize:18}}>{NAV.find(n=>n.id===view)?.ico}</span>
+            <div>
+              <div className="topbar-title" style={{fontSize:11}}>{session.business}</div>
+              <div style={{fontSize:8,color:'var(--text3)',letterSpacing:1,textTransform:'uppercase'}}>{NAV.find(n=>n.id===view)?.label}</div>
+            </div>
+          </div>
+          <div style={{display:'flex',alignItems:'center',gap:8}}>
+            <div style={{width:7,height:7,borderRadius:'50%',background:syncColor}}/>
+            <button className="hide-mob" style={{background:'none',border:'none',color:'var(--red)',cursor:'pointer',fontSize:11,fontFamily:'var(--fm)',display:'flex',alignItems:'center',gap:5}} onClick={onLogout}>{I.logout}Sign Out</button>
+          </div>
+        </div>
+        <div className="content">
+          <div className="fade-in">
+            {view==='dashboard'&&<VDash properties={properties} tenants={tenants} payments={payments} session={session} setView={setView}/>}
+            {view==='properties'&&<VProperties properties={properties} tenants={tenants} setProperties={setP}/>}
+            {view==='tenants'&&<VTenants properties={properties} tenants={tenants} setTenants={setT} payments={payments}/>}
+            {view==='payments'&&<VPayments properties={properties} tenants={tenants} payments={payments} setPayments={setPay} setTenants={setT}/>}
+            {view==='reports'&&<VReports properties={properties} tenants={tenants} payments={payments}/>}
+            {view==='admin'&&session.isDev&&<VAdmin/>}
+          </div>
+        </div>
+      </div>
+
+      <MobileNav NAV={NAV} view={view} setView={setView} onLogout={onLogout} session={session} syncState={syncState}/>
+    </div>
+  );
+}
+
+// ── APP ────────────────────────────────────────────────────────────
+function App(){
+  const [session,setSession]=useState(null);
+  const [ready,setReady]=useState(false);
+
+  useEffect(()=>{
+    // Init dev account
+    const users=lsGet('rlg-users')||{};
+    users[DEV_U]={hash:hashStr(DEV_P),business:'AMIN MOTORS & TRANSPORT',isDev:true,vehicleType:'pragya',created:0};
+    lsSet('rlg-users',users);
+    // Restore session
+    const s=lsGet('rlg-session');
+    if(s?.username)setSession(s);
+    setReady(true);
+  },[]);
+
+  function login(s){setSession(s);lsSet('rlg-session',s);if(!s.isDev&&!getSub(s.username))startTrial(s.username);}
+  function logout(){setSession(null);lsSet('rlg-session',null);window.location.reload();}
+
+  if(!ready)return<div className="loading"><div className="spinner"/><div style={{fontSize:10,letterSpacing:3,color:'var(--text3)'}}>LOADING…</div></div>;
+  if(!session)return<Auth onLogin={login}/>;
+
+  const status=subStatus(session.username);
+  if(!status.active)return<SubWall username={session.username} onActivated={()=>{const s=lsGet('rlg-session');setSession({...s});}} />;
+
+  return<Dashboard session={session} onLogout={logout}/>;
+}
+
+ReactDOM.render(<App/>,document.getElementById('root'));
+</script>
+</body>
+</html>
