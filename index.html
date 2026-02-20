@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-<meta name="apple-mobile-web-app-title" content= "RentLedger"/>
+<meta name="apple-mobile-web-app-title" content="RentLedger"/>
 <meta name="application-name" content="RentLedger"/>
 <meta name="description" content="RentLedger — Landlord Rent Management System for Ghana. Track tenants, payments and expiry dates."/>
 <meta property="og:title" content="RentLedger — Landlord Rent Management"/>
@@ -15,6 +15,8 @@
 <meta property="og:url" content="https://rentledger.web.app"/>
 <title>RentLedger — Landlord Rent Management</title>
 <link rel="apple-touch-icon" id="apple-icon"/>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%230d1117'/><circle cx='50' cy='50' r='44' fill='%2322c55e'/><circle cx='50' cy='50' r='36' fill='%230d1117'/><text y='64' x='50' text-anchor='middle' font-size='42'>🏠</text></svg>"/>
+  <link rel="shortcut icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%230d1117'/><circle cx='50' cy='50' r='44' fill='%2322c55e'/><circle cx='50' cy='50' r='36' fill='%230d1117'/><text y='64' x='50' text-anchor='middle' font-size='42'>🏠</text></svg>"/>
 <link rel="icon" id="favicon-icon"/>
 <link rel="manifest" id="pwa-manifest"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -151,14 +153,14 @@ document.getElementById('pwa-manifest').href='data:application/manifest+json,'+e
 
 <script>
 const FIREBASE_CONFIG={
-  apiKey:"AIzaSyDglQqNZedd7Pj6AJ-298pkhPp90aXMXiM",
-  authDomain:"rentledger-60d3e.firebaseapp.com",
-  projectId:"rentledger-60d3e",
-  storageBucket:"rentledger-60d3e.firebasestorage.app",
-  messagingSenderId:"758702081957",
-  appId:"1:758702081957:web:5e7472f6eea236eb75ca4c"
+  apiKey:"%%FIREBASE_API_KEY%%",
+  authDomain:"%%FIREBASE_AUTH_DOMAIN%%",
+  projectId:"%%FIREBASE_PROJECT_ID%%",
+  storageBucket:"%%FIREBASE_STORAGE_BUCKET%%",
+  messagingSenderId:"%%FIREBASE_MESSAGING_SENDER_ID%%",
+  appId:"%%FIREBASE_APP_ID%%"
 };
-const FIREBASE_CONFIGURED=true;
+const FIREBASE_CONFIGURED=!FIREBASE_CONFIG.apiKey.includes('%%');
 let db=null;
 if(FIREBASE_CONFIGURED){try{firebase.initializeApp(FIREBASE_CONFIG);db=firebase.firestore();}catch(e){console.warn(e);}}
 </script>
