@@ -5,8 +5,8 @@
   "targets": {
     "rentledger-60d3e": {
       "hosting": {
-        "rentledger": [
-          "rentledger"
+        "Rentledger": [
+          "Rentledger"
         ]
       }
     }
