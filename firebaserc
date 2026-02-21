@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "rentledger-60d3e"
+  },
+  "targets": {
+    "rentledger-60d3e": {
+      "hosting": {
+        "rentledger": [
+          "rentledger"
+        ]
+      }
+    }
   }
 }
