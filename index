@@ -37,19 +37,19 @@
   --nh:60px;--radius:10px;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-body{background:var(--bg);color:var(--text);font-family:var(--fm);min-height:100vh;}
+body{background:var(--bg);color:var(--text);font-family:var(--fm);min-height:100vh;font-size:15px;}
 input,select,button{font-family:var(--fm);}
 .app{display:flex;height:100vh;overflow:hidden;}
 .sidebar{width:220px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0;}
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
 .content{flex:1;overflow-y:auto;padding:16px;}
 .topbar{display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:50px;border-bottom:1px solid var(--border);background:var(--bg2);flex-shrink:0;gap:10px;}
-.topbar-title{font-size:13px;font-weight:700;}
+.topbar-title{font-size:15px;font-weight:700;}
 .sb-logo{padding:18px 16px 14px;border-bottom:1px solid var(--border);}
 .sb-logo-main{font-family:var(--fd);font-size:15px;font-weight:700;color:var(--green);}
-.sb-logo-sub{font-size:9px;letter-spacing:2px;color:var(--text3);margin-top:3px;}
+.sb-logo-sub{font-size:15px;letter-spacing:2px;color:var(--text3);margin-top:3px;}
 .sb-nav{padding:8px;}
-.sb-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:500;color:var(--text2);transition:all .15s;border:none;background:none;width:100%;text-align:left;}
+.sb-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;cursor:pointer;font-size:16px;font-weight:500;color:var(--text2);transition:all .15s;border:none;background:none;width:100%;text-align:left;}
 .sb-item:hover{background:var(--bg3);color:var(--text);}
 .sb-item.active{background:#22c55e18;color:var(--green);}
 .dev-pill{font-size:7px;background:var(--green);color:#0d1117;padding:2px 5px;border-radius:3px;font-weight:800;letter-spacing:1px;margin-left:4px;}
@@ -58,45 +58,45 @@ input,select,button{font-family:var(--fm);}
 .bn-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;color:var(--text3);font-size:7px;letter-spacing:1px;text-transform:uppercase;border:none;background:none;font-family:var(--fm);min-height:44px;}
 .bn-item.active{color:var(--green);}
 .card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px;}
-.sec-title{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text2);font-weight:600;margin-bottom:12px;}
+.sec-title{font-size:16px;letter-spacing:2px;text-transform:uppercase;color:var(--text2);font-weight:600;margin-bottom:12px;}
 .stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px;}
 .stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:14px;}
-.stat-label{font-size:9px;letter-spacing:2px;color:var(--text2);text-transform:uppercase;margin-bottom:6px;}
-.stat-val{font-family:var(--fd);font-size:22px;font-weight:700;}
-.stat-sub{font-size:10px;color:var(--text3);margin-top:3px;}
-.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:var(--green);color:#0d1117;border:none;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;}
+.stat-label{font-size:15px;letter-spacing:2px;color:var(--text2);text-transform:uppercase;margin-bottom:6px;}
+.stat-val{font-family:var(--fd);font-size:24px;font-weight:700;}
+.stat-sub{font-size:16px;color:var(--text3);margin-top:3px;}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:var(--green);color:#0d1117;border:none;border-radius:7px;font-size:15px;font-weight:700;cursor:pointer;transition:all .15s;}
 .btn:hover{background:var(--green2);}
 .btn:disabled{opacity:.5;cursor:not-allowed;}
-.btn-outline{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:transparent;color:var(--text);border:1px solid var(--border);border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;}
+.btn-outline{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:transparent;color:var(--text);border:1px solid var(--border);border-radius:7px;font-size:15px;font-weight:600;cursor:pointer;transition:all .15s;}
 .btn-outline:hover{border-color:var(--green);color:var(--green);}
-.btn-sm{padding:4px 9px;font-size:9px;letter-spacing:1px;text-transform:uppercase;background:transparent;color:var(--green);border:1px solid #22c55e44;border-radius:5px;cursor:pointer;font-family:var(--fm);}
-.btn-danger{padding:4px 9px;font-size:9px;background:transparent;color:var(--red);border:1px solid #ef444444;border-radius:5px;cursor:pointer;font-family:var(--fm);}
-.inp{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:9px 12px;color:var(--text);font-size:13px;outline:none;transition:border .15s;}
+.btn-sm{padding:4px 9px;font-size:15px;letter-spacing:1px;text-transform:uppercase;background:transparent;color:var(--green);border:1px solid #22c55e44;border-radius:5px;cursor:pointer;font-family:var(--fm);}
+.btn-danger{padding:4px 9px;font-size:15px;background:transparent;color:var(--red);border:1px solid #ef444444;border-radius:5px;cursor:pointer;font-family:var(--fm);}
+.inp{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:9px 12px;color:var(--text);font-size:15px;outline:none;transition:border .15s;}
 .inp:focus{border-color:var(--green);}
-.sel{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:9px 12px;color:var(--text);font-size:13px;outline:none;}
-.lbl{font-size:10px;letter-spacing:1px;color:var(--text2);text-transform:uppercase;font-weight:600;display:block;margin-bottom:5px;}
+.sel{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:9px 12px;color:var(--text);font-size:15px;outline:none;}
+.lbl{font-size:16px;letter-spacing:1px;color:var(--text2);text-transform:uppercase;font-weight:600;display:block;margin-bottom:5px;}
 .field{margin-bottom:12px;}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 .auth-wrap{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px;background:radial-gradient(ellipse at 50% 0%,#22c55e0a 0%,transparent 70%);}
 .auth-box{width:100%;max-width:400px;}
-.auth-logo{font-family:var(--fd);font-size:34px;font-weight:700;color:var(--green);letter-spacing:-1px;margin-bottom:4px;text-align:center;}
-.auth-tagline{font-size:9px;letter-spacing:4px;color:var(--text3);margin-bottom:32px;text-align:center;text-transform:uppercase;}
+.auth-logo{font-family:var(--fd);font-size:38px;font-weight:700;color:var(--green);letter-spacing:-1px;margin-bottom:4px;text-align:center;}
+.auth-tagline{font-size:15px;letter-spacing:4px;color:var(--text3);margin-bottom:32px;text-align:center;text-transform:uppercase;}
 .auth-tabs{display:flex;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:3px;margin-bottom:20px;}
-.auth-tab{flex:1;padding:8px;text-align:center;font-size:11px;font-weight:600;border-radius:6px;cursor:pointer;border:none;background:none;color:var(--text2);font-family:var(--fm);}
+.auth-tab{flex:1;padding:8px;text-align:center;font-size:15px;font-weight:600;border-radius:6px;cursor:pointer;border:none;background:none;color:var(--text2);font-family:var(--fm);}
 .auth-tab.active{background:var(--green);color:#0d1117;}
-.notice{padding:10px 14px;border-radius:6px;font-size:11px;margin-bottom:12px;}
+.notice{padding:10px 14px;border-radius:6px;font-size:15px;margin-bottom:12px;}
 .notice-ok{background:#22c55e11;border:1px solid #22c55e33;color:var(--green);}
 .notice-err{background:#ef444411;border:1px solid #ef444433;color:var(--red);}
 .notice-warn{background:#f59e0b11;border:1px solid #f59e0b33;color:var(--amber);}
 .notice-blue{background:#3b82f611;border:1px solid #3b82f633;color:var(--blue);}
-.tag{display:inline-flex;align-items:center;font-size:8px;padding:2px 7px;border-radius:99px;font-weight:700;letter-spacing:1px;}
+.tag{display:inline-flex;align-items:center;font-size:11px;padding:2px 7px;border-radius:99px;font-weight:700;letter-spacing:1px;}
 .tag-green{background:#22c55e22;color:var(--green);border:1px solid #22c55e44;}
 .tag-red{background:#ef444422;color:var(--red);border:1px solid #ef444444;}
 .tag-amber{background:#f59e0b22;color:var(--amber);border:1px solid #f59e0b44;}
 .tag-blue{background:#3b82f622;color:var(--blue);border:1px solid #3b82f644;}
 .tag-grey{background:#48505822;color:var(--text3);border:1px solid #48505844;}
-.tbl{width:100%;border-collapse:collapse;font-size:12px;}
-.tbl th{text-align:left;font-size:8px;letter-spacing:2px;color:var(--text3);padding:8px 10px;text-transform:uppercase;border-bottom:1px solid var(--border);}
+.tbl{width:100%;border-collapse:collapse;font-size:16px;}
+.tbl th{text-align:left;font-size:11px;letter-spacing:2px;color:var(--text3);padding:8px 10px;text-transform:uppercase;border-bottom:1px solid var(--border);}
 .tbl td{padding:10px;border-bottom:1px solid var(--border2);vertical-align:middle;}
 .modal-ov{position:fixed;inset:0;background:#000c;z-index:100;display:flex;align-items:center;justify-content:center;padding:16px;}
 .modal-box{background:var(--bg2);border:1px solid var(--border);border-radius:12px;width:100%;max-width:460px;max-height:90vh;overflow-y:auto;}
@@ -109,11 +109,11 @@ input,select,button{font-family:var(--fm);}
 .spinner{width:28px;height:28px;border:2px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite;}
 .plan-card{cursor:pointer;background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:16px 12px;text-align:center;transition:all .2s;}
 .plan-card.sel{background:var(--bg3);border-color:var(--green);}
-.receipt{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:16px;font-family:var(--fd);font-size:11px;line-height:2;}
+.receipt{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:16px;font-family:var(--fd);font-size:15px;line-height:2;}
 .exp-bar{height:4px;border-radius:2px;background:var(--border);overflow:hidden;margin-top:6px;}
 .exp-fill{height:100%;border-radius:2px;}
 .report-tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
-.report-tab{padding:6px 12px;font-size:10px;border-radius:6px;cursor:pointer;border:1px solid var(--border);background:none;color:var(--text2);font-family:var(--fm);}
+.report-tab{padding:6px 12px;font-size:16px;border-radius:6px;cursor:pointer;border:1px solid var(--border);background:none;color:var(--text2);font-family:var(--fm);}
 .report-tab.active{background:var(--green);color:#0d1117;border-color:var(--green);}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
@@ -128,7 +128,7 @@ input,select,button{font-family:var(--fm);}
 </style>
 </head>
 <body>
-<div id="root"><div class="loading"><div class="spinner"></div><div style="font-size:10px;letter-spacing:3px;color:var(--text3)">LOADING…</div></div></div>
+<div id="root"><div class="loading"><div class="spinner"></div><div style="font-size:16px;letter-spacing:3px;color:var(--text3)">LOADING…</div></div></div>
 
 <script>
 function makeIcon(size){
@@ -301,10 +301,10 @@ function Auth({onLogin}){
         <button className="btn" style={{width:'100%',justifyContent:'center',padding:'12px'}} onClick={tab==='signin'?doSignIn:doSignUp} disabled={busy}>
           {busy?'Please wait…':tab==='signin'?'Sign In →':'Create Account →'}
         </button>
-        {tab==='signin'&&<p style={{textAlign:'center',fontSize:10,color:'var(--text3)',marginTop:12}}>
+        {tab==='signin'&&<p style={{textAlign:'center',fontSize:16,color:'var(--text3)',marginTop:12}}>
           No account? <span style={{color:'var(--green)',cursor:'pointer'}} onClick={()=>{setTab('signup');setErr('')}}>Sign up free</span>
         </p>}
-        <div style={{marginTop:20,fontSize:9,color:'var(--text3)',letterSpacing:2,textAlign:'center',opacity:.4}}>RENTLEDGER.WEB.APP</div>
+        <div style={{marginTop:20,fontSize:15,color:'var(--text3)',letterSpacing:2,textAlign:'center',opacity:.4}}>RENTLEDGER.WEB.APP</div>
       </div>
     </div>
   );
@@ -341,9 +341,9 @@ function SubWall({username,onActivated}){
             <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:8,marginBottom:14}}>
               {Object.values(PLANS).map(p=>(
                 <div key={p.id} className={`plan-card${sel===p.id?' sel':''}`} onClick={()=>setSel(p.id)}>
-                  <div style={{fontSize:9,color:sel===p.id?p.color:'var(--text3)',letterSpacing:2,textTransform:'uppercase',marginBottom:4}}>{p.name}</div>
+                  <div style={{fontSize:15,color:sel===p.id?p.color:'var(--text3)',letterSpacing:2,textTransform:'uppercase',marginBottom:4}}>{p.name}</div>
                   <div style={{fontSize:17,fontWeight:800,color:sel===p.id?p.color:'var(--text)',fontFamily:'var(--fd)',marginBottom:3}}>{p.label}</div>
-                  <div style={{fontSize:9,color:'var(--text3)'}}>{p.rooms===999?'Unlimited':p.rooms} rooms</div>
+                  <div style={{fontSize:15,color:'var(--text3)'}}>{p.rooms===999?'Unlimited':p.rooms} rooms</div>
                 </div>
               ))}
             </div>
@@ -351,7 +351,7 @@ function SubWall({username,onActivated}){
               <button className="btn-outline" style={{padding:'13px',justifyContent:'center'}} onClick={doTrial}>🎁 7-Day Free Trial</button>
               <button className="btn" style={{padding:'13px',justifyContent:'center'}} onClick={doPay}>📱 Pay via MoMo</button>
             </div>
-            <div style={{marginTop:14,fontSize:10,color:'var(--text3)',textAlign:'center'}}>
+            <div style={{marginTop:14,fontSize:16,color:'var(--text3)',textAlign:'center'}}>
               Signed in as <span style={{color:'var(--green)'}}>{username}</span> ·
               <span style={{color:'var(--red)',cursor:'pointer',marginLeft:6}} onClick={()=>{lsSet('rlg-session',null);window.location.reload()}}>Sign out</span>
             </div>
@@ -362,26 +362,26 @@ function SubWall({username,onActivated}){
             <div className="card" style={{border:'1px solid var(--green)'}}>
               <div className="sec-title" style={{color:'var(--green)'}}>Payment Instructions</div>
               <div style={{background:'var(--bg3)',borderRadius:8,padding:14,textAlign:'center',marginBottom:14}}>
-                <div style={{fontSize:11,color:'var(--text3)',marginBottom:4}}>Amount to Send</div>
+                <div style={{fontSize:15,color:'var(--text3)',marginBottom:4}}>Amount to Send</div>
                 <div style={{fontSize:30,fontWeight:800,color:'var(--green)',fontFamily:'var(--fd)'}}>{plan.label.replace('/mo','')}</div>
-                <div style={{fontSize:10,color:'var(--text3)',marginTop:3}}>{plan.name} Plan · 30 days</div>
+                <div style={{fontSize:16,color:'var(--text3)',marginTop:3}}>{plan.name} Plan · 30 days</div>
               </div>
               {['Open your MTN or Telecel MoMo app',`Send ${plan.label.replace('/mo','')} to number below`,'Copy the transaction reference/ID',`WhatsApp reference + username "${username}" to owner`,"Tap 'I've Paid' below — activated within minutes"].map((s,i)=>(
                 <div key={i} style={{display:'flex',gap:10,marginBottom:10,alignItems:'flex-start'}}>
-                  <div style={{width:20,height:20,borderRadius:'50%',background:'var(--green)',color:'#0d1117',fontSize:10,fontWeight:800,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>{i+1}</div>
-                  <div style={{fontSize:12,color:'var(--text2)',paddingTop:2,lineHeight:1.6}}>{s}</div>
+                  <div style={{width:20,height:20,borderRadius:'50%',background:'var(--green)',color:'#0d1117',fontSize:16,fontWeight:800,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>{i+1}</div>
+                  <div style={{fontSize:16,color:'var(--text2)',paddingTop:2,lineHeight:1.6}}>{s}</div>
                 </div>
               ))}
               <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8,marginTop:10}}>
                 <div style={{background:'#f59e0b22',border:'1px solid #f59e0b44',borderRadius:8,padding:12,textAlign:'center'}}>
-                  <div style={{fontSize:8,letterSpacing:2,color:'var(--amber)',fontWeight:700,marginBottom:3}}>MTN MOMO</div>
+                  <div style={{fontSize:11,letterSpacing:2,color:'var(--amber)',fontWeight:700,marginBottom:3}}>MTN MOMO</div>
                   <div style={{fontSize:16,fontWeight:800,color:'var(--amber)',fontFamily:'var(--fd)'}}>{OWNER.mtn}</div>
-                  <div style={{fontSize:9,color:'var(--text3)',marginTop:2}}>{OWNER.name}</div>
+                  <div style={{fontSize:15,color:'var(--text3)',marginTop:2}}>{OWNER.name}</div>
                 </div>
                 <div style={{background:'#ef444422',border:'1px solid #ef444444',borderRadius:8,padding:12,textAlign:'center'}}>
-                  <div style={{fontSize:8,letterSpacing:2,color:'var(--red)',fontWeight:700,marginBottom:3}}>TELECEL</div>
+                  <div style={{fontSize:11,letterSpacing:2,color:'var(--red)',fontWeight:700,marginBottom:3}}>TELECEL</div>
                   <div style={{fontSize:16,fontWeight:800,color:'var(--red)',fontFamily:'var(--fd)'}}>{OWNER.telecel}</div>
-                  <div style={{fontSize:9,color:'var(--text3)',marginTop:2}}>{OWNER.name}</div>
+                  <div style={{fontSize:15,color:'var(--text3)',marginTop:2}}>{OWNER.name}</div>
                 </div>
               </div>
             </div>
@@ -407,17 +407,17 @@ function MobileNav({NAV,view,setView,onLogout,session,syncState}){
           <div style={{position:'absolute',bottom:'calc(var(--nh) + env(safe-area-inset-bottom,0px))',left:0,right:0,background:'var(--bg2)',borderTop:'1px solid var(--border)',borderRadius:'16px 16px 0 0',padding:'16px 12px 10px'}} onClick={e=>e.stopPropagation()}>
             <div style={{display:'flex',alignItems:'center',gap:6,marginBottom:14,paddingBottom:12,borderBottom:'1px solid var(--border)'}}>
               <div style={{width:7,height:7,borderRadius:'50%',background:syncColor,flexShrink:0}}/>
-              <span style={{fontSize:10,color:'var(--text3)',flex:1}}>{syncState==='saving'?'Saving…':'All saved'}</span>
-              <span style={{fontSize:10,color:'var(--text3)'}}>@{session.username}</span>
+              <span style={{fontSize:16,color:'var(--text3)',flex:1}}>{syncState==='saving'?'Saving…':'All saved'}</span>
+              <span style={{fontSize:16,color:'var(--text3)'}}>@{session.username}</span>
             </div>
             <div style={{display:'grid',gridTemplateColumns:`repeat(${more.length},1fr)`,gap:8,marginBottom:12}}>
               {more.map(n=>(
-                <button key={n.id} onClick={()=>go(n.id)} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:5,padding:'14px 8px',background:view===n.id?'#22c55e18':'var(--bg)',border:`1px solid ${view===n.id?'var(--green)':'var(--border)'}`,borderRadius:10,cursor:'pointer',color:view===n.id?'var(--green)':'var(--text2)',fontFamily:'var(--fm)',fontSize:9,letterSpacing:1,textTransform:'uppercase'}}>
+                <button key={n.id} onClick={()=>go(n.id)} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:5,padding:'14px 8px',background:view===n.id?'#22c55e18':'var(--bg)',border:`1px solid ${view===n.id?'var(--green)':'var(--border)'}`,borderRadius:10,cursor:'pointer',color:view===n.id?'var(--green)':'var(--text2)',fontFamily:'var(--fm)',fontSize:15,letterSpacing:1,textTransform:'uppercase'}}>
                   <span style={{fontSize:20}}>{n.ico}</span>{n.label}
                 </button>
               ))}
             </div>
-            <button onClick={onLogout} style={{width:'100%',display:'flex',alignItems:'center',justifyContent:'center',gap:8,padding:13,background:'#ef444411',border:'1px solid #ef444433',borderRadius:10,color:'var(--red)',fontFamily:'var(--fm)',fontSize:11,letterSpacing:2,textTransform:'uppercase',cursor:'pointer'}}>
+            <button onClick={onLogout} style={{width:'100%',display:'flex',alignItems:'center',justifyContent:'center',gap:8,padding:13,background:'#ef444411',border:'1px solid #ef444433',borderRadius:10,color:'var(--red)',fontFamily:'var(--fm)',fontSize:15,letterSpacing:2,textTransform:'uppercase',cursor:'pointer'}}>
               Sign Out
             </button>
           </div>
@@ -462,7 +462,7 @@ function VDash({properties,tenants,payments,session,setView}){
             {expired.length>0&&<><strong>{expired.length}</strong> tenant{expired.length>1?'s':''} expired! </>}
             {expiring.filter(t=>daysFromNow(t.expiryDate)>0&&daysFromNow(t.expiryDate)<=30).length>0&&<><strong>{expiring.filter(t=>daysFromNow(t.expiryDate)>0&&daysFromNow(t.expiryDate)<=30).length}</strong> expiring in ≤30 days</>}
           </span>
-          <button className="btn-sm" style={{fontSize:8}} onClick={()=>setView('tenants')}>View →</button>
+          <button className="btn-sm" style={{fontSize:11}} onClick={()=>setView('tenants')}>View →</button>
         </div>
       )}
       <div className="stats-grid">
@@ -493,19 +493,19 @@ function VDash({properties,tenants,payments,session,setView}){
       <div className="card">
         <div className="sec-title">🔔 Expiry Alerts — Next 60 Days</div>
         {expiring.length===0
-          ?<div style={{fontSize:11,color:'var(--text3)'}}>No tenants expiring in next 60 days ✓</div>
+          ?<div style={{fontSize:15,color:'var(--text3)'}}>No tenants expiring in next 60 days ✓</div>
           :expiring.map(t=>{
             const es=expiryStatus(t.expiryDate);
             const room=allRooms.find(r=>r.id===t.roomId);
             return(
               <div key={t.id} style={{display:'flex',alignItems:'center',gap:10,padding:'9px 0',borderBottom:'1px solid var(--border2)'}}>
                 <div style={{flex:1}}>
-                  <div style={{fontWeight:600,fontSize:12,marginBottom:2}}>{t.name}</div>
-                  <div style={{fontSize:10,color:'var(--text3)'}}>{room?.propName||'—'} · Room {room?.number||'—'}</div>
+                  <div style={{fontWeight:600,fontSize:16,marginBottom:2}}>{t.name}</div>
+                  <div style={{fontSize:16,color:'var(--text3)'}}>{room?.propName||'—'} · Room {room?.number||'—'}</div>
                 </div>
                 <div style={{textAlign:'right'}}>
                   <span className={`tag ${es.tag}`}>{es.label}</span>
-                  <div style={{fontSize:9,color:'var(--text3)',marginTop:3}}>{fmtDate(t.expiryDate)}</div>
+                  <div style={{fontSize:15,color:'var(--text3)',marginTop:3}}>{fmtDate(t.expiryDate)}</div>
                 </div>
               </div>
             );
@@ -516,14 +516,14 @@ function VDash({properties,tenants,payments,session,setView}){
       {/* Recent payments */}
       <div className="card">
         <div className="sec-title">Recent Payments</div>
-        {payments.length===0?<div style={{fontSize:11,color:'var(--text3)'}}>No payments yet.</div>
+        {payments.length===0?<div style={{fontSize:15,color:'var(--text3)'}}>No payments yet.</div>
           :payments.slice().sort((a,b)=>new Date(b.datePaid)-new Date(a.datePaid)).slice(0,6).map(p=>{
             const t=tenants.find(t=>t.id===p.tenantId);
             return(
               <div key={p.id} style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'8px 0',borderBottom:'1px solid var(--border2)'}}>
                 <div>
-                  <div style={{fontWeight:600,fontSize:12,marginBottom:1}}>{t?.name||'—'}</div>
-                  <div style={{fontSize:10,color:'var(--text3)'}}>{fmtDate(p.datePaid)} · {p.months} month{p.months!==1?'s':''}</div>
+                  <div style={{fontWeight:600,fontSize:16,marginBottom:1}}>{t?.name||'—'}</div>
+                  <div style={{fontSize:16,color:'var(--text3)'}}>{fmtDate(p.datePaid)} · {p.months} month{p.months!==1?'s':''}</div>
                 </div>
                 <div style={{fontWeight:700,color:'var(--green)',fontFamily:'var(--fd)',fontSize:13}}>{fmt(p.amount)}</div>
               </div>
@@ -557,7 +557,7 @@ function VProperties({properties,tenants,setProperties}){
       <div style={{display:'flex',justifyContent:'flex-end',marginBottom:14}}>
         <button className="btn" onClick={()=>setModal({type:'prop',data:null})}>{I.plus} Add Property</button>
       </div>
-      {properties.length===0&&<div className="card empty-state"><div className="empty-ico">🏘️</div><div style={{fontSize:12,letterSpacing:2}}>NO PROPERTIES YET</div><div style={{fontSize:11,marginTop:8}}>Add your first property to start tracking</div></div>}
+      {properties.length===0&&<div className="card empty-state"><div className="empty-ico">🏘️</div><div style={{fontSize:16,letterSpacing:2}}>NO PROPERTIES YET</div><div style={{fontSize:15,marginTop:8}}>Add your first property to start tracking</div></div>}
       {properties.map(prop=>{
         const rooms=prop.rooms||[];
         const occupied=rooms.filter(r=>active.some(t=>t.roomId===r.id)).length;
@@ -570,8 +570,8 @@ function VProperties({properties,tenants,setProperties}){
                   <span style={{fontWeight:700,fontSize:14}}>{prop.name}</span>
                   <span className="tag tag-grey">{prop.type}</span>
                 </div>
-                <div style={{fontSize:11,color:'var(--text3)',marginBottom:4}}>{prop.address}</div>
-                <div style={{display:'flex',gap:12,fontSize:10,color:'var(--text2)'}}>
+                <div style={{fontSize:15,color:'var(--text3)',marginBottom:4}}>{prop.address}</div>
+                <div style={{display:'flex',gap:12,fontSize:16,color:'var(--text2)'}}>
                   <span>🏠 {rooms.length} rooms</span><span>👤 {occupied} occupied</span><span>📭 {rooms.length-occupied} vacant</span>
                 </div>
               </div>
@@ -580,14 +580,14 @@ function VProperties({properties,tenants,setProperties}){
             {isExp&&(
               <div style={{marginTop:14,paddingTop:14,borderTop:'1px solid var(--border)'}}>
                 <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:12,flexWrap:'wrap',gap:8}}>
-                  <span style={{fontSize:9,letterSpacing:2,color:'var(--text3)',textTransform:'uppercase'}}>Rooms ({rooms.length})</span>
+                  <span style={{fontSize:15,letterSpacing:2,color:'var(--text3)',textTransform:'uppercase'}}>Rooms ({rooms.length})</span>
                   <div style={{display:'flex',gap:6}}>
                     <button className="btn-sm" onClick={()=>setModal({type:'prop',data:prop})}>Edit</button>
                     <button className="btn-sm" onClick={()=>setModal({type:'room',propId:prop.id,data:null})}>+ Room</button>
                     <button className="btn-danger" onClick={()=>delProp(prop.id)}>Delete</button>
                   </div>
                 </div>
-                {rooms.length===0&&<div style={{fontSize:11,color:'var(--text3)'}}>No rooms yet.</div>}
+                {rooms.length===0&&<div style={{fontSize:15,color:'var(--text3)'}}>No rooms yet.</div>}
                 <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(150px,1fr))',gap:8}}>
                   {rooms.map(r=>{
                     const t=active.find(t=>t.roomId===r.id);
@@ -597,13 +597,13 @@ function VProperties({properties,tenants,setProperties}){
                         <div style={{display:'flex',justifyContent:'space-between',marginBottom:5}}>
                           <span style={{fontWeight:700,fontSize:13}}>Room {r.number}</span>
                           <div style={{display:'flex',gap:4}}>
-                            <button className="btn-sm" style={{padding:'2px 6px',fontSize:8}} onClick={()=>setModal({type:'room',propId:prop.id,data:r})}>Edit</button>
-                            <button className="btn-danger" style={{padding:'2px 6px',fontSize:8}} onClick={()=>delRoom(prop.id,r.id)}>Del</button>
+                            <button className="btn-sm" style={{padding:'2px 6px',fontSize:11}} onClick={()=>setModal({type:'room',propId:prop.id,data:r})}>Edit</button>
+                            <button className="btn-danger" style={{padding:'2px 6px',fontSize:11}} onClick={()=>delRoom(prop.id,r.id)}>Del</button>
                           </div>
                         </div>
-                        <div style={{fontSize:9,color:'var(--text3)',marginBottom:3}}>{r.type}</div>
-                        <div style={{fontSize:11,fontWeight:700,color:'var(--green)',fontFamily:'var(--fd)'}}>{fmt(r.rent)}<span style={{fontSize:8,color:'var(--text3)',fontWeight:400}}>/mo</span></div>
-                        {t?<div style={{marginTop:6}}><div style={{fontSize:10,fontWeight:500,marginBottom:2}}>{t.name}</div>{es&&<span className={`tag ${es.tag}`}>{es.label}</span>}</div>
+                        <div style={{fontSize:15,color:'var(--text3)',marginBottom:3}}>{r.type}</div>
+                        <div style={{fontSize:15,fontWeight:700,color:'var(--green)',fontFamily:'var(--fd)'}}>{fmt(r.rent)}<span style={{fontSize:11,color:'var(--text3)',fontWeight:400}}>/mo</span></div>
+                        {t?<div style={{marginTop:6}}><div style={{fontSize:16,fontWeight:500,marginBottom:2}}>{t.name}</div>{es&&<span className={`tag ${es.tag}`}>{es.label}</span>}</div>
                          :<div style={{marginTop:6}}><span className="tag tag-grey">VACANT</span></div>}
                       </div>
                     );
@@ -691,7 +691,7 @@ function VTenants({properties,tenants,setTenants,payments}){
       <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:12,flexWrap:'wrap',gap:8}}>
         <div style={{display:'flex',gap:6}}>
           {['active','vacated','all'].map(f=>(
-            <button key={f} className={filter===f?'btn':'btn-outline'} style={{padding:'6px 12px',fontSize:10,textTransform:'capitalize'}} onClick={()=>setFilter(f)}>{f}</button>
+            <button key={f} className={filter===f?'btn':'btn-outline'} style={{padding:'6px 12px',fontSize:16,textTransform:'capitalize'}} onClick={()=>setFilter(f)}>{f}</button>
           ))}
         </div>
         <button className="btn" onClick={()=>setModal({data:null})}>{I.plus} Add Tenant</button>
@@ -699,7 +699,7 @@ function VTenants({properties,tenants,setTenants,payments}){
       <div className="card" style={{marginBottom:12}}>
         <input className="inp" placeholder="Search name or phone…" value={search} onChange={e=>setSearch(e.target.value)}/>
       </div>
-      {list.length===0&&<div className="card empty-state"><div className="empty-ico">👤</div><div style={{fontSize:12,letterSpacing:2}}>NO TENANTS FOUND</div></div>}
+      {list.length===0&&<div className="card empty-state"><div className="empty-ico">👤</div><div style={{fontSize:16,letterSpacing:2}}>NO TENANTS FOUND</div></div>}
       {list.map(t=>{
         const room=allRooms.find(r=>r.id===t.roomId);
         const es=t.expiryDate?expiryStatus(t.expiryDate):null;
@@ -713,13 +713,13 @@ function VTenants({properties,tenants,setTenants,payments}){
                   {es&&<span className={`tag ${es.tag}`}>{es.label}</span>}
                   {t.status==='vacated'&&<span className="tag tag-grey">VACATED</span>}
                 </div>
-                <div style={{fontSize:11,color:'var(--text3)',marginBottom:2}}>📞 {t.phone||'—'}</div>
-                <div style={{fontSize:11,color:'var(--text3)',marginBottom:2}}>🏠 {room?.propName||'—'} · Room {room?.number||'—'}</div>
-                <div style={{fontSize:11,color:'var(--text3)'}}>Move-in: {fmtDate(t.moveIn)}{t.expiryDate&&` · Expires: ${fmtDate(t.expiryDate)}`}</div>
+                <div style={{fontSize:15,color:'var(--text3)',marginBottom:2}}>📞 {t.phone||'—'}</div>
+                <div style={{fontSize:15,color:'var(--text3)',marginBottom:2}}>🏠 {room?.propName||'—'} · Room {room?.number||'—'}</div>
+                <div style={{fontSize:15,color:'var(--text3)'}}>Move-in: {fmtDate(t.moveIn)}{t.expiryDate&&` · Expires: ${fmtDate(t.expiryDate)}`}</div>
               </div>
               <div style={{textAlign:'right',flexShrink:0}}>
-                <div style={{fontFamily:'var(--fd)',fontSize:14,fontWeight:700,color:'var(--green)'}}>{fmt(paid)}</div>
-                <div style={{fontSize:9,color:'var(--text3)'}}>total paid</div>
+                <div style={{fontFamily:'var(--fd)',fontSize:16,fontWeight:700,color:'var(--green)'}}>{fmt(paid)}</div>
+                <div style={{fontSize:15,color:'var(--text3)'}}>total paid</div>
               </div>
             </div>
             {es&&t.expiryDate&&(
@@ -812,7 +812,7 @@ function VPayments({properties,tenants,payments,setPayments,setTenants}){
         <input className="inp" style={{maxWidth:200}} placeholder="Search tenant…" value={search} onChange={e=>setSearch(e.target.value)}/>
         <button className="btn" onClick={()=>setModal(true)}>{I.plus} Record Payment</button>
       </div>
-      {list.length===0&&<div className="card empty-state"><div className="empty-ico">💰</div><div style={{fontSize:12,letterSpacing:2}}>NO PAYMENTS YET</div></div>}
+      {list.length===0&&<div className="card empty-state"><div className="empty-ico">💰</div><div style={{fontSize:16,letterSpacing:2}}>NO PAYMENTS YET</div></div>}
       {list.map(p=>{
         const t=tenants.find(t=>t.id===p.tenantId);
         const room=allRooms.find(r=>r.id===p.roomId);
@@ -820,17 +820,17 @@ function VPayments({properties,tenants,payments,setPayments,setTenants}){
           <div key={p.id} className="card" style={{marginBottom:8}}>
             <div style={{display:'flex',justifyContent:'space-between',gap:10}}>
               <div style={{flex:1}}>
-                <div style={{fontWeight:700,fontSize:13,marginBottom:3}}>{t?.name||'Unknown'}</div>
-                <div style={{fontSize:10,color:'var(--text3)',marginBottom:2}}>{room?.propName||'—'} · Room {room?.number||'—'}</div>
-                <div style={{fontSize:10,color:'var(--text3)',marginBottom:2}}>Paid: {fmtDate(p.datePaid)} · {p.months} month{p.months!==1?'s':''}</div>
-                {p.newExpiryDate&&<div style={{fontSize:10,color:'var(--text3)'}}>Valid to: {fmtDate(p.newExpiryDate)}</div>}
-                {p.notes&&<div style={{fontSize:10,color:'var(--text3)'}}>📝 {p.notes}</div>}
+                <div style={{fontWeight:700,fontSize:15,marginBottom:3}}>{t?.name||'Unknown'}</div>
+                <div style={{fontSize:16,color:'var(--text3)',marginBottom:2}}>{room?.propName||'—'} · Room {room?.number||'—'}</div>
+                <div style={{fontSize:16,color:'var(--text3)',marginBottom:2}}>Paid: {fmtDate(p.datePaid)} · {p.months} month{p.months!==1?'s':''}</div>
+                {p.newExpiryDate&&<div style={{fontSize:16,color:'var(--text3)'}}>Valid to: {fmtDate(p.newExpiryDate)}</div>}
+                {p.notes&&<div style={{fontSize:16,color:'var(--text3)'}}>📝 {p.notes}</div>}
               </div>
               <div style={{textAlign:'right'}}>
                 <div style={{fontFamily:'var(--fd)',fontWeight:700,fontSize:15,color:'var(--green)',marginBottom:6}}>{fmt(p.amount)}</div>
                 <div style={{display:'flex',gap:5,justifyContent:'flex-end'}}>
-                  <button className="btn-sm" style={{fontSize:8}} onClick={()=>setReceipt({p,t,room})}>{I.receipt} Receipt</button>
-                  <button className="btn-danger" style={{fontSize:8}} onClick={()=>del(p.id)}>Del</button>
+                  <button className="btn-sm" style={{fontSize:11}} onClick={()=>setReceipt({p,t,room})}>{I.receipt} Receipt</button>
+                  <button className="btn-danger" style={{fontSize:11}} onClick={()=>del(p.id)}>Del</button>
                 </div>
               </div>
             </div>
@@ -916,14 +916,14 @@ function ReceiptModal({p,t,room,onClose}){
           <button style={{background:'none',border:'none',color:'var(--text3)',cursor:'pointer',fontSize:18}} onClick={onClose}>✕</button></div>
         <div className="modal-body">
           <div className="receipt">
-            <div style={{textAlign:'center',marginBottom:12,fontSize:14,fontWeight:700,color:'var(--green)'}}>🏠 RENT RECEIPT</div>
+            <div style={{textAlign:'center',marginBottom:12,fontSize:16,fontWeight:700,color:'var(--green)'}}>🏠 RENT RECEIPT</div>
             {[['Tenant',t?.name],['Phone',t?.phone],['Property',room?.propName],['Room',`${room?.number||'—'} (${room?.type||'—'})`],['Amount',fmt(p.amount)],['Months',`${p.months} month${p.months!==1?'s':''}`],['Date Paid',fmtDate(p.datePaid)],p.newExpiryDate&&['Valid To',fmtDate(p.newExpiryDate)],p.notes&&['Notes',p.notes]].filter(Boolean).map(([k,v])=>(
               <div key={k} style={{display:'flex',gap:10,padding:'3px 0',borderBottom:'1px dashed var(--border)'}}>
                 <span style={{color:'var(--text3)',minWidth:80,flexShrink:0}}>{k}</span>
                 <span style={{color:'var(--text)',fontWeight:600}}>{v||'—'}</span>
               </div>
             ))}
-            <div style={{textAlign:'center',marginTop:12,fontSize:9,color:'var(--text3)',letterSpacing:2}}>POWERED BY RENTLEDGER</div>
+            <div style={{textAlign:'center',marginTop:12,fontSize:15,color:'var(--text3)',letterSpacing:2}}>POWERED BY RENTLEDGER</div>
           </div>
         </div>
         <div className="modal-foot"><button className="btn-outline" onClick={onClose}>Close</button>
@@ -967,7 +967,7 @@ function VReports({properties,tenants,payments}){
         <div className="sec-title">Expiry Overview</div>
         {[['Expired',expd,'var(--red)'],['≤30 days',exp30,'var(--amber)'],['31–60 days',exp60,'var(--blue)'],['All clear',active.length-expd-exp30-exp60,'var(--green)']].map(([l,n,c])=>(
           <div key={l} style={{display:'flex',justifyContent:'space-between',padding:'8px 0',borderBottom:'1px solid var(--border2)'}}>
-            <span style={{fontSize:12,color:'var(--text2)'}}>{l}</span>
+            <span style={{fontSize:16,color:'var(--text2)'}}>{l}</span>
             <span style={{fontWeight:700,color:c,fontFamily:'var(--fd)'}}>{n}</span>
           </div>
         ))}
@@ -977,8 +977,8 @@ function VReports({properties,tenants,payments}){
         {monthly.map(({m,total,count})=>(
           <div key={m} style={{marginBottom:10}}>
             <div style={{display:'flex',justifyContent:'space-between',marginBottom:4}}>
-              <span style={{fontSize:11,color:'var(--text2)'}}>{m.slice(0,3)}</span>
-              <span style={{fontSize:11,fontWeight:600,color:total>0?'var(--green)':'var(--text3)',fontFamily:'var(--fd)'}}>{total>0?fmt(total):'—'}</span>
+              <span style={{fontSize:15,color:'var(--text2)'}}>{m.slice(0,3)}</span>
+              <span style={{fontSize:15,fontWeight:600,color:total>0?'var(--green)':'var(--text3)',fontFamily:'var(--fd)'}}>{total>0?fmt(total):'—'}</span>
             </div>
             <div style={{height:6,background:'var(--border)',borderRadius:3,overflow:'hidden'}}>
               <div style={{height:'100%',background:'var(--green)',width:`${total/maxM*100}%`,borderRadius:3,transition:'width .4s'}}/>
@@ -988,7 +988,7 @@ function VReports({properties,tenants,payments}){
       </div>
       <div className="card">
         <div className="sec-title">By Property — {yr}</div>
-        {properties.length===0&&<div style={{fontSize:11,color:'var(--text3)'}}>No properties yet.</div>}
+        {properties.length===0&&<div style={{fontSize:15,color:'var(--text3)'}}>No properties yet.</div>}
         {properties.map(prop=>{
           const pRooms=(prop.rooms||[]).map(r=>r.id);
           const pTotal=yPays.filter(p=>pRooms.includes(p.roomId)).reduce((s,p)=>s+p.amount,0);
@@ -996,8 +996,8 @@ function VReports({properties,tenants,payments}){
           return(
             <div key={prop.id} style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'10px 0',borderBottom:'1px solid var(--border2)'}}>
               <div>
-                <div style={{fontWeight:600,fontSize:12,marginBottom:2}}>{prop.name}</div>
-                <div style={{fontSize:10,color:'var(--text3)'}}>{prop.address} · {(prop.rooms||[]).length} rooms</div>
+                <div style={{fontWeight:600,fontSize:16,marginBottom:2}}>{prop.name}</div>
+                <div style={{fontSize:16,color:'var(--text3)'}}>{prop.address} · {(prop.rooms||[]).length} rooms</div>
               </div>
               <div style={{fontWeight:700,fontFamily:'var(--fd)',color:'var(--green)',fontSize:13}}>{pTotal>0?fmt(pTotal):'—'}</div>
             </div>
@@ -1084,15 +1084,15 @@ function VAdmin(){
                   <div key={p.id} style={{padding:'10px 0',borderBottom:'1px solid var(--border2)'}}>
                     <div style={{display:'flex',justifyContent:'space-between',marginBottom:8,flexWrap:'wrap',gap:6}}>
                       <div>
-                        <span style={{fontWeight:700,fontSize:13,marginRight:8}}>{p.username}</span>
+                        <span style={{fontWeight:700,fontSize:15,marginRight:8}}>{p.username}</span>
                         <span className="tag tag-amber">{PLANS[p.plan]?.label||p.plan}</span>
                       </div>
-                      <span style={{fontSize:10,color:'var(--text3)'}}>{age}</span>
+                      <span style={{fontSize:16,color:'var(--text3)'}}>{age}</span>
                     </div>
                     <div style={{display:'flex',gap:6,flexWrap:'wrap'}}>
-                      <button className="btn-sm" style={{fontSize:9}} onClick={()=>activate(p.username,'basic',30)}>Activate Basic 30d</button>
-                      <button className="btn-sm" style={{fontSize:9}} onClick={()=>activate(p.username,'standard',30)}>Standard 30d</button>
-                      <button className="btn-sm" style={{fontSize:9}} onClick={()=>activate(p.username,'premium',30)}>Premium 30d</button>
+                      <button className="btn-sm" style={{fontSize:11}} onClick={()=>activate(p.username,'basic',30)}>Activate Basic 30d</button>
+                      <button className="btn-sm" style={{fontSize:11}} onClick={()=>activate(p.username,'standard',30)}>Standard 30d</button>
+                      <button className="btn-sm" style={{fontSize:11}} onClick={()=>activate(p.username,'premium',30)}>Premium 30d</button>
                     </div>
                   </div>
                 );
@@ -1115,9 +1115,9 @@ function VAdmin(){
               <div key={u} className="card" style={{marginBottom:8}}>
                 <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:8,flexWrap:'wrap',gap:6}}>
                   <div>
-                    <div style={{fontWeight:700,fontSize:13,marginBottom:2}}>{usr?.business||u}</div>
-                    <div style={{fontSize:10,color:'var(--text3)',marginBottom:4}}>@{u} · Joined {usr?.created?new Date(usr.created).toLocaleDateString('en-GH'):'—'}</div>
-                    {s.active&&!s.trial&&s.paidUntil&&<div style={{fontSize:10,color:'var(--text3)'}}>Paid until: {new Date(s.paidUntil).toLocaleDateString('en-GH')}</div>}
+                    <div style={{fontWeight:700,fontSize:15,marginBottom:2}}>{usr?.business||u}</div>
+                    <div style={{fontSize:16,color:'var(--text3)',marginBottom:4}}>@{u} · Joined {usr?.created?new Date(usr.created).toLocaleDateString('en-GH'):'—'}</div>
+                    {s.active&&!s.trial&&s.paidUntil&&<div style={{fontSize:16,color:'var(--text3)'}}>Paid until: {new Date(s.paidUntil).toLocaleDateString('en-GH')}</div>}
                   </div>
                   <span className={`tag ${s.active&&!s.trial?'tag-green':s.trial?'tag-amber':'tag-red'}`}>
                     {s.active&&!s.trial?`ACTIVE · ${s.plan?.toUpperCase()}`:(s.trial?`TRIAL · ${s.daysLeft}d left`:'EXPIRED')}
@@ -1125,11 +1125,11 @@ function VAdmin(){
                 </div>
                 <div style={{display:'flex',gap:6,flexWrap:'wrap',alignItems:'center'}}>
                   <input type="number" value={days} onChange={e=>setCustomDays(c=>({...c,[u]:parseInt(e.target.value)||30}))} style={{width:60,padding:'4px 8px',background:'var(--bg)',border:'1px solid var(--border)',borderRadius:5,color:'var(--text)',fontSize:11}} min="1" max="365"/>
-                  <span style={{fontSize:9,color:'var(--text3)'}}>days</span>
-                  <button className="btn-sm" style={{fontSize:8}} onClick={()=>activate(u,'basic',days)}>Basic</button>
-                  <button className="btn-sm" style={{fontSize:8}} onClick={()=>activate(u,'standard',days)}>Standard</button>
-                  <button className="btn-sm" style={{fontSize:8}} onClick={()=>activate(u,'premium',days)}>Premium</button>
-                  <button className="btn-danger" style={{fontSize:8}} onClick={()=>deactivate(u)}>Revoke</button>
+                  <span style={{fontSize:15,color:'var(--text3)'}}>days</span>
+                  <button className="btn-sm" style={{fontSize:11}} onClick={()=>activate(u,'basic',days)}>Basic</button>
+                  <button className="btn-sm" style={{fontSize:11}} onClick={()=>activate(u,'standard',days)}>Standard</button>
+                  <button className="btn-sm" style={{fontSize:11}} onClick={()=>activate(u,'premium',days)}>Premium</button>
+                  <button className="btn-danger" style={{fontSize:11}} onClick={()=>deactivate(u)}>Revoke</button>
                 </div>
               </div>
             );
@@ -1142,14 +1142,14 @@ function VAdmin(){
         <div>
           <div className="card">
             <div className="sec-title">Active Subscriptions</div>
-            {payingUsers.length===0?<div style={{fontSize:11,color:'var(--text3)'}}>No paying users yet.</div>
+            {payingUsers.length===0?<div style={{fontSize:15,color:'var(--text3)'}}>No paying users yet.</div>
               :payingUsers.map(u=>{
                 const s=subStatus(u);
                 return(
                   <div key={u} style={{display:'flex',justifyContent:'space-between',padding:'9px 0',borderBottom:'1px solid var(--border2)'}}>
                     <div>
-                      <div style={{fontWeight:600,fontSize:12}}>{users[u]?.business||u} <span style={{fontSize:9,color:'var(--text3)'}}>@{u}</span></div>
-                      <div style={{fontSize:10,color:'var(--text3)'}}>Until: {s.paidUntil?new Date(s.paidUntil).toLocaleDateString('en-GH'):'—'}</div>
+                      <div style={{fontWeight:600,fontSize:12}}>{users[u]?.business||u} <span style={{fontSize:15,color:'var(--text3)'}}>@{u}</span></div>
+                      <div style={{fontSize:16,color:'var(--text3)'}}>Until: {s.paidUntil?new Date(s.paidUntil).toLocaleDateString('en-GH'):'—'}</div>
                     </div>
                     <div>
                       <div style={{fontFamily:'var(--fd)',fontWeight:700,color:'var(--green)',fontSize:13}}>{PLANS[s.plan]?.label||'—'}</div>
@@ -1162,15 +1162,15 @@ function VAdmin(){
           </div>
           <div className="card">
             <div className="sec-title">Pending Requests ({pending.length})</div>
-            {pending.length===0?<div style={{fontSize:11,color:'var(--text3)'}}>No pending payments.</div>
+            {pending.length===0?<div style={{fontSize:15,color:'var(--text3)'}}>No pending payments.</div>
               :pending.map(p=>(
                 <div key={p.id} style={{display:'flex',justifyContent:'space-between',padding:'9px 0',borderBottom:'1px solid var(--border2)'}}>
                   <div>
                     <div style={{fontWeight:600,fontSize:12}}>{p.username}</div>
-                    <div style={{fontSize:10,color:'var(--text3)'}}>{PLANS[p.plan]?.label||p.plan} · {new Date(p.requestedAt).toLocaleDateString()}</div>
+                    <div style={{fontSize:16,color:'var(--text3)'}}>{PLANS[p.plan]?.label||p.plan} · {new Date(p.requestedAt).toLocaleDateString()}</div>
                   </div>
                   <div style={{display:'flex',gap:6}}>
-                    <button className="btn-sm" style={{fontSize:9}} onClick={()=>activate(p.username,p.plan,30)}>Activate</button>
+                    <button className="btn-sm" style={{fontSize:11}} onClick={()=>activate(p.username,p.plan,30)}>Activate</button>
                   </div>
                 </div>
               ))
@@ -1182,10 +1182,10 @@ function VAdmin(){
               const count=payingUsers.filter(u=>subStatus(u).plan===plan.id).length;
               return(
                 <div key={plan.id} style={{display:'flex',justifyContent:'space-between',padding:'8px 0',borderBottom:'1px solid var(--border2)'}}>
-                  <span style={{fontSize:12,color:'var(--text2)'}}>{plan.name} ({plan.label})</span>
+                  <span style={{fontSize:16,color:'var(--text2)'}}>{plan.name} ({plan.label})</span>
                   <div style={{textAlign:'right'}}>
                     <div style={{fontWeight:700,color:'var(--green)',fontFamily:'var(--fd)',fontSize:12}}>{fmt(count*plan.price)}</div>
-                    <div style={{fontSize:9,color:'var(--text3)'}}>{count} user{count!==1?'s':''}</div>
+                    <div style={{fontSize:15,color:'var(--text3)'}}>{count} user{count!==1?'s':''}</div>
                   </div>
                 </div>
               );
@@ -1202,7 +1202,7 @@ function VAdmin(){
         <div>
           <div className="card">
             <div className="sec-title">Developer Account</div>
-            <div style={{fontSize:12,color:'var(--text2)',lineHeight:2}}>
+            <div style={{fontSize:16,color:'var(--text2)',lineHeight:2}}>
               <div>Username: <span style={{color:'var(--green)',fontFamily:'var(--fd)'}}>{DEV_U}</span><span className="dev-pill" style={{marginLeft:8}}>ADMIN</span></div>
               <div>Business: <span style={{color:'var(--text)'}}>AMIN REAL ESTATES</span></div>
               <div>Access: <span style={{color:'var(--green)'}}>Unlimited · Premium · Never expires</span></div>
@@ -1212,14 +1212,14 @@ function VAdmin(){
             <div className="sec-title">Payment Numbers</div>
             <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10}}>
               <div style={{background:'#f59e0b22',border:'1px solid #f59e0b44',borderRadius:8,padding:12,textAlign:'center'}}>
-                <div style={{fontSize:8,letterSpacing:2,color:'var(--amber)',fontWeight:700,marginBottom:3}}>MTN MOMO</div>
+                <div style={{fontSize:11,letterSpacing:2,color:'var(--amber)',fontWeight:700,marginBottom:3}}>MTN MOMO</div>
                 <div style={{fontSize:16,fontWeight:800,color:'var(--amber)',fontFamily:'var(--fd)'}}>{OWNER.mtn}</div>
-                <div style={{fontSize:9,color:'var(--text3)',marginTop:2}}>{OWNER.name}</div>
+                <div style={{fontSize:15,color:'var(--text3)',marginTop:2}}>{OWNER.name}</div>
               </div>
               <div style={{background:'#ef444422',border:'1px solid #ef444444',borderRadius:8,padding:12,textAlign:'center'}}>
-                <div style={{fontSize:8,letterSpacing:2,color:'var(--red)',fontWeight:700,marginBottom:3}}>TELECEL</div>
+                <div style={{fontSize:11,letterSpacing:2,color:'var(--red)',fontWeight:700,marginBottom:3}}>TELECEL</div>
                 <div style={{fontSize:16,fontWeight:800,color:'var(--red)',fontFamily:'var(--fd)'}}>{OWNER.telecel}</div>
-                <div style={{fontSize:9,color:'var(--text3)',marginTop:2}}>{OWNER.name}</div>
+                <div style={{fontSize:15,color:'var(--text3)',marginTop:2}}>{OWNER.name}</div>
               </div>
             </div>
           </div>
@@ -1228,9 +1228,9 @@ function VAdmin(){
             <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:8}}>
               {Object.values(PLANS).map(p=>(
                 <div key={p.id} style={{background:'var(--bg)',border:'1px solid var(--border)',borderRadius:8,padding:12,textAlign:'center'}}>
-                  <div style={{fontSize:9,color:p.color,letterSpacing:2,textTransform:'uppercase',marginBottom:4}}>{p.name}</div>
+                  <div style={{fontSize:15,color:p.color,letterSpacing:2,textTransform:'uppercase',marginBottom:4}}>{p.name}</div>
                   <div style={{fontFamily:'var(--fd)',fontWeight:700,color:'var(--text)',fontSize:15,marginBottom:3}}>{p.label}</div>
-                  <div style={{fontSize:9,color:'var(--text3)'}}>{p.rooms===999?'Unlimited':p.rooms} rooms</div>
+                  <div style={{fontSize:15,color:'var(--text3)'}}>{p.rooms===999?'Unlimited':p.rooms} rooms</div>
                 </div>
               ))}
             </div>
@@ -1240,7 +1240,7 @@ function VAdmin(){
             <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10}}>
               {[['Total Users',allUsers.length],['Paying',payingUsers.length],['On Trial',trialUsers.length],['Expired',allUsers.length-payingUsers.length-trialUsers.length],['Pending',pending.length],['Revenue',fmt(revenue)]].map(([l,v])=>(
                 <div key={l} style={{textAlign:'center',padding:10,background:'var(--bg)',borderRadius:8,border:'1px solid var(--border)'}}>
-                  <div style={{fontSize:8,color:'var(--text3)',letterSpacing:1,marginBottom:4,textTransform:'uppercase'}}>{l}</div>
+                  <div style={{fontSize:11,color:'var(--text3)',letterSpacing:1,marginBottom:4,textTransform:'uppercase'}}>{l}</div>
                   <div style={{fontWeight:700,color:'var(--green)',fontFamily:'var(--fd)'}}>{v}</div>
                 </div>
               ))}
@@ -1322,7 +1322,7 @@ function Dashboard({session,onLogout}){
     ...(session.isDev?[{id:'admin',label:'Admin',ico:'⚙️'}]:[]),
   ];
 
-  if(!loaded)return<div className="loading"><div className="spinner"/><div style={{fontSize:10,letterSpacing:3,color:'var(--text3)'}}>LOADING DATA…</div></div>;
+  if(!loaded)return<div className="loading"><div className="spinner"/><div style={{fontSize:16,letterSpacing:3,color:'var(--text3)'}}>LOADING DATA…</div></div>;
 
   const syncColor={saving:'var(--amber)',saved:'var(--green)',error:'var(--red)'}[syncState]||'var(--text3)';
 
@@ -1346,7 +1346,7 @@ function Dashboard({session,onLogout}){
         <div style={{marginTop:'auto',padding:'12px 8px',borderTop:'1px solid var(--border)'}}>
           <div style={{display:'flex',alignItems:'center',gap:6,padding:'8px 10px',marginBottom:4}}>
             <div style={{width:7,height:7,borderRadius:'50%',background:syncColor,flexShrink:0}}/>
-            <span style={{fontSize:10,color:'var(--text3)'}}>{syncState==='saving'?'Saving…':'All saved'}</span>
+            <span style={{fontSize:16,color:'var(--text3)'}}>{syncState==='saving'?'Saving…':'All saved'}</span>
           </div>
           <button className="sb-item" style={{color:'var(--red)'}} onClick={onLogout}>{I.logout}Sign Out</button>
         </div>
@@ -1359,12 +1359,12 @@ function Dashboard({session,onLogout}){
             <span style={{fontSize:18}}>{NAV.find(n=>n.id===view)?.ico}</span>
             <div>
               <div className="topbar-title" style={{fontSize:11}}>{session.business}</div>
-              <div style={{fontSize:8,color:'var(--text3)',letterSpacing:1,textTransform:'uppercase'}}>{NAV.find(n=>n.id===view)?.label}</div>
+              <div style={{fontSize:11,color:'var(--text3)',letterSpacing:1,textTransform:'uppercase'}}>{NAV.find(n=>n.id===view)?.label}</div>
             </div>
           </div>
           <div style={{display:'flex',alignItems:'center',gap:8}}>
             <div style={{width:7,height:7,borderRadius:'50%',background:syncColor}}/>
-            <button className="hide-mob" style={{background:'none',border:'none',color:'var(--red)',cursor:'pointer',fontSize:11,fontFamily:'var(--fm)',display:'flex',alignItems:'center',gap:5}} onClick={onLogout}>{I.logout}Sign Out</button>
+            <button className="hide-mob" style={{background:'none',border:'none',color:'var(--red)',cursor:'pointer',fontSize:15,fontFamily:'var(--fm)',display:'flex',alignItems:'center',gap:5}} onClick={onLogout}>{I.logout}Sign Out</button>
           </div>
         </div>
         <div className="content">
@@ -1403,7 +1403,7 @@ function App(){
   function login(s){setSession(s);lsSet('rlg-session',s);if(!s.isDev&&!getSub(s.username))startTrial(s.username);}
   function logout(){setSession(null);lsSet('rlg-session',null);window.location.reload();}
 
-  if(!ready)return<div className="loading"><div className="spinner"/><div style={{fontSize:10,letterSpacing:3,color:'var(--text3)'}}>LOADING…</div></div>;
+  if(!ready)return<div className="loading"><div className="spinner"/><div style={{fontSize:16,letterSpacing:3,color:'var(--text3)'}}>LOADING…</div></div>;
   if(!session)return<Auth onLogin={login}/>;
 
   const status=subStatus(session.username);
