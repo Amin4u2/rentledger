@@ -1,6 +1,5 @@
 {
   "hosting": {
-    "target": "Rentledger",
     "public": ".",
     "ignore": [
       "firebase.json",
