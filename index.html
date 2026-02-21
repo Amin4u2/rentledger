@@ -953,7 +953,10 @@ function PaymentModal({tenants,properties,onSave,onClose}){
           <div className="form-grid">
             <div className="field"><label className="lbl">Months Paid</label>
               <select className="sel" value={f.months} onChange={e=>handleMonths(parseInt(e.target.value))}>
-                {[1,2,3,6,9,12,18,24].map(m=><option key={m} value={m}>{m} month{m>1?'s':''}</option>)}
+                {[1,2,3,4,5,6,7,8,9,10,11,12,15,18,21,24,27,30,33,36,42,48,54,60].map(m=>{
+  const yrs=m>=12&&m%12===0?` (${m/12} yr${m/12>1?'s':''})`:m===18?' (1.5 yrs)':m===30?' (2.5 yrs)':m===42?' (3.5 yrs)':m===54?' (4.5 yrs)':'';
+  return<option key={m} value={m}>{m} month{m>1?'s':''}{yrs}</option>;
+})}
               </select>
             </div>
             <div className="field"><label className="lbl">Amount (GH₵)</label>
