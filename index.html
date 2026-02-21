@@ -34,12 +34,12 @@
   --text:#e6edf3;--text2:#8b949e;--text3:#484f58;
   --border:#30363d;--border2:#21262d;
   --fm:'Plus Jakarta Sans',sans-serif;--fd:'DM Mono',monospace;
-  --nh:60px;--radius:10px;
+  --nh:62px;--radius:10px;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-body{background:var(--bg);color:var(--text);font-family:var(--fm);min-height:100vh;font-size:15px;}
+body{background:var(--bg);color:var(--text);font-family:var(--fm);min-height:100vh;font-size:15px;overflow-x:hidden;-webkit-text-size-adjust:100%;}
 input,select,button{font-family:var(--fm);}
-.app{display:flex;height:100vh;overflow:hidden;}
+.app{display:flex;height:100vh;height:100dvh;overflow:hidden;}
 .sidebar{width:220px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0;}
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
 .content{flex:1;overflow-y:auto;padding:16px;}
@@ -64,10 +64,10 @@ input,select,button{font-family:var(--fm);}
 .stat-label{font-size:15px;letter-spacing:2px;color:var(--text2);text-transform:uppercase;margin-bottom:6px;}
 .stat-val{font-family:var(--fd);font-size:24px;font-weight:700;}
 .stat-sub{font-size:16px;color:var(--text3);margin-top:3px;}
-.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:var(--green);color:#0d1117;border:none;border-radius:7px;font-size:15px;font-weight:700;cursor:pointer;transition:all .15s;}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:var(--green);color:#0d1117;border:none;border-radius:7px;font-size:15px;font-weight:700;cursor:pointer;transition:all .15s;;touch-action:manipulation;}
 .btn:hover{background:var(--green2);}
 .btn:disabled{opacity:.5;cursor:not-allowed;}
-.btn-outline{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:transparent;color:var(--text);border:1px solid var(--border);border-radius:7px;font-size:15px;font-weight:600;cursor:pointer;transition:all .15s;}
+.btn-outline{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:transparent;color:var(--text);border:1px solid var(--border);border-radius:7px;font-size:15px;font-weight:600;cursor:pointer;transition:all .15s;;touch-action:manipulation;}
 .btn-outline:hover{border-color:var(--green);color:var(--green);}
 .btn-sm{padding:4px 9px;font-size:15px;letter-spacing:1px;text-transform:uppercase;background:transparent;color:var(--green);border:1px solid #22c55e44;border-radius:5px;cursor:pointer;font-family:var(--fm);}
 .btn-danger{padding:4px 9px;font-size:15px;background:transparent;color:var(--red);border:1px solid #ef444444;border-radius:5px;cursor:pointer;font-family:var(--fm);}
@@ -75,7 +75,7 @@ input,select,button{font-family:var(--fm);}
 .inp:focus{border-color:var(--green);}
 .sel{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:9px 12px;color:var(--text);font-size:15px;outline:none;}
 .lbl{font-size:16px;letter-spacing:1px;color:var(--text2);text-transform:uppercase;font-weight:600;display:block;margin-bottom:5px;}
-.field{margin-bottom:12px;}
+.field{margin-bottom:14px;}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 .auth-wrap{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px;background:radial-gradient(ellipse at 50% 0%,#22c55e0a 0%,transparent 70%);}
 .auth-box{width:100%;max-width:400px;}
@@ -98,8 +98,8 @@ input,select,button{font-family:var(--fm);}
 .tbl{width:100%;border-collapse:collapse;font-size:16px;}
 .tbl th{text-align:left;font-size:11px;letter-spacing:2px;color:var(--text3);padding:8px 10px;text-transform:uppercase;border-bottom:1px solid var(--border);}
 .tbl td{padding:10px;border-bottom:1px solid var(--border2);vertical-align:middle;}
-.modal-ov{position:fixed;inset:0;background:#000c;z-index:100;display:flex;align-items:center;justify-content:center;padding:16px;}
-.modal-box{background:var(--bg2);border:1px solid var(--border);border-radius:12px;width:100%;max-width:460px;max-height:90vh;overflow-y:auto;}
+.modal-ov{position:fixed;inset:0;background:#000c;z-index:100;display:flex;align-items:center;justify-content:center;padding:16px;overscroll-behavior:contain;}
+.modal-box{background:var(--bg2);border:1px solid var(--border);border-radius:12px;width:100%;max-width:460px;max-height:90vh;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;}
 .modal-hdr{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border);}
 .modal-body{padding:20px;}
 .modal-foot{display:flex;gap:10px;justify-content:flex-end;padding:16px 20px;border-top:1px solid var(--border);}
@@ -119,11 +119,82 @@ input,select,button{font-family:var(--fm);}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .fade-in{animation:fadeIn .25s ease;}
 @media(max-width:768px){
+  /* Layout */
   .sidebar{display:none;}
   .bottom-nav{display:block;}
-  .content{padding:12px;padding-bottom:calc(var(--nh) + env(safe-area-inset-bottom,0px) + 16px);}
-  .form-grid{grid-template-columns:1fr;}
+  .app{height:100dvh;}
+  .content{
+    padding:10px;
+    padding-bottom:calc(var(--nh) + env(safe-area-inset-bottom,0px) + 20px);
+    -webkit-overflow-scrolling:touch;
+  }
+  .topbar{padding:0 12px;height:46px;}
   .hide-mob{display:none;}
+
+  /* Grids stack on mobile */
+  .form-grid{grid-template-columns:1fr;}
+  .stats-grid{grid-template-columns:repeat(2,1fr);gap:8px;}
+
+  /* Cards */
+  .card{padding:12px;margin-bottom:10px;border-radius:8px;}
+
+  /* Modals — full screen on mobile */
+  .modal-ov{padding:0;align-items:flex-end;}
+  .modal-box{
+    max-width:100%;
+    max-height:92dvh;
+    border-radius:20px 20px 0 0;
+    border-bottom:none;
+  }
+  .modal-hdr{padding:14px 16px;}
+  .modal-body{padding:14px 16px;}
+  .modal-foot{padding:12px 16px;gap:8px;}
+  .modal-foot .btn,.modal-foot .btn-outline{
+    flex:1;justify-content:center;padding:13px;font-size:14px;
+  }
+
+  /* Buttons — bigger tap targets */
+  .btn{padding:10px 16px;font-size:13px;min-height:44px;}
+  .btn-outline{padding:10px 16px;font-size:13px;min-height:44px;}
+  .btn-sm{padding:7px 12px;font-size:11px;min-height:36px;}
+  .btn-danger{padding:7px 12px;font-size:11px;min-height:36px;}
+
+  /* Inputs — bigger on mobile */
+  .inp{font-size:16px;padding:12px;} /* 16px prevents iOS zoom */
+  .sel{font-size:16px;padding:12px;}
+
+  /* Auth */
+  .auth-box{padding:0 4px;}
+  .auth-logo{font-size:30px;}
+
+  /* Reports 3-col becomes 2-col */
+  .stats-grid[style*="repeat(3"]{grid-template-columns:repeat(2,1fr) !important;}
+
+  /* Bottom nav bigger */
+  .bn-inner{height:var(--nh);}
+  .bn-item{font-size:9px;gap:4px;}
+
+  /* Room grid on mobile */
+  .room-grid{grid-template-columns:repeat(2,1fr) !important;}
+
+  /* Tables scroll horizontally */
+  .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+
+  /* Tenant/payment cards full width */
+  .card > div[style*="flex"]{flex-wrap:wrap;}
+
+  /* Section titles */
+  .sec-title{font-size:11px;}
+
+  /* Stat values */
+  .stat-val{font-size:20px;}
+  .stat-label{font-size:10px;}
+}
+
+/* Extra small phones */
+@media(max-width:380px){
+  .stats-grid{grid-template-columns:1fr 1fr;}
+  .content{padding:8px;}
 }
 </style>
 </head>
@@ -588,7 +659,7 @@ function VProperties({properties,tenants,setProperties}){
                   </div>
                 </div>
                 {rooms.length===0&&<div style={{fontSize:15,color:'var(--text3)'}}>No rooms yet.</div>}
-                <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(150px,1fr))',gap:8}}>
+                <div className="room-grid" style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(140px,1fr))',gap:8}}>
                   {rooms.map(r=>{
                     const t=active.find(t=>t.roomId===r.id);
                     const es=t?.expiryDate?expiryStatus(t.expiryDate):null;
@@ -958,7 +1029,7 @@ function VReports({properties,tenants,payments}){
           <span style={{marginLeft:'auto',fontWeight:700,color:'var(--green)',fontFamily:'var(--fd)',fontSize:16}}>{fmt(yTotal)}</span>
         </div>
       </div>
-      <div className="stats-grid" style={{gridTemplateColumns:'repeat(3,1fr)'}}>
+      <div className="stats-grid" style={{gridTemplateColumns:'repeat(3,1fr)'}} id="stats3">
         <div className="stat-card"><div className="stat-label">Properties</div><div className="stat-val">{properties.length}</div></div>
         <div className="stat-card"><div className="stat-label">Occupancy</div><div className="stat-val" style={{color:'var(--green)'}}>{occ}%</div><div className="stat-sub">{active.length}/{allRooms.length}</div></div>
         <div className="stat-card"><div className="stat-label">Expired</div><div className="stat-val" style={{color:expd>0?'var(--red)':'var(--green)'}}>{expd}</div></div>
