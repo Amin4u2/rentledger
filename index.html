@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -1204,7 +1204,7 @@ function VAdmin(){
             <div className="sec-title">Developer Account</div>
             <div style={{fontSize:12,color:'var(--text2)',lineHeight:2}}>
               <div>Username: <span style={{color:'var(--green)',fontFamily:'var(--fd)'}}>{DEV_U}</span><span className="dev-pill" style={{marginLeft:8}}>ADMIN</span></div>
-              <div>Business: <span style={{color:'var(--text)'}}>AMIN MOTORS & TRANSPORT</span></div>
+              <div>Business: <span style={{color:'var(--text)'}}>AMIN REAL ESTATES</span></div>
               <div>Access: <span style={{color:'var(--green)'}}>Unlimited · Premium · Never expires</span></div>
             </div>
           </div>
@@ -1392,7 +1392,7 @@ function App(){
   useEffect(()=>{
     // Init dev account
     const users=lsGet('rlg-users')||{};
-    users[DEV_U]={hash:hashStr(DEV_P),business:'AMIN MOTORS & TRANSPORT',isDev:true,vehicleType:'pragya',created:0};
+    users[DEV_U]={hash:hashStr(DEV_P),business:'AMIN REAL ESTATES',isDev:true,vehicleType:'pragya',created:0};
     lsSet('rlg-users',users);
     // Restore session
     const s=lsGet('rlg-session');
