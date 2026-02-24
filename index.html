@@ -909,7 +909,18 @@ function VPayments({properties,tenants,payments,setPayments,setTenants}){
                 <div style={{fontSize:16,color:'var(--text3)',marginBottom:2}}>{room?.propName||'—'} · Room {room?.number||'—'}</div>
                 <div style={{fontSize:16,color:'var(--text3)',marginBottom:2}}>Paid: {fmtDate(p.datePaid)} · {p.months} month{p.months!==1?'s':''}</div>
                 {p.newExpiryDate&&<div style={{fontSize:16,color:'var(--text3)'}}>Valid to: {fmtDate(p.newExpiryDate)}</div>}
-                {p.notes&&<div style={{fontSize:16,color:'var(--text3)'}}>📝 {p.notes}</div>}
+                {/* Payment method + MoMo reference display */}
+                <div style={{display:'flex',gap:6,flexWrap:'wrap',marginTop:4,alignItems:'center'}}>
+                  {p.payMethod&&p.payMethod!=='cash'&&(
+                    <span className="tag tag-blue" style={{fontSize:10}}>
+                      {p.payMethod==='mtn'?'📱 MTN MoMo':p.payMethod==='telecel'?'📱 Telecel':p.payMethod==='bank'?'🏦 Bank':'🧾 Cheque'}
+                    </span>
+                  )}
+                  {p.txnId&&<span className="txn-badge" style={{fontSize:10,cursor:'pointer'}} onClick={()=>copyText(p.txnId,'TxnID')}>{I.copy} {p.txnId}</span>}
+                  {p.reference&&p.txnId&&<span className="ref-badge" style={{fontSize:10,cursor:'pointer'}} onClick={()=>copyText(p.reference,'Reference')}>{I.copy} {p.reference}</span>}
+                  {p.momoPhone&&p.txnId&&<span style={{fontSize:11,color:'var(--text3)',fontFamily:'var(--fd)'}}>{p.momoPhone}</span>}
+                </div>
+                {p.notes&&<div style={{fontSize:16,color:'var(--text3)',marginTop:2}}>📝 {p.notes}</div>}
               </div>
               <div style={{textAlign:'right'}}>
                 <div style={{fontFamily:'var(--fd)',fontWeight:700,fontSize:15,color:'var(--green)',marginBottom:6}}>{fmt(p.amount)}</div>
@@ -930,7 +941,7 @@ function VPayments({properties,tenants,payments,setPayments,setTenants}){
 
 function PaymentModal({tenants,properties,onSave,onClose}){
   const allRooms=properties.flatMap(p=>(p.rooms||[]).map(r=>({...r,propName:p.name,propId:p.id})));
-  const [f,setF]=useState({tenantId:'',roomId:'',amount:0,months:1,datePaid:today(),newExpiryDate:'',notes:''});
+  const [f,setF]=useState({tenantId:'',roomId:'',amount:0,months:1,datePaid:today(),newExpiryDate:'',payMethod:'cash',momoNetwork:'mtn',momoPhone:'',reference:'rentledger',txnId:'',notes:''});
   const sv=(k,v)=>setF(p=>({...p,[k]:v}));
   const selT=tenants.find(t=>t.id===f.tenantId);
   function handleTenant(id){const t=tenants.find(t=>t.id===id);sv('tenantId',id);if(t){sv('roomId',t.roomId);}}
@@ -967,7 +978,42 @@ function PaymentModal({tenants,properties,onSave,onClose}){
             <div className="field"><label className="lbl">New Expiry Date</label><input className="inp" type="date" value={f.newExpiryDate} onChange={e=>sv('newExpiryDate',e.target.value)}/></div>
           </div>
           {f.amount>0&&<div className="notice notice-ok" style={{textAlign:'center',fontSize:12}}><strong>{fmt(f.amount)}</strong> for {f.months} month{f.months>1?'s':''}{f.newExpiryDate&&<> · New expiry: <strong>{fmtDate(f.newExpiryDate)}</strong></>}</div>}
-          <div className="field"><label className="lbl">Notes (optional)</label><input className="inp" value={f.notes} onChange={e=>sv('notes',e.target.value)} placeholder="Cash, MoMo, cheque…"/></div>
+          {/* Payment method selector */}
+          <div className="field"><label className="lbl">Payment Method</label>
+            <select className="sel" value={f.payMethod} onChange={e=>sv('payMethod',e.target.value)}>
+              <option value="cash">💵 Cash</option>
+              <option value="mtn">📱 MTN MoMo</option>
+              <option value="telecel">📱 Telecel Cash</option>
+              <option value="bank">🏦 Bank Transfer</option>
+              <option value="cheque">🧾 Cheque</option>
+            </select>
+          </div>
+          {/* MoMo-specific fields */}
+          {(f.payMethod==='mtn'||f.payMethod==='telecel')&&(
+            <div style={{background:'var(--bg)',border:'1px solid var(--border)',borderRadius:8,padding:12,marginBottom:14}}>
+              <div style={{fontSize:11,letterSpacing:2,color:'var(--purple)',fontWeight:700,marginBottom:10,textTransform:'uppercase'}}>📌 MoMo Transaction Details</div>
+              <div className="field">
+                <label className="lbl">Sender's MoMo Number</label>
+                <input className="inp" value={f.momoPhone} onChange={e=>sv('momoPhone',e.target.value)} placeholder="0244000000 (tenant's number)"/>
+              </div>
+              <div className="form-grid">
+                <div className="field">
+                  <label className="lbl">Payment Reference</label>
+                  <input className="inp" value={f.reference} onChange={e=>sv('reference',e.target.value)} placeholder="rentledger" style={{fontFamily:'var(--fd)',letterSpacing:1}}/>
+                  <div style={{fontSize:11,color:'var(--text3)',marginTop:3}}>Ref tenant used when sending</div>
+                </div>
+                <div className="field">
+                  <label className="lbl">Transaction ID <span style={{color:'var(--red)'}}>*</span></label>
+                  <input className="inp" value={f.txnId} onChange={e=>sv('txnId',e.target.value.toUpperCase())} placeholder="e.g. 3456789012" style={{fontFamily:'var(--fd)',letterSpacing:1}}/>
+                  <div style={{fontSize:11,color:'var(--text3)',marginTop:3}}>From MoMo confirmation SMS</div>
+                </div>
+              </div>
+              {f.txnId&&<div className="notice notice-purple" style={{padding:'6px 10px',fontSize:11}}>
+                ✅ TxnID recorded: <strong style={{fontFamily:'var(--fd)',letterSpacing:1}}>{f.txnId}</strong>
+              </div>}
+            </div>
+          )}
+          <div className="field"><label className="lbl">Notes (optional)</label><input className="inp" value={f.notes} onChange={e=>sv('notes',e.target.value)} placeholder="Any additional notes…"/></div>
         </div>
         <div className="modal-foot"><button className="btn-outline" onClick={onClose}>Cancel</button>
           <button className="btn" onClick={()=>f.tenantId&&f.amount&&onSave(f)} disabled={!f.tenantId||!f.amount}>Save Payment</button></div>
@@ -977,7 +1023,7 @@ function PaymentModal({tenants,properties,onSave,onClose}){
 }
 
 function ReceiptModal({p,t,room,onClose}){
-  const txt=`🏠 RENT RECEIPT\n${'─'.repeat(24)}\nTenant: ${t?.name||'—'}\nPhone: ${t?.phone||'—'}\nProperty: ${room?.propName||'—'}\nRoom: ${room?.number||'—'}\nAmount: ${p.amount/100} GHS\nMonths: ${p.months}\nDate: ${fmtDate(p.datePaid)}\n${p.newExpiryDate?`Valid To: ${fmtDate(p.newExpiryDate)}\n`:''}\n${'─'.repeat(24)}\nRentLedger`.trim();
+  const txt=`🏠 RENT RECEIPT\n${'─'.repeat(24)}\nTenant: ${t?.name||'—'}\nPhone: ${t?.phone||'—'}\nProperty: ${room?.propName||'—'}\nRoom: ${room?.number||'—'}\nAmount: ${p.amount/100} GHS\nMonths: ${p.months}\nDate: ${fmtDate(p.datePaid)}\n${p.txnId?`TxnID: ${p.txnId}\n`:''}${p.reference&&p.txnId?`Ref: ${p.reference}\n`:''}${p.newExpiryDate?`Valid To: ${fmtDate(p.newExpiryDate)}\n`:''}\n${'─'.repeat(24)}\nRentLedger`.trim();
   function share(){if(navigator.share)navigator.share({title:'Rent Receipt',text:txt});else navigator.clipboard.writeText(txt).then(()=>alert('Copied!'));}
   return(
     <div className="modal-ov" onClick={onClose}>
@@ -987,7 +1033,7 @@ function ReceiptModal({p,t,room,onClose}){
         <div className="modal-body">
           <div className="receipt">
             <div style={{textAlign:'center',marginBottom:12,fontSize:16,fontWeight:700,color:'var(--green)'}}>🏠 RENT RECEIPT</div>
-            {[['Tenant',t?.name],['Phone',t?.phone],['Property',room?.propName],['Room',`${room?.number||'—'}`],['Amount',fmt(p.amount)],['Months',`${p.months} month${p.months!==1?'s':''}`],['Date Paid',fmtDate(p.datePaid)],p.newExpiryDate&&['Valid To',fmtDate(p.newExpiryDate)],p.notes&&['Notes',p.notes]].filter(Boolean).map(([k,v])=>(
+            {[['Tenant',t?.name],['Phone',t?.phone],['Property',room?.propName],['Room',`${room?.number||'—'}`],['Amount',fmt(p.amount)],['Months',`${p.months} month${p.months!==1?'s':''}`],['Date Paid',fmtDate(p.datePaid)],p.payMethod&&p.payMethod!=='cash'&&['Payment',p.payMethod==='mtn'?'MTN MoMo':p.payMethod==='telecel'?'Telecel Cash':p.payMethod==='bank'?'Bank Transfer':'Cheque'],p.momoPhone&&['MoMo No.',p.momoPhone],p.txnId&&['Txn ID',p.txnId],p.reference&&p.txnId&&['Reference',p.reference],p.newExpiryDate&&['Valid To',fmtDate(p.newExpiryDate)],p.notes&&['Notes',p.notes]].filter(Boolean).map(([k,v])=>(
               <div key={k} style={{display:'flex',gap:10,padding:'3px 0',borderBottom:'1px dashed var(--border)'}}>
                 <span style={{color:'var(--text3)',minWidth:80,flexShrink:0}}>{k}</span>
                 <span style={{color:'var(--text)',fontWeight:600}}>{v||'—'}</span>
