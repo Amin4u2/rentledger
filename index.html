@@ -10,13 +10,10 @@
 <meta name="apple-mobile-web-app-title" content="RentLedger"/>
 <meta name="application-name" content="RentLedger"/>
 <meta name="description" content="RentLedger — Landlord Rent Management System for Ghana. Track tenants, payments and expiry dates."/>
-<meta property="og:title" content="RentLedger — Landlord Rent Management"/>
-<meta property="og:description" content="Track tenants, payments and expiry alerts for all your properties."/>
-<meta property="og:url" content="https://rentledger.web.app"/>
 <title>RentLedger — Landlord Rent Management</title>
 <link rel="apple-touch-icon" id="apple-icon"/>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%230d1117'/><circle cx='50' cy='50' r='44' fill='%2322c55e'/><circle cx='50' cy='50' r='36' fill='%230d1117'/><text y='64' x='50' text-anchor='middle' font-size='42'>🏠</text></svg>"/>
-  <link rel="shortcut icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%230d1117'/><circle cx='50' cy='50' r='44' fill='%2322c55e'/><circle cx='50' cy='50' r='36' fill='%230d1117'/><text y='64' x='50' text-anchor='middle' font-size='42'>🏠</text></svg>"/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%230d1117'/><circle cx='50' cy='50' r='44' fill='%2322c55e'/><circle cx='50' cy='50' r='36' fill='%230d1117'/><text y='64' x='50' text-anchor='middle' font-size='42'>🏠</text></svg>"/>
+<link rel="shortcut icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%230d1117'/><circle cx='50' cy='50' r='44' fill='%2322c55e'/><circle cx='50' cy='50' r='36' fill='%230d1117'/><text y='64' x='50' text-anchor='middle' font-size='42'>🏠</text></svg>"/>
 <link rel="icon" id="favicon-icon"/>
 <link rel="manifest" id="pwa-manifest"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -30,7 +27,7 @@
 :root{
   --bg:#0d1117;--bg2:#161b22;--bg3:#1c2128;
   --green:#22c55e;--green2:#16a34a;
-  --red:#ef4444;--amber:#f59e0b;--blue:#3b82f6;
+  --red:#ef4444;--amber:#f59e0b;--blue:#3b82f6;--purple:#a855f7;
   --text:#e6edf3;--text2:#8b949e;--text3:#484f58;
   --border:#30363d;--border2:#21262d;
   --fm:'Plus Jakarta Sans',sans-serif;--fd:'DM Mono',monospace;
@@ -64,13 +61,14 @@ input,select,button{font-family:var(--fm);}
 .stat-label{font-size:15px;letter-spacing:2px;color:var(--text2);text-transform:uppercase;margin-bottom:6px;}
 .stat-val{font-family:var(--fd);font-size:24px;font-weight:700;}
 .stat-sub{font-size:16px;color:var(--text3);margin-top:3px;}
-.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:var(--green);color:#0d1117;border:none;border-radius:7px;font-size:15px;font-weight:700;cursor:pointer;transition:all .15s;;touch-action:manipulation;}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:var(--green);color:#0d1117;border:none;border-radius:7px;font-size:15px;font-weight:700;cursor:pointer;transition:all .15s;touch-action:manipulation;}
 .btn:hover{background:var(--green2);}
 .btn:disabled{opacity:.5;cursor:not-allowed;}
-.btn-outline{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:transparent;color:var(--text);border:1px solid var(--border);border-radius:7px;font-size:15px;font-weight:600;cursor:pointer;transition:all .15s;;touch-action:manipulation;}
+.btn-outline{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:transparent;color:var(--text);border:1px solid var(--border);border-radius:7px;font-size:15px;font-weight:600;cursor:pointer;transition:all .15s;touch-action:manipulation;}
 .btn-outline:hover{border-color:var(--green);color:var(--green);}
 .btn-sm{padding:4px 9px;font-size:15px;letter-spacing:1px;text-transform:uppercase;background:transparent;color:var(--green);border:1px solid #22c55e44;border-radius:5px;cursor:pointer;font-family:var(--fm);}
 .btn-danger{padding:4px 9px;font-size:15px;background:transparent;color:var(--red);border:1px solid #ef444444;border-radius:5px;cursor:pointer;font-family:var(--fm);}
+.btn-purple{padding:4px 9px;font-size:15px;background:transparent;color:var(--purple);border:1px solid #a855f744;border-radius:5px;cursor:pointer;font-family:var(--fm);}
 .inp{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:9px 12px;color:var(--text);font-size:15px;outline:none;transition:border .15s;}
 .inp:focus{border-color:var(--green);}
 .sel{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:9px 12px;color:var(--text);font-size:15px;outline:none;}
@@ -89,12 +87,14 @@ input,select,button{font-family:var(--fm);}
 .notice-err{background:#ef444411;border:1px solid #ef444433;color:var(--red);}
 .notice-warn{background:#f59e0b11;border:1px solid #f59e0b33;color:var(--amber);}
 .notice-blue{background:#3b82f611;border:1px solid #3b82f633;color:var(--blue);}
+.notice-purple{background:#a855f711;border:1px solid #a855f733;color:var(--purple);}
 .tag{display:inline-flex;align-items:center;font-size:11px;padding:2px 7px;border-radius:99px;font-weight:700;letter-spacing:1px;}
 .tag-green{background:#22c55e22;color:var(--green);border:1px solid #22c55e44;}
 .tag-red{background:#ef444422;color:var(--red);border:1px solid #ef444444;}
 .tag-amber{background:#f59e0b22;color:var(--amber);border:1px solid #f59e0b44;}
 .tag-blue{background:#3b82f622;color:var(--blue);border:1px solid #3b82f644;}
 .tag-grey{background:#48505822;color:var(--text3);border:1px solid #48505844;}
+.tag-purple{background:#a855f722;color:var(--purple);border:1px solid #a855f744;}
 .tbl{width:100%;border-collapse:collapse;font-size:16px;}
 .tbl th{text-align:left;font-size:11px;letter-spacing:2px;color:var(--text3);padding:8px 10px;text-transform:uppercase;border-bottom:1px solid var(--border);}
 .tbl td{padding:10px;border-bottom:1px solid var(--border2);vertical-align:middle;}
@@ -115,83 +115,48 @@ input,select,button{font-family:var(--fm);}
 .report-tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
 .report-tab{padding:6px 12px;font-size:16px;border-radius:6px;cursor:pointer;border:1px solid var(--border);background:none;color:var(--text2);font-family:var(--fm);}
 .report-tab.active{background:var(--green);color:#0d1117;border-color:var(--green);}
+/* Payment reference badge */
+.ref-badge{display:inline-flex;align-items:center;gap:5px;background:#a855f711;border:1px solid #a855f733;border-radius:5px;padding:3px 8px;font-family:var(--fd);font-size:11px;color:var(--purple);letter-spacing:1px;cursor:pointer;transition:background .15s;}
+.ref-badge:hover{background:#a855f722;}
+.txn-badge{display:inline-flex;align-items:center;gap:5px;background:#3b82f611;border:1px solid #3b82f633;border-radius:5px;padding:3px 8px;font-family:var(--fd);font-size:11px;color:var(--blue);letter-spacing:1px;cursor:pointer;transition:background .15s;}
+.txn-badge:hover{background:#3b82f622;}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .fade-in{animation:fadeIn .25s ease;}
 @media(max-width:768px){
-  /* Layout */
   .sidebar{display:none;}
   .bottom-nav{display:block;}
   .app{height:100dvh;}
-  .content{
-    padding:10px;
-    padding-bottom:calc(var(--nh) + env(safe-area-inset-bottom,0px) + 20px);
-    -webkit-overflow-scrolling:touch;
-  }
+  .content{padding:10px;padding-bottom:calc(var(--nh) + env(safe-area-inset-bottom,0px) + 20px);-webkit-overflow-scrolling:touch;}
   .topbar{padding:0 12px;height:46px;}
   .hide-mob{display:none;}
-
-  /* Grids stack on mobile */
   .form-grid{grid-template-columns:1fr;}
   .stats-grid{grid-template-columns:repeat(2,1fr);gap:8px;}
-
-  /* Cards */
   .card{padding:12px;margin-bottom:10px;border-radius:8px;}
-
-  /* Modals — full screen on mobile */
   .modal-ov{padding:0;align-items:flex-end;}
-  .modal-box{
-    max-width:100%;
-    max-height:92dvh;
-    border-radius:20px 20px 0 0;
-    border-bottom:none;
-  }
+  .modal-box{max-width:100%;max-height:92dvh;border-radius:20px 20px 0 0;border-bottom:none;}
   .modal-hdr{padding:14px 16px;}
   .modal-body{padding:14px 16px;}
   .modal-foot{padding:12px 16px;gap:8px;}
-  .modal-foot .btn,.modal-foot .btn-outline{
-    flex:1;justify-content:center;padding:13px;font-size:14px;
-  }
-
-  /* Buttons — bigger tap targets */
+  .modal-foot .btn,.modal-foot .btn-outline{flex:1;justify-content:center;padding:13px;font-size:14px;}
   .btn{padding:10px 16px;font-size:13px;min-height:44px;}
   .btn-outline{padding:10px 16px;font-size:13px;min-height:44px;}
   .btn-sm{padding:7px 12px;font-size:11px;min-height:36px;}
   .btn-danger{padding:7px 12px;font-size:11px;min-height:36px;}
-
-  /* Inputs — bigger on mobile */
-  .inp{font-size:16px;padding:12px;} /* 16px prevents iOS zoom */
+  .inp{font-size:16px;padding:12px;}
   .sel{font-size:16px;padding:12px;}
-
-  /* Auth */
   .auth-box{padding:0 4px;}
   .auth-logo{font-size:30px;}
-
-  /* Reports 3-col becomes 2-col */
   .stats-grid[style*="repeat(3"]{grid-template-columns:repeat(2,1fr) !important;}
-
-  /* Bottom nav bigger */
   .bn-inner{height:var(--nh);}
   .bn-item{font-size:9px;gap:4px;}
-
-  /* Room grid on mobile */
   .room-grid{grid-template-columns:repeat(2,1fr) !important;}
-
-  /* Tables scroll horizontally */
   .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
-
-  /* Tenant/payment cards full width */
   .card > div[style*="flex"]{flex-wrap:wrap;}
-
-  /* Section titles */
   .sec-title{font-size:11px;}
-
-  /* Stat values */
   .stat-val{font-size:20px;}
   .stat-label{font-size:10px;}
 }
-
-/* Extra small phones */
 @media(max-width:380px){
   .stats-grid{grid-template-columns:1fr 1fr;}
   .content{padding:8px;}
@@ -239,7 +204,6 @@ if(FIREBASE_CONFIGURED){try{firebase.initializeApp(FIREBASE_CONFIG);db=firebase.
 <script type="text/babel">
 const {useState,useEffect,useRef,useCallback}=React;
 
-// ── Constants ──────────────────────────────────────────────────────
 const DEV_U='amisco4u2',DEV_P='Amiena702$';
 const OWNER={name:'Amin Moro Mohammed',mtn:'0243911216',telecel:'0505027255'};
 const TRIAL_DAYS=7;
@@ -252,7 +216,6 @@ const MONTHS=['January','February','March','April','May','June','July','August',
 const ROOM_TYPES=['Single Room','Chamber & Hall','2 Bedroom','3 Bedroom','Self-Contained','Studio','Apartment','Shop/Store','Office Space'];
 const PROP_TYPES=['House','Compound House','Apartment Block','Commercial Building','Mixed Use'];
 
-// ── Helpers ────────────────────────────────────────────────────────
 const lsGet=k=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):null;}catch{return null;}};
 const lsSet=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));}catch{}};
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
@@ -263,7 +226,6 @@ const fmtDate=d=>{if(!d)return'—';try{return new Date(d).toLocaleDateString('e
 const daysFromNow=d=>{try{return Math.ceil((new Date(d)-new Date())/86400000);}catch{return 0;}};
 const addMonths=(ds,m)=>{const d=new Date(ds);d.setMonth(d.getMonth()+m);return d.toISOString().slice(0,10);};
 
-// ── Sub helpers ────────────────────────────────────────────────────
 const getSub=u=>lsGet(`rlg-sub-${u}`);
 const setSub=(u,d)=>lsSet(`rlg-sub-${u}`,d);
 const subStatus=u=>{
@@ -276,7 +238,6 @@ const subStatus=u=>{
 };
 const startTrial=u=>{if(!getSub(u))setSub(u,{plan:'standard',trialEnd:Date.now()+TRIAL_DAYS*86400000,paid:false,created:Date.now()});};
 
-// ── Firebase helpers ───────────────────────────────────────────────
 const getUsers=async()=>{
   if(db)try{const d=await db.collection('rlg_users').doc('index').get();if(d.exists)return d.data().users||{};}catch{}
   return lsGet('rlg-users')||{};
@@ -288,7 +249,6 @@ const loadData=async u=>{
 };
 const saveData=async(u,data)=>{lsSet(`rlg-data-${u}`,data);if(db)try{await db.collection('rlg_data').doc(u).set(data);}catch{}};
 
-// ── Expiry status ──────────────────────────────────────────────────
 function expiryStatus(d){
   if(!d)return{label:'No date',tag:'tag-grey',color:'var(--text3)',urgent:false};
   const days=daysFromNow(d);
@@ -299,7 +259,6 @@ function expiryStatus(d){
   return{label:`${days}d left`,tag:'tag-green',color:'var(--green)',urgent:false,days};
 }
 
-// ── Icons ──────────────────────────────────────────────────────────
 const I={
   home:<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M3 12L12 3l9 9M9 21V12h6v9"/></svg>,
   building:<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h.01M15 9h.01M9 15h.01M15 15h.01"/></svg>,
@@ -307,11 +266,18 @@ const I={
   cash:<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>,
   report:<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>,
   admin:<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M21 12h-2M19.07 19.07l-1.41-1.41M12 21v-2M4.93 19.07l1.41-1.41M3 12h2M4.93 4.93l1.41 1.41"/></svg>,
-  bell:<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>,
   logout:<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>,
   plus:<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>,
   receipt:<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M9 7H6a2 2 0 00-2 2v9a2 2 0 002 2h12a2 2 0 002-2V9a2 2 0 00-2-2h-3"/><rect x="9" y="3" width="6" height="6" rx="1"/><line x1="9" y1="14" x2="15" y2="14"/></svg>,
+  copy:<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>,
 };
+
+// ── COPY TO CLIPBOARD HELPER ───────────────────────────────────────
+function copyText(text,label='Copied!'){
+  navigator.clipboard?.writeText(text).then(()=>alert(`✅ ${label} copied to clipboard`)).catch(()=>{
+    const el=document.createElement('textarea');el.value=text;document.body.appendChild(el);el.select();document.execCommand('copy');document.body.removeChild(el);alert(`✅ ${label} copied!`);
+  });
+}
 
 // ── AUTH ───────────────────────────────────────────────────────────
 function Auth({onLogin}){
@@ -381,10 +347,14 @@ function Auth({onLogin}){
   );
 }
 
-// ── SUBSCRIPTION WALL ──────────────────────────────────────────────
+// ── SUBSCRIPTION WALL (UPDATED — collects reference + txnId) ──────
 function SubWall({username,onActivated}){
   const [sel,setSel]=useState('standard');
   const [step,setStep]=useState('plans');
+  // NEW: reference submission state
+  const [refForm,setRefForm]=useState({reference:'fleetsales',txnId:'',momoNetwork:'mtn',phone:''});
+  const [refSubmitted,setRefSubmitted]=useState(false);
+  const [submitting,setSubmitting]=useState(false);
   const plan=PLANS[sel];
   const sub=subStatus(username);
 
@@ -395,10 +365,35 @@ function SubWall({username,onActivated}){
     if(db)db.collection('rlg_pending').doc(username).set(p).catch(()=>{});
     setStep('pay');
   }
+
+  // NEW: Submit reference + transaction ID after paying
+  async function submitReference(){
+    if(!refForm.txnId.trim()){alert('Please enter your MoMo transaction ID.');return;}
+    setSubmitting(true);
+    const pending={
+      username,
+      plan:sel,
+      amount:plan.price,
+      requestedAt:Date.now(),
+      // ── NEW FIELDS ──
+      reference:refForm.reference.trim()||'fleetsales',
+      txnId:refForm.txnId.trim().toUpperCase(),
+      momoNetwork:refForm.momoNetwork,
+      momoPhone:refForm.phone.trim(),
+      submittedAt:Date.now(),
+    };
+    lsSet(`rlg-pending-${username}`,pending);
+    if(db){
+      try{await db.collection('rlg_pending').doc(username).set(pending);}catch(e){console.warn(e);}
+    }
+    setRefSubmitted(true);
+    setSubmitting(false);
+  }
+
   function checkActivation(){
     const s=subStatus(username);
     if(s.active)onActivated();
-    else alert('Not yet activated. Send your MoMo reference to owner on WhatsApp and wait for activation.');
+    else alert('Not yet activated. Your payment reference has been submitted. The owner will activate you shortly.');
   }
 
   return(
@@ -407,6 +402,7 @@ function SubWall({username,onActivated}){
         <div className="auth-logo">🏠 RentLedger</div>
         <div className="auth-tagline">LANDLORD RENT MANAGEMENT SYSTEM</div>
         {sub.expired&&<div className="notice notice-err">Your {sub.trial?'free trial':'subscription'} has expired. Choose a plan to continue.</div>}
+
         {step==='plans'&&(
           <>
             <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:8,marginBottom:14}}>
@@ -428,6 +424,7 @@ function SubWall({username,onActivated}){
             </div>
           </>
         )}
+
         {step==='pay'&&(
           <div>
             <div className="card" style={{border:'1px solid var(--green)'}}>
@@ -437,26 +434,78 @@ function SubWall({username,onActivated}){
                 <div style={{fontSize:30,fontWeight:800,color:'var(--green)',fontFamily:'var(--fd)'}}>{plan.label.replace('/mo','')}</div>
                 <div style={{fontSize:16,color:'var(--text3)',marginTop:3}}>{plan.name} Plan · 30 days</div>
               </div>
-              {['Open your MTN or Telecel MoMo app',`Send ${plan.label.replace('/mo','')} to number below`,'Copy the transaction reference/ID',`WhatsApp reference + username "${username}" to owner`,"Tap 'I've Paid' below — activated within minutes"].map((s,i)=>(
+
+              {/* Payment reference instruction — NEW */}
+              <div className="notice notice-purple" style={{marginBottom:14}}>
+                <div style={{fontWeight:700,marginBottom:4}}>📌 Important: Use this payment reference</div>
+                <div style={{fontFamily:'var(--fd)',fontSize:18,letterSpacing:2,color:'var(--purple)',fontWeight:800}}>fleetsales</div>
+                <div style={{fontSize:12,marginTop:4,opacity:.8}}>Enter "fleetsales" as the reference/description when sending MoMo payment so we can identify your transaction.</div>
+              </div>
+
+              {['Open your MTN or Telecel MoMo app',`Send ${plan.label.replace('/mo','')} to number below`,`Use reference: "fleetsales" when prompted`,'Copy your transaction ID from the MoMo confirmation SMS','Enter the transaction ID below and tap Submit'].map((s,i)=>(
                 <div key={i} style={{display:'flex',gap:10,marginBottom:10,alignItems:'flex-start'}}>
-                  <div style={{width:20,height:20,borderRadius:'50%',background:'var(--green)',color:'#0d1117',fontSize:16,fontWeight:800,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>{i+1}</div>
-                  <div style={{fontSize:16,color:'var(--text2)',paddingTop:2,lineHeight:1.6}}>{s}</div>
+                  <div style={{width:20,height:20,borderRadius:'50%',background:'var(--green)',color:'#0d1117',fontSize:11,fontWeight:800,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>{i+1}</div>
+                  <div style={{fontSize:14,color:'var(--text2)',paddingTop:2,lineHeight:1.6}}>{s}</div>
                 </div>
               ))}
-              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8,marginTop:10}}>
+
+              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8,marginTop:10,marginBottom:16}}>
                 <div style={{background:'#f59e0b22',border:'1px solid #f59e0b44',borderRadius:8,padding:12,textAlign:'center'}}>
                   <div style={{fontSize:11,letterSpacing:2,color:'var(--amber)',fontWeight:700,marginBottom:3}}>MTN MOMO</div>
-                  <div style={{fontSize:16,fontWeight:800,color:'var(--amber)',fontFamily:'var(--fd)'}}>{OWNER.mtn}</div>
+                  <div style={{fontSize:16,fontWeight:800,color:'var(--amber)',fontFamily:'var(--fd)',cursor:'pointer'}} onClick={()=>copyText(OWNER.mtn,'Number')}>{OWNER.mtn} {I.copy}</div>
                   <div style={{fontSize:15,color:'var(--text3)',marginTop:2}}>{OWNER.name}</div>
                 </div>
                 <div style={{background:'#ef444422',border:'1px solid #ef444444',borderRadius:8,padding:12,textAlign:'center'}}>
                   <div style={{fontSize:11,letterSpacing:2,color:'var(--red)',fontWeight:700,marginBottom:3}}>TELECEL</div>
-                  <div style={{fontSize:16,fontWeight:800,color:'var(--red)',fontFamily:'var(--fd)'}}>{OWNER.telecel}</div>
+                  <div style={{fontSize:16,fontWeight:800,color:'var(--red)',fontFamily:'var(--fd)',cursor:'pointer'}} onClick={()=>copyText(OWNER.telecel,'Number')}>{OWNER.telecel} {I.copy}</div>
                   <div style={{fontSize:15,color:'var(--text3)',marginTop:2}}>{OWNER.name}</div>
                 </div>
               </div>
+
+              {/* NEW: Reference + Transaction ID submission form */}
+              {!refSubmitted?(
+                <div style={{background:'var(--bg)',border:'1px solid var(--border)',borderRadius:8,padding:14}}>
+                  <div style={{fontSize:12,letterSpacing:2,color:'var(--text2)',fontWeight:700,marginBottom:12,textTransform:'uppercase'}}>Submit Your Payment Details</div>
+                  <div className="field">
+                    <label className="lbl">MoMo Network</label>
+                    <select className="sel" value={refForm.momoNetwork} onChange={e=>setRefForm(f=>({...f,momoNetwork:e.target.value}))}>
+                      <option value="mtn">MTN MoMo</option>
+                      <option value="telecel">Telecel Cash</option>
+                    </select>
+                  </div>
+                  <div className="field">
+                    <label className="lbl">Your MoMo Phone Number</label>
+                    <input className="inp" value={refForm.phone} onChange={e=>setRefForm(f=>({...f,phone:e.target.value}))} placeholder="e.g. 0244000000"/>
+                  </div>
+                  <div className="field">
+                    <label className="lbl">Payment Reference Used</label>
+                    <input className="inp" value={refForm.reference} onChange={e=>setRefForm(f=>({...f,reference:e.target.value}))} placeholder="fleetsales"/>
+                    <div style={{fontSize:11,color:'var(--text3)',marginTop:4}}>This should be "fleetsales" as instructed above</div>
+                  </div>
+                  <div className="field" style={{marginBottom:0}}>
+                    <label className="lbl">Transaction ID <span style={{color:'var(--red)'}}>*</span></label>
+                    <input className="inp" value={refForm.txnId} onChange={e=>setRefForm(f=>({...f,txnId:e.target.value}))} placeholder="e.g. 1234567890 (from MoMo SMS)" style={{fontFamily:'var(--fd)',letterSpacing:1}}/>
+                    <div style={{fontSize:11,color:'var(--text3)',marginTop:4}}>Find this in the MoMo confirmation SMS/notification</div>
+                  </div>
+                </div>
+              ):(
+                <div className="notice notice-ok" style={{textAlign:'center'}}>
+                  <div style={{fontSize:16,marginBottom:4}}>✅ Payment details submitted!</div>
+                  <div style={{fontSize:12}}>Reference: <strong style={{fontFamily:'var(--fd)'}}>{refForm.reference}</strong> · TxnID: <strong style={{fontFamily:'var(--fd)'}}>{refForm.txnId}</strong></div>
+                  <div style={{fontSize:12,marginTop:4,opacity:.8}}>You will be activated within minutes after verification.</div>
+                </div>
+              )}
             </div>
-            <button className="btn" style={{width:'100%',padding:14,justifyContent:'center',marginBottom:10}} onClick={checkActivation}>✓ I've Paid — Check Activation</button>
+
+            {!refSubmitted?(
+              <button className="btn" style={{width:'100%',padding:14,justifyContent:'center',marginBottom:10}} onClick={submitReference} disabled={submitting}>
+                {submitting?'Submitting…':'📤 Submit Payment Reference'}
+              </button>
+            ):(
+              <button className="btn" style={{width:'100%',padding:14,justifyContent:'center',marginBottom:10}} onClick={checkActivation}>
+                ✓ Check if Activated
+              </button>
+            )}
             <button className="btn-outline" style={{width:'100%',padding:12,justifyContent:'center'}} onClick={()=>setStep('plans')}>← Back to Plans</button>
           </div>
         )}
@@ -488,9 +537,7 @@ function MobileNav({NAV,view,setView,onLogout,session,syncState}){
                 </button>
               ))}
             </div>
-            <button onClick={onLogout} style={{width:'100%',display:'flex',alignItems:'center',justifyContent:'center',gap:8,padding:13,background:'#ef444411',border:'1px solid #ef444433',borderRadius:10,color:'var(--red)',fontFamily:'var(--fm)',fontSize:15,letterSpacing:2,textTransform:'uppercase',cursor:'pointer'}}>
-              Sign Out
-            </button>
+            <button onClick={onLogout} style={{width:'100%',display:'flex',alignItems:'center',justifyContent:'center',gap:8,padding:13,background:'#ef444411',border:'1px solid #ef444433',borderRadius:10,color:'var(--red)',fontFamily:'var(--fm)',fontSize:15,letterSpacing:2,textTransform:'uppercase',cursor:'pointer'}}>Sign Out</button>
           </div>
         </div>
       )}
@@ -512,7 +559,7 @@ function MobileNav({NAV,view,setView,onLogout,session,syncState}){
   );
 }
 
-// ── DASHBOARD ──────────────────────────────────────────────────────
+// ── DASHBOARD VIEW ─────────────────────────────────────────────────
 function VDash({properties,tenants,payments,session,setView}){
   const active=tenants.filter(t=>t.status==='active');
   const allRooms=properties.flatMap(p=>(p.rooms||[]).map(r=>({...r,propName:p.name})));
@@ -523,7 +570,6 @@ function VDash({properties,tenants,payments,session,setView}){
   const yearTotal=payments.filter(p=>new Date(p.datePaid).getFullYear()===now.getFullYear()).reduce((s,p)=>s+p.amount,0);
   const expiring=active.filter(t=>t.expiryDate&&daysFromNow(t.expiryDate)<=60).sort((a,b)=>new Date(a.expiryDate)-new Date(b.expiryDate));
   const expired=active.filter(t=>t.expiryDate&&daysFromNow(t.expiryDate)<0);
-
   return(
     <div>
       {(expired.length>0||expiring.filter(t=>daysFromNow(t.expiryDate)<=30&&daysFromNow(t.expiryDate)>=0).length>0)&&(
@@ -559,8 +605,6 @@ function VDash({properties,tenants,payments,session,setView}){
           <div className="stat-sub">{expired.length} expired · {expiring.filter(t=>daysFromNow(t.expiryDate)>=0).length} expiring</div>
         </div>
       </div>
-
-      {/* Expiry alerts */}
       <div className="card">
         <div className="sec-title">🔔 Expiry Alerts — Next 60 Days</div>
         {expiring.length===0
@@ -583,8 +627,6 @@ function VDash({properties,tenants,payments,session,setView}){
           })
         }
       </div>
-
-      {/* Recent payments */}
       <div className="card">
         <div className="sec-title">Recent Payments</div>
         {payments.length===0?<div style={{fontSize:15,color:'var(--text3)'}}>No payments yet.</div>
@@ -611,7 +653,6 @@ function VProperties({properties,tenants,setProperties}){
   const [modal,setModal]=useState(null);
   const [exp,setExp]=useState(null);
   const active=tenants.filter(t=>t.status==='active');
-
   function saveProp(d){setProperties(pp=>d.id?pp.map(p=>p.id===d.id?d:p):[...pp,{...d,id:uid(),rooms:[]}]);setModal(null);}
   function delProp(id){if(!confirm('Delete property and all rooms?'))return;setProperties(pp=>pp.filter(p=>p.id!==id));}
   function saveRoom(propId,room){
@@ -622,7 +663,6 @@ function VProperties({properties,tenants,setProperties}){
     }));setModal(null);
   }
   function delRoom(propId,roomId){if(!confirm('Delete room?'))return;setProperties(pp=>pp.map(p=>p.id!==propId?p:{...p,rooms:p.rooms.filter(r=>r.id!==roomId)}));}
-
   return(
     <div>
       <div style={{display:'flex',justifyContent:'flex-end',marginBottom:14}}>
@@ -722,7 +762,7 @@ function RoomModal({data,propId,onSave,onClose}){
           <button style={{background:'none',border:'none',color:'var(--text3)',cursor:'pointer',fontSize:18}} onClick={onClose}>✕</button></div>
         <div className="modal-body">
           <div className="form-grid">
-            <div className="field"><label className="lbl">Room Number</label><input className="inp" value={f.number} onChange={e=>sv('number',e.target.value)} placeholder="e.g. A1, 001"/></div>
+            <div className="field"><label className="lbl">Room Number</label><input className="inp" value={f.number} onChange={e=>sv('number',e.target.value)} placeholder="e.g. A1"/></div>
             <div className="field"><label className="lbl">Room Type</label><select className="sel" value={f.type} onChange={e=>sv('type',e.target.value)}>{ROOM_TYPES.map(t=><option key={t}>{t}</option>)}</select></div>
           </div>
           <div className="field"><label className="lbl">Monthly Rent (GH₵)</label><input className="inp" type="number" value={f.rent/100||''} onChange={e=>sv('rent',Math.round(parseFloat(e.target.value||0)*100))} placeholder="500"/></div>
@@ -741,22 +781,15 @@ function VTenants({properties,tenants,setTenants,payments}){
   const [filter,setFilter]=useState('active');
   const [search,setSearch]=useState('');
   const allRooms=properties.flatMap(p=>(p.rooms||[]).map(r=>({...r,propName:p.name,propId:p.id})));
-
   function save(d){setTenants(tt=>d.id?tt.map(t=>t.id===d.id?{...d,status:d.status||'active'}:t):[...tt,{...d,id:uid(),status:'active'}]);setModal(null);}
   function vacate(id){if(!confirm('Mark as vacated?'))return;setTenants(tt=>tt.map(t=>t.id===id?{...t,status:'vacated',vacatedDate:today()}:t));}
   function del(id){if(!confirm('Delete tenant permanently?'))return;setTenants(tt=>tt.filter(t=>t.id!==id));}
-
   const list=tenants.filter(t=>{
     if(filter==='active'&&t.status!=='active')return false;
     if(filter==='vacated'&&t.status!=='vacated')return false;
     if(search&&!t.name.toLowerCase().includes(search.toLowerCase())&&!(t.phone||'').includes(search))return false;
     return true;
-  }).sort((a,b)=>{
-    if(!a.expiryDate&&!b.expiryDate)return 0;
-    if(!a.expiryDate)return 1;if(!b.expiryDate)return -1;
-    return new Date(a.expiryDate)-new Date(b.expiryDate);
-  });
-
+  }).sort((a,b)=>{if(!a.expiryDate&&!b.expiryDate)return 0;if(!a.expiryDate)return 1;if(!b.expiryDate)return -1;return new Date(a.expiryDate)-new Date(b.expiryDate);});
   return(
     <div>
       <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:12,flexWrap:'wrap',gap:8}}>
@@ -767,9 +800,7 @@ function VTenants({properties,tenants,setTenants,payments}){
         </div>
         <button className="btn" onClick={()=>setModal({data:null})}>{I.plus} Add Tenant</button>
       </div>
-      <div className="card" style={{marginBottom:12}}>
-        <input className="inp" placeholder="Search name or phone…" value={search} onChange={e=>setSearch(e.target.value)}/>
-      </div>
+      <div className="card" style={{marginBottom:12}}><input className="inp" placeholder="Search name or phone…" value={search} onChange={e=>setSearch(e.target.value)}/></div>
       {list.length===0&&<div className="card empty-state"><div className="empty-ico">👤</div><div style={{fontSize:16,letterSpacing:2}}>NO TENANTS FOUND</div></div>}
       {list.map(t=>{
         const room=allRooms.find(r=>r.id===t.roomId);
@@ -793,11 +824,7 @@ function VTenants({properties,tenants,setTenants,payments}){
                 <div style={{fontSize:15,color:'var(--text3)'}}>total paid</div>
               </div>
             </div>
-            {es&&t.expiryDate&&(
-              <div style={{marginBottom:10}}>
-                <div className="exp-bar"><div className="exp-fill" style={{width:`${Math.min(100,Math.max(0,100-((daysFromNow(t.expiryDate)||0)/365*100)))}%`,background:es.color}}/></div>
-              </div>
-            )}
+            {es&&t.expiryDate&&(<div style={{marginBottom:10}}><div className="exp-bar"><div className="exp-fill" style={{width:`${Math.min(100,Math.max(0,100-((daysFromNow(t.expiryDate)||0)/365*100)))}%`,background:es.color}}/></div></div>)}
             <div style={{display:'flex',gap:6,flexWrap:'wrap'}}>
               <button className="btn-sm" onClick={()=>setModal({data:t})}>Edit</button>
               {t.status==='active'&&<button className="btn-sm" style={{color:'var(--amber)',borderColor:'#f59e0b44'}} onClick={()=>vacate(t.id)}>Vacate</button>}
@@ -817,10 +844,8 @@ function TenantModal({data,properties,tenants,onSave,onClose}){
   const sv=(k,v)=>setF(p=>({...p,[k]:v}));
   const occupied=tenants.filter(t=>t.status==='active'&&(!data||t.id!==data.id)).map(t=>t.roomId);
   const available=allRooms.filter(r=>!occupied.includes(r.id)||r.id===f.roomId);
-
   function handleRoom(id){const r=allRooms.find(r=>r.id===id);sv('roomId',id);if(r)sv('propertyId',r.propId);}
   function calcExpiry(m){if(f.moveIn&&m){const e=addMonths(f.moveIn,parseInt(m));sv('expiryDate',e);}}
-
   return(
     <div className="modal-ov" onClick={onClose}>
       <div className="modal-box" onClick={e=>e.stopPropagation()}>
@@ -863,20 +888,9 @@ function VPayments({properties,tenants,payments,setPayments,setTenants}){
   const [receipt,setReceipt]=useState(null);
   const [search,setSearch]=useState('');
   const allRooms=properties.flatMap(p=>(p.rooms||[]).map(r=>({...r,propName:p.name})));
-
-  function save(d){
-    setPayments(pp=>[...pp,{...d,id:uid()}]);
-    if(d.newExpiryDate)setTenants(tt=>tt.map(t=>t.id===d.tenantId?{...t,expiryDate:d.newExpiryDate}:t));
-    setModal(false);
-  }
+  function save(d){setPayments(pp=>[...pp,{...d,id:uid()}]);if(d.newExpiryDate)setTenants(tt=>tt.map(t=>t.id===d.tenantId?{...t,expiryDate:d.newExpiryDate}:t));setModal(false);}
   function del(id){if(!confirm('Delete payment?'))return;setPayments(pp=>pp.filter(p=>p.id!==id));}
-
-  const list=payments.filter(p=>{
-    if(!search)return true;
-    const t=tenants.find(t=>t.id===p.tenantId);
-    return t?.name.toLowerCase().includes(search.toLowerCase());
-  }).sort((a,b)=>new Date(b.datePaid)-new Date(a.datePaid));
-
+  const list=payments.filter(p=>{if(!search)return true;const t=tenants.find(t=>t.id===p.tenantId);return t?.name.toLowerCase().includes(search.toLowerCase());}).sort((a,b)=>new Date(b.datePaid)-new Date(a.datePaid));
   return(
     <div>
       <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:12,flexWrap:'wrap',gap:8}}>
@@ -919,11 +933,7 @@ function PaymentModal({tenants,properties,onSave,onClose}){
   const [f,setF]=useState({tenantId:'',roomId:'',amount:0,months:1,datePaid:today(),newExpiryDate:'',notes:''});
   const sv=(k,v)=>setF(p=>({...p,[k]:v}));
   const selT=tenants.find(t=>t.id===f.tenantId);
-
-  function handleTenant(id){
-    const t=tenants.find(t=>t.id===id);sv('tenantId',id);
-    if(t){sv('roomId',t.roomId);}
-  }
+  function handleTenant(id){const t=tenants.find(t=>t.id===id);sv('tenantId',id);if(t){sv('roomId',t.roomId);}}
   function handleMonths(m){
     sv('months',m);
     const r=allRooms.find(r=>r.id===f.roomId);
@@ -931,7 +941,6 @@ function PaymentModal({tenants,properties,onSave,onClose}){
     const base=selT?.expiryDate&&daysFromNow(selT.expiryDate)>0?selT.expiryDate:today();
     sv('newExpiryDate',addMonths(base,m));
   }
-
   return(
     <div className="modal-ov" onClick={onClose}>
       <div className="modal-box" onClick={e=>e.stopPropagation()}>
@@ -944,33 +953,20 @@ function PaymentModal({tenants,properties,onSave,onClose}){
               {tenants.map(t=>{const r=allRooms.find(r=>r.id===t.roomId);return<option key={t.id} value={t.id}>{t.name} — {r?.propName||'?'} Room {r?.number||'?'}</option>;})}
             </select>
           </div>
-          {selT?.expiryDate&&(
-            <div className={`notice ${daysFromNow(selT.expiryDate)<0?'notice-err':daysFromNow(selT.expiryDate)<=30?'notice-warn':'notice-blue'}`} style={{fontSize:11}}>
-              Current expiry: <strong>{fmtDate(selT.expiryDate)}</strong>
-              {daysFromNow(selT.expiryDate)<0?' — EXPIRED':` — ${daysFromNow(selT.expiryDate)} days left`}
-            </div>
-          )}
+          {selT?.expiryDate&&(<div className={`notice ${daysFromNow(selT.expiryDate)<0?'notice-err':daysFromNow(selT.expiryDate)<=30?'notice-warn':'notice-blue'}`} style={{fontSize:11}}>Current expiry: <strong>{fmtDate(selT.expiryDate)}</strong>{daysFromNow(selT.expiryDate)<0?' — EXPIRED':` — ${daysFromNow(selT.expiryDate)} days left`}</div>)}
           <div className="form-grid">
             <div className="field"><label className="lbl">Months Paid</label>
               <select className="sel" value={f.months} onChange={e=>handleMonths(parseInt(e.target.value))}>
-                {[1,2,3,4,5,6,7,8,9,10,11,12,15,18,21,24,27,30,33,36,42,48,54,60].map(m=>{
-  const yrs=m>=12&&m%12===0?` (${m/12} yr${m/12>1?'s':''})`:m===18?' (1.5 yrs)':m===30?' (2.5 yrs)':m===42?' (3.5 yrs)':m===54?' (4.5 yrs)':'';
-  return<option key={m} value={m}>{m} month{m>1?'s':''}{yrs}</option>;
-})}
+                {[1,2,3,4,5,6,7,8,9,10,11,12,15,18,21,24].map(m=><option key={m} value={m}>{m} month{m>1?'s':''}</option>)}
               </select>
             </div>
-            <div className="field"><label className="lbl">Amount (GH₵)</label>
-              <input className="inp" type="number" value={f.amount/100||''} onChange={e=>sv('amount',Math.round(parseFloat(e.target.value||0)*100))} placeholder="0"/>
-            </div>
+            <div className="field"><label className="lbl">Amount (GH₵)</label><input className="inp" type="number" value={f.amount/100||''} onChange={e=>sv('amount',Math.round(parseFloat(e.target.value||0)*100))} placeholder="0"/></div>
           </div>
           <div className="form-grid">
             <div className="field"><label className="lbl">Date Paid</label><input className="inp" type="date" value={f.datePaid} onChange={e=>sv('datePaid',e.target.value)}/></div>
             <div className="field"><label className="lbl">New Expiry Date</label><input className="inp" type="date" value={f.newExpiryDate} onChange={e=>sv('newExpiryDate',e.target.value)}/></div>
           </div>
-          {f.amount>0&&<div className="notice notice-ok" style={{textAlign:'center',fontSize:12}}>
-            <strong>{fmt(f.amount)}</strong> for {f.months} month{f.months>1?'s':''}
-            {f.newExpiryDate&&<> · New expiry: <strong>{fmtDate(f.newExpiryDate)}</strong></>}
-          </div>}
+          {f.amount>0&&<div className="notice notice-ok" style={{textAlign:'center',fontSize:12}}><strong>{fmt(f.amount)}</strong> for {f.months} month{f.months>1?'s':''}{f.newExpiryDate&&<> · New expiry: <strong>{fmtDate(f.newExpiryDate)}</strong></>}</div>}
           <div className="field"><label className="lbl">Notes (optional)</label><input className="inp" value={f.notes} onChange={e=>sv('notes',e.target.value)} placeholder="Cash, MoMo, cheque…"/></div>
         </div>
         <div className="modal-foot"><button className="btn-outline" onClick={onClose}>Cancel</button>
@@ -981,7 +977,7 @@ function PaymentModal({tenants,properties,onSave,onClose}){
 }
 
 function ReceiptModal({p,t,room,onClose}){
-  const txt=`🏠 RENT RECEIPT\n${'─'.repeat(24)}\nTenant: ${t?.name||'—'}\nPhone: ${t?.phone||'—'}\nProperty: ${room?.propName||'—'}\nRoom: ${room?.number||'—'} (${room?.type||'—'})\nAmount: ${p.amount/100} GHS\nMonths: ${p.months}\nDate: ${fmtDate(p.datePaid)}\n${p.newExpiryDate?`Valid To: ${fmtDate(p.newExpiryDate)}\n`:''}\n${p.notes?`Notes: ${p.notes}\n`:''}\n${'─'.repeat(24)}\nRentLedger — Landlord Rent Manager`.trim();
+  const txt=`🏠 RENT RECEIPT\n${'─'.repeat(24)}\nTenant: ${t?.name||'—'}\nPhone: ${t?.phone||'—'}\nProperty: ${room?.propName||'—'}\nRoom: ${room?.number||'—'}\nAmount: ${p.amount/100} GHS\nMonths: ${p.months}\nDate: ${fmtDate(p.datePaid)}\n${p.newExpiryDate?`Valid To: ${fmtDate(p.newExpiryDate)}\n`:''}\n${'─'.repeat(24)}\nRentLedger`.trim();
   function share(){if(navigator.share)navigator.share({title:'Rent Receipt',text:txt});else navigator.clipboard.writeText(txt).then(()=>alert('Copied!'));}
   return(
     <div className="modal-ov" onClick={onClose}>
@@ -991,7 +987,7 @@ function ReceiptModal({p,t,room,onClose}){
         <div className="modal-body">
           <div className="receipt">
             <div style={{textAlign:'center',marginBottom:12,fontSize:16,fontWeight:700,color:'var(--green)'}}>🏠 RENT RECEIPT</div>
-            {[['Tenant',t?.name],['Phone',t?.phone],['Property',room?.propName],['Room',`${room?.number||'—'} (${room?.type||'—'})`],['Amount',fmt(p.amount)],['Months',`${p.months} month${p.months!==1?'s':''}`],['Date Paid',fmtDate(p.datePaid)],p.newExpiryDate&&['Valid To',fmtDate(p.newExpiryDate)],p.notes&&['Notes',p.notes]].filter(Boolean).map(([k,v])=>(
+            {[['Tenant',t?.name],['Phone',t?.phone],['Property',room?.propName],['Room',`${room?.number||'—'}`],['Amount',fmt(p.amount)],['Months',`${p.months} month${p.months!==1?'s':''}`],['Date Paid',fmtDate(p.datePaid)],p.newExpiryDate&&['Valid To',fmtDate(p.newExpiryDate)],p.notes&&['Notes',p.notes]].filter(Boolean).map(([k,v])=>(
               <div key={k} style={{display:'flex',gap:10,padding:'3px 0',borderBottom:'1px dashed var(--border)'}}>
                 <span style={{color:'var(--text3)',minWidth:80,flexShrink:0}}>{k}</span>
                 <span style={{color:'var(--text)',fontWeight:600}}>{v||'—'}</span>
@@ -1020,7 +1016,6 @@ function VReports({properties,tenants,payments}){
   const expd=active.filter(t=>t.expiryDate&&daysFromNow(t.expiryDate)<0).length;
   const monthly=MONTHS.map(m=>{const mp=yPays.filter(p=>new Date(p.datePaid).toLocaleString('default',{month:'long'})===m);return{m,total:mp.reduce((s,p)=>s+p.amount,0),count:mp.length};});
   const maxM=Math.max(...monthly.map(m=>m.total),1);
-
   return(
     <div>
       <div className="card" style={{marginBottom:14}}>
@@ -1032,19 +1027,10 @@ function VReports({properties,tenants,payments}){
           <span style={{marginLeft:'auto',fontWeight:700,color:'var(--green)',fontFamily:'var(--fd)',fontSize:16}}>{fmt(yTotal)}</span>
         </div>
       </div>
-      <div className="stats-grid" style={{gridTemplateColumns:'repeat(3,1fr)'}} id="stats3">
+      <div className="stats-grid" style={{gridTemplateColumns:'repeat(3,1fr)'}}>
         <div className="stat-card"><div className="stat-label">Properties</div><div className="stat-val">{properties.length}</div></div>
         <div className="stat-card"><div className="stat-label">Occupancy</div><div className="stat-val" style={{color:'var(--green)'}}>{occ}%</div><div className="stat-sub">{active.length}/{allRooms.length}</div></div>
         <div className="stat-card"><div className="stat-label">Expired</div><div className="stat-val" style={{color:expd>0?'var(--red)':'var(--green)'}}>{expd}</div></div>
-      </div>
-      <div className="card" style={{marginBottom:14}}>
-        <div className="sec-title">Expiry Overview</div>
-        {[['Expired',expd,'var(--red)'],['≤30 days',exp30,'var(--amber)'],['31–60 days',exp60,'var(--blue)'],['All clear',active.length-expd-exp30-exp60,'var(--green)']].map(([l,n,c])=>(
-          <div key={l} style={{display:'flex',justifyContent:'space-between',padding:'8px 0',borderBottom:'1px solid var(--border2)'}}>
-            <span style={{fontSize:16,color:'var(--text2)'}}>{l}</span>
-            <span style={{fontWeight:700,color:c,fontFamily:'var(--fd)'}}>{n}</span>
-          </div>
-        ))}
       </div>
       <div className="card" style={{marginBottom:14}}>
         <div className="sec-title">Monthly Collection — {yr}</div>
@@ -1055,47 +1041,33 @@ function VReports({properties,tenants,payments}){
               <span style={{fontSize:15,fontWeight:600,color:total>0?'var(--green)':'var(--text3)',fontFamily:'var(--fd)'}}>{total>0?fmt(total):'—'}</span>
             </div>
             <div style={{height:6,background:'var(--border)',borderRadius:3,overflow:'hidden'}}>
-              <div style={{height:'100%',background:'var(--green)',width:`${total/maxM*100}%`,borderRadius:3,transition:'width .4s'}}/>
+              <div style={{height:'100%',background:'var(--green)',width:`${total/maxM*100}%`,borderRadius:3}}/>
             </div>
           </div>
         ))}
-      </div>
-      <div className="card">
-        <div className="sec-title">By Property — {yr}</div>
-        {properties.length===0&&<div style={{fontSize:15,color:'var(--text3)'}}>No properties yet.</div>}
-        {properties.map(prop=>{
-          const pRooms=(prop.rooms||[]).map(r=>r.id);
-          const pTotal=yPays.filter(p=>pRooms.includes(p.roomId)).reduce((s,p)=>s+p.amount,0);
-          const pOcc=active.filter(t=>t.propertyId===prop.id).length;
-          return(
-            <div key={prop.id} style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'10px 0',borderBottom:'1px solid var(--border2)'}}>
-              <div>
-                <div style={{fontWeight:600,fontSize:16,marginBottom:2}}>{prop.name}</div>
-                <div style={{fontSize:16,color:'var(--text3)'}}>{prop.address} · {(prop.rooms||[]).length} rooms</div>
-              </div>
-              <div style={{fontWeight:700,fontFamily:'var(--fd)',color:'var(--green)',fontSize:13}}>{pTotal>0?fmt(pTotal):'—'}</div>
-            </div>
-          );
-        })}
       </div>
     </div>
   );
 }
 
-// ── ADMIN ──────────────────────────────────────────────────────────
+// ── ADMIN (FULLY UPDATED) ──────────────────────────────────────────
 function VAdmin(){
   const [tab,setTab]=useState('overview');
   const [users,setUsers]=useState({});
   const [pending,setPending]=useState([]);
+  const [history,setHistory]=useState([]);
   const [search,setSearch]=useState('');
   const [loading,setLoading]=useState(true);
   const [customDays,setCustomDays]=useState({});
+  // NEW: detail modal for reviewing a payment reference
+  const [detailModal,setDetailModal]=useState(null);
 
   useEffect(()=>{
     async function load(){
       const u=await getUsers();setUsers(u);
       if(db){
         try{const snap=await db.collection('rlg_pending').get();setPending(snap.docs.map(d=>({id:d.id,...d.data()})));}catch{}
+        try{const snap=await db.collection('rlg_activations').orderBy('activatedAt','desc').limit(50).get();setHistory(snap.docs.map(d=>({id:d.id,...d.data()})));}catch{}
       }
       setLoading(false);
     }
@@ -1107,17 +1079,46 @@ function VAdmin(){
   const allUsers=Object.keys(users).filter(u=>u!==DEV_U);
   const filtered=allUsers.filter(u=>u.includes(search.toLowerCase())||(users[u]?.business||'').toLowerCase().includes(search.toLowerCase()));
 
-  async function activate(username,plan,days){
+  // ── Pending with reference badge helper ───────────────────────────
+  function hasValidRef(p){return p.reference&&p.txnId;}
+  function refColor(p){
+    if(!p.reference&&!p.txnId)return'var(--text3)';
+    if(p.reference?.toLowerCase().includes('fleetsales'))return'var(--purple)';
+    return'var(--amber)';
+  }
+
+  async function activate(username,plan,days,pendingData){
     const paidUntil=Date.now()+days*86400000;
     const sub={plan,paid:true,paidUntil,activatedAt:Date.now(),activatedBy:DEV_U};
+    // Save sub
     setSub(username,sub);
     if(db){
       try{
         await db.collection('rlg_subscriptions').doc(username).set(sub);
         await db.collection('rlg_pending').doc(username).delete();
-      }catch{}
+        // Save to activation history with reference details
+        const historyEntry={
+          username,
+          business:users[username]?.business||'—',
+          plan,
+          days,
+          paidUntil,
+          activatedAt:Date.now(),
+          activatedBy:DEV_U,
+          amount:pendingData?.amount||PLANS[plan]?.price||0,
+          // ── Payment reference fields ──
+          reference:pendingData?.reference||'—',
+          txnId:pendingData?.txnId||'—',
+          momoNetwork:pendingData?.momoNetwork||'—',
+          momoPhone:pendingData?.momoPhone||'—',
+          requestedAt:pendingData?.requestedAt||Date.now(),
+        };
+        await db.collection('rlg_activations').add(historyEntry);
+        setHistory(h=>[historyEntry,...h].slice(0,50));
+      }catch(e){console.warn(e);}
     }
     setPending(p=>p.filter(x=>x.id!==username));
+    setDetailModal(null);
     alert(`✅ ${username} activated on ${plan} for ${days} days`);
   }
 
@@ -1132,14 +1133,18 @@ function VAdmin(){
   const trialUsers=allUsers.filter(u=>{const s=subStatus(u);return s.trial;});
   const revenue=payingUsers.reduce((t,u)=>{const s=subStatus(u);return t+(PLANS[s.plan]?.price||0);},0);
 
+  // Pending sorted: those with references first
+  const sortedPending=[...pending].sort((a,b)=>(hasValidRef(b)?1:0)-(hasValidRef(a)?1:0));
+
   return(
     <div>
       <div className="report-tabs">
-        {[['overview','📊 Overview'],['users','👤 Users'],['payments','💰 Payments'],['settings','⚙️ Settings']].map(([id,l])=>(
+        {[['overview','📊 Overview'],['payments','💰 Payments'],['users','👤 Users'],['history','📋 History'],['settings','⚙️ Settings']].map(([id,l])=>(
           <button key={id} className={`report-tab${tab===id?' active':''}`} onClick={()=>setTab(id)}>{l}</button>
         ))}
       </div>
 
+      {/* ── OVERVIEW ─────────────────────────────────────────────── */}
       {tab==='overview'&&(
         <div>
           <div className="stats-grid">
@@ -1148,34 +1153,206 @@ function VAdmin(){
             <div className="stat-card"><div className="stat-label">On Trial</div><div className="stat-val" style={{color:'var(--amber)'}}>{trialUsers.length}</div></div>
             <div className="stat-card"><div className="stat-label">Monthly Rev</div><div className="stat-val" style={{fontSize:16,color:'var(--green)'}}>{fmt(revenue)}</div></div>
           </div>
-          {pending.length>0&&(
+
+          {/* ── PENDING PAYMENTS — UPDATED WITH REFERENCE DISPLAY ── */}
+          {sortedPending.length>0&&(
             <div className="card" style={{border:'1px solid var(--amber)'}}>
-              <div className="sec-title" style={{color:'var(--amber)'}}>⏳ Pending Payments ({pending.length})</div>
-              {pending.map(p=>{
-                const ageMins=Math.floor((Date.now()-p.requestedAt)/60000);
+              <div className="sec-title" style={{color:'var(--amber)'}}>⏳ Pending Payments ({sortedPending.length})</div>
+              {sortedPending.map(p=>{
+                const ageMins=Math.floor((Date.now()-(p.requestedAt||Date.now()))/60000);
                 const age=ageMins<60?`${ageMins}m ago`:ageMins<1440?`${Math.floor(ageMins/60)}h ago`:`${Math.floor(ageMins/1440)}d ago`;
+                const hasRef=hasValidRef(p);
+                const days=customDays[p.id]||30;
                 return(
-                  <div key={p.id} style={{padding:'10px 0',borderBottom:'1px solid var(--border2)'}}>
+                  <div key={p.id} style={{padding:'12px 0',borderBottom:'1px solid var(--border2)'}}>
+                    {/* Header row */}
                     <div style={{display:'flex',justifyContent:'space-between',marginBottom:8,flexWrap:'wrap',gap:6}}>
                       <div>
-                        <span style={{fontWeight:700,fontSize:15,marginRight:8}}>{p.username}</span>
-                        <span className="tag tag-amber">{PLANS[p.plan]?.label||p.plan}</span>
+                        <div style={{fontWeight:700,fontSize:14,marginBottom:3}}>{users[p.username]?.business||p.username}</div>
+                        <div style={{fontSize:12,color:'var(--text3)',marginBottom:4}}>@{p.username} · {age}</div>
+                        <span className="tag tag-amber">{PLANS[p.plan]?.label||p.plan} · {fmt(p.amount)}</span>
                       </div>
-                      <span style={{fontSize:16,color:'var(--text3)'}}>{age}</span>
+                      <div style={{textAlign:'right'}}>
+                        {hasRef
+                          ?<span className="tag tag-green" style={{marginBottom:4,display:'block'}}>✓ REF SUBMITTED</span>
+                          :<span className="tag tag-grey" style={{marginBottom:4,display:'block'}}>NO REF YET</span>
+                        }
+                        <span style={{fontSize:11,color:'var(--text3)'}}>
+                          {p.momoNetwork?p.momoNetwork.toUpperCase():'—'}
+                        </span>
+                      </div>
                     </div>
-                    <div style={{display:'flex',gap:6,flexWrap:'wrap'}}>
-                      <button className="btn-sm" style={{fontSize:11}} onClick={()=>activate(p.username,'basic',30)}>Activate Basic 30d</button>
-                      <button className="btn-sm" style={{fontSize:11}} onClick={()=>activate(p.username,'standard',30)}>Standard 30d</button>
-                      <button className="btn-sm" style={{fontSize:11}} onClick={()=>activate(p.username,'premium',30)}>Premium 30d</button>
+
+                    {/* ── NEW: Reference + TxnID display ── */}
+                    {hasRef?(
+                      <div style={{background:'var(--bg)',border:'1px solid var(--border)',borderRadius:8,padding:10,marginBottom:10}}>
+                        <div style={{display:'flex',flexWrap:'wrap',gap:8,marginBottom:6}}>
+                          <div>
+                            <div style={{fontSize:10,letterSpacing:2,color:'var(--text3)',marginBottom:3,textTransform:'uppercase'}}>Payment Reference</div>
+                            <span className="ref-badge" onClick={()=>copyText(p.reference,'Reference')}>
+                              {I.copy} {p.reference}
+                            </span>
+                          </div>
+                          <div>
+                            <div style={{fontSize:10,letterSpacing:2,color:'var(--text3)',marginBottom:3,textTransform:'uppercase'}}>Transaction ID</div>
+                            <span className="txn-badge" onClick={()=>copyText(p.txnId,'Transaction ID')}>
+                              {I.copy} {p.txnId}
+                            </span>
+                          </div>
+                        </div>
+                        {p.momoPhone&&(
+                          <div style={{fontSize:12,color:'var(--text3)'}}>
+                            📱 {p.momoNetwork?.toUpperCase()||'MoMo'}: <span style={{fontFamily:'var(--fd)',color:'var(--text2)'}}>{p.momoPhone}</span>
+                            <span style={{marginLeft:8,cursor:'pointer',color:'var(--blue)'}} onClick={()=>copyText(p.momoPhone,'Phone number')}>{I.copy}</span>
+                          </div>
+                        )}
+                        {p.reference&&!p.reference.toLowerCase().includes('fleetsales')&&(
+                          <div className="notice notice-warn" style={{marginTop:8,fontSize:11,padding:'6px 10px'}}>
+                            ⚠️ Reference doesn't contain "fleetsales" — verify manually before activating
+                          </div>
+                        )}
+                      </div>
+                    ):(
+                      <div className="notice notice-warn" style={{fontSize:11,padding:'7px 10px',marginBottom:10}}>
+                        ⏳ Client has not submitted payment reference yet. Check WhatsApp for their MoMo reference.
+                      </div>
+                    )}
+
+                    {/* Activation buttons */}
+                    <div style={{display:'flex',gap:6,flexWrap:'wrap',alignItems:'center'}}>
+                      <input type="number" value={days} onChange={e=>setCustomDays(c=>({...c,[p.id]:parseInt(e.target.value)||30}))} style={{width:55,padding:'4px 8px',background:'var(--bg)',border:'1px solid var(--border)',borderRadius:5,color:'var(--text)',fontSize:11}} min="1" max="365"/>
+                      <span style={{fontSize:11,color:'var(--text3)'}}>days</span>
+                      <button className="btn-sm" style={{fontSize:11}} onClick={()=>activate(p.username,'basic',days,p)}>Basic</button>
+                      <button className="btn-sm" style={{fontSize:11}} onClick={()=>activate(p.username,'standard',days,p)}>Standard</button>
+                      <button className="btn-sm" style={{fontSize:11}} onClick={()=>activate(p.username,'premium',days,p)}>Premium</button>
+                      <button className="btn-purple" style={{fontSize:11}} onClick={()=>setDetailModal(p)}>🔍 Full Details</button>
                     </div>
                   </div>
                 );
               })}
             </div>
           )}
+          {sortedPending.length===0&&<div className="card" style={{textAlign:'center',padding:20,color:'var(--text3)'}}>✅ No pending payments</div>}
         </div>
       )}
 
+      {/* ── PAYMENTS TAB (UPDATED) ──────────────────────────────── */}
+      {tab==='payments'&&(
+        <div>
+          {/* Pending with full reference info */}
+          <div className="card" style={{border:'1px solid var(--amber)',marginBottom:14}}>
+            <div className="sec-title" style={{color:'var(--amber)'}}>⏳ Awaiting Activation ({sortedPending.length})</div>
+            {sortedPending.length===0&&<div style={{fontSize:14,color:'var(--text3)'}}>No pending payments.</div>}
+            {sortedPending.map(p=>{
+              const hasRef=hasValidRef(p);
+              const ageMins=Math.floor((Date.now()-(p.requestedAt||Date.now()))/60000);
+              const age=ageMins<60?`${ageMins}m ago`:ageMins<1440?`${Math.floor(ageMins/60)}h ago`:`${Math.floor(ageMins/1440)}d ago`;
+              const days=customDays[p.id]||30;
+              return(
+                <div key={p.id} style={{padding:'12px 0',borderBottom:'1px solid var(--border2)'}}>
+                  <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:8,gap:8,flexWrap:'wrap'}}>
+                    <div>
+                      <div style={{fontWeight:700,fontSize:14,marginBottom:2}}>{users[p.username]?.business||p.username} <span style={{fontSize:12,color:'var(--text3)',fontWeight:400}}>@{p.username}</span></div>
+                      <div style={{display:'flex',gap:6,flexWrap:'wrap',alignItems:'center',marginBottom:6}}>
+                        <span className="tag tag-amber">{PLANS[p.plan]?.name||p.plan}</span>
+                        <span style={{fontFamily:'var(--fd)',fontSize:12,color:'var(--green)',fontWeight:700}}>{fmt(p.amount)}</span>
+                        <span style={{fontSize:11,color:'var(--text3)'}}>{age}</span>
+                      </div>
+
+                      {/* ── Reference + TxnID — the main new feature ── */}
+                      <div style={{display:'flex',flexWrap:'wrap',gap:8,marginBottom:hasRef?8:0}}>
+                        {hasRef?(
+                          <>
+                            <div>
+                              <div style={{fontSize:10,letterSpacing:1,color:'var(--text3)',marginBottom:2,textTransform:'uppercase'}}>Reference</div>
+                              <span className="ref-badge" onClick={()=>copyText(p.reference,'Reference')}>{I.copy} {p.reference}</span>
+                            </div>
+                            <div>
+                              <div style={{fontSize:10,letterSpacing:1,color:'var(--text3)',marginBottom:2,textTransform:'uppercase'}}>Transaction ID</div>
+                              <span className="txn-badge" onClick={()=>copyText(p.txnId,'Txn ID')}>{I.copy} {p.txnId}</span>
+                            </div>
+                            {p.momoPhone&&<div>
+                              <div style={{fontSize:10,letterSpacing:1,color:'var(--text3)',marginBottom:2,textTransform:'uppercase'}}>MoMo Number</div>
+                              <span style={{fontSize:12,fontFamily:'var(--fd)',color:'var(--text2)',cursor:'pointer'}} onClick={()=>copyText(p.momoPhone,'Phone')}>{p.momoNetwork?.toUpperCase()} {p.momoPhone} {I.copy}</span>
+                            </div>}
+                          </>
+                        ):(
+                          <span className="tag tag-grey">⏳ Awaiting reference submission</span>
+                        )}
+                      </div>
+
+                      {/* Warn if reference isn't "fleetsales" */}
+                      {hasRef&&p.reference&&!p.reference.toLowerCase().includes('fleetsales')&&(
+                        <div className="notice notice-warn" style={{fontSize:11,padding:'5px 9px',marginTop:4}}>
+                          ⚠️ Reference "{p.reference}" — not "fleetsales". Verify on MoMo before activating.
+                        </div>
+                      )}
+                      {hasRef&&p.reference?.toLowerCase().includes('fleetsales')&&(
+                        <div className="notice notice-ok" style={{fontSize:11,padding:'5px 9px',marginTop:4}}>
+                          ✅ Reference confirmed: "fleetsales"
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div style={{display:'flex',gap:6,flexWrap:'wrap',alignItems:'center'}}>
+                    <input type="number" value={days} onChange={e=>setCustomDays(c=>({...c,[p.id]:parseInt(e.target.value)||30}))} style={{width:55,padding:'4px 8px',background:'var(--bg)',border:'1px solid var(--border)',borderRadius:5,color:'var(--text)',fontSize:11}} min="1" max="365"/>
+                    <span style={{fontSize:11,color:'var(--text3)'}}>days</span>
+                    <button className="btn-sm" style={{fontSize:11}} onClick={()=>activate(p.username,'basic',days,p)}>Basic</button>
+                    <button className="btn-sm" style={{fontSize:11}} onClick={()=>activate(p.username,'standard',days,p)}>Standard</button>
+                    <button className="btn-sm" style={{fontSize:11}} onClick={()=>activate(p.username,'premium',days,p)}>Premium</button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Active subscriptions */}
+          <div className="card" style={{marginBottom:14}}>
+            <div className="sec-title">✅ Active Subscriptions ({payingUsers.length})</div>
+            {payingUsers.length===0?<div style={{fontSize:14,color:'var(--text3)'}}>No paying users yet.</div>
+              :payingUsers.map(u=>{
+                const s=subStatus(u);
+                return(
+                  <div key={u} style={{display:'flex',justifyContent:'space-between',padding:'9px 0',borderBottom:'1px solid var(--border2)'}}>
+                    <div>
+                      <div style={{fontWeight:600,fontSize:13,marginBottom:2}}>{users[u]?.business||u} <span style={{fontSize:12,color:'var(--text3)'}}>@{u}</span></div>
+                      <div style={{fontSize:12,color:'var(--text3)'}}>Until: {s.paidUntil?new Date(s.paidUntil).toLocaleDateString('en-GH'):'—'}</div>
+                    </div>
+                    <div style={{textAlign:'right'}}>
+                      <div style={{fontFamily:'var(--fd)',fontWeight:700,color:'var(--green)',fontSize:13}}>{PLANS[s.plan]?.label||'—'}</div>
+                      <span className="tag tag-green" style={{fontSize:9}}>ACTIVE</span>
+                    </div>
+                  </div>
+                );
+              })
+            }
+          </div>
+
+          {/* Revenue summary */}
+          <div className="card">
+            <div className="sec-title">Revenue Summary</div>
+            {Object.values(PLANS).map(plan=>{
+              const count=payingUsers.filter(u=>subStatus(u).plan===plan.id).length;
+              return(
+                <div key={plan.id} style={{display:'flex',justifyContent:'space-between',padding:'8px 0',borderBottom:'1px solid var(--border2)'}}>
+                  <span style={{fontSize:14,color:'var(--text2)'}}>{plan.name} ({plan.label})</span>
+                  <div style={{textAlign:'right'}}>
+                    <div style={{fontWeight:700,color:'var(--green)',fontFamily:'var(--fd)',fontSize:13}}>{fmt(count*plan.price)}</div>
+                    <div style={{fontSize:12,color:'var(--text3)'}}>{count} user{count!==1?'s':''}</div>
+                  </div>
+                </div>
+              );
+            })}
+            <div style={{display:'flex',justifyContent:'space-between',padding:'10px 0'}}>
+              <span style={{fontWeight:700,fontSize:13}}>Total Monthly</span>
+              <span style={{fontWeight:800,color:'var(--green)',fontFamily:'var(--fd)',fontSize:15}}>{fmt(revenue)}</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── USERS TAB ──────────────────────────────────────────────── */}
       {tab==='users'&&(
         <div>
           <div className="card" style={{marginBottom:12}}>
@@ -1189,20 +1366,20 @@ function VAdmin(){
               <div key={u} className="card" style={{marginBottom:8}}>
                 <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:8,flexWrap:'wrap',gap:6}}>
                   <div>
-                    <div style={{fontWeight:700,fontSize:15,marginBottom:2}}>{usr?.business||u}</div>
-                    <div style={{fontSize:16,color:'var(--text3)',marginBottom:4}}>@{u} · Joined {usr?.created?new Date(usr.created).toLocaleDateString('en-GH'):'—'}</div>
-                    {s.active&&!s.trial&&s.paidUntil&&<div style={{fontSize:16,color:'var(--text3)'}}>Paid until: {new Date(s.paidUntil).toLocaleDateString('en-GH')}</div>}
+                    <div style={{fontWeight:700,fontSize:14,marginBottom:2}}>{usr?.business||u}</div>
+                    <div style={{fontSize:12,color:'var(--text3)',marginBottom:4}}>@{u} · Joined {usr?.created?new Date(usr.created).toLocaleDateString('en-GH'):'—'}</div>
+                    {s.active&&!s.trial&&s.paidUntil&&<div style={{fontSize:12,color:'var(--text3)'}}>Paid until: {new Date(s.paidUntil).toLocaleDateString('en-GH')}</div>}
                   </div>
                   <span className={`tag ${s.active&&!s.trial?'tag-green':s.trial?'tag-amber':'tag-red'}`}>
                     {s.active&&!s.trial?`ACTIVE · ${s.plan?.toUpperCase()}`:(s.trial?`TRIAL · ${s.daysLeft}d left`:'EXPIRED')}
                   </span>
                 </div>
                 <div style={{display:'flex',gap:6,flexWrap:'wrap',alignItems:'center'}}>
-                  <input type="number" value={days} onChange={e=>setCustomDays(c=>({...c,[u]:parseInt(e.target.value)||30}))} style={{width:60,padding:'4px 8px',background:'var(--bg)',border:'1px solid var(--border)',borderRadius:5,color:'var(--text)',fontSize:11}} min="1" max="365"/>
-                  <span style={{fontSize:15,color:'var(--text3)'}}>days</span>
-                  <button className="btn-sm" style={{fontSize:11}} onClick={()=>activate(u,'basic',days)}>Basic</button>
-                  <button className="btn-sm" style={{fontSize:11}} onClick={()=>activate(u,'standard',days)}>Standard</button>
-                  <button className="btn-sm" style={{fontSize:11}} onClick={()=>activate(u,'premium',days)}>Premium</button>
+                  <input type="number" value={days} onChange={e=>setCustomDays(c=>({...c,[u]:parseInt(e.target.value)||30}))} style={{width:55,padding:'4px 8px',background:'var(--bg)',border:'1px solid var(--border)',borderRadius:5,color:'var(--text)',fontSize:11}} min="1" max="365"/>
+                  <span style={{fontSize:11,color:'var(--text3)'}}>days</span>
+                  <button className="btn-sm" style={{fontSize:11}} onClick={()=>activate(u,'basic',days,null)}>Basic</button>
+                  <button className="btn-sm" style={{fontSize:11}} onClick={()=>activate(u,'standard',days,null)}>Standard</button>
+                  <button className="btn-sm" style={{fontSize:11}} onClick={()=>activate(u,'premium',days,null)}>Premium</button>
                   <button className="btn-danger" style={{fontSize:11}} onClick={()=>deactivate(u)}>Revoke</button>
                 </div>
               </div>
@@ -1212,74 +1389,58 @@ function VAdmin(){
         </div>
       )}
 
-      {tab==='payments'&&(
+      {/* ── HISTORY TAB — NEW ─────────────────────────────────────── */}
+      {tab==='history'&&(
         <div>
           <div className="card">
-            <div className="sec-title">Active Subscriptions</div>
-            {payingUsers.length===0?<div style={{fontSize:15,color:'var(--text3)'}}>No paying users yet.</div>
-              :payingUsers.map(u=>{
-                const s=subStatus(u);
-                return(
-                  <div key={u} style={{display:'flex',justifyContent:'space-between',padding:'9px 0',borderBottom:'1px solid var(--border2)'}}>
-                    <div>
-                      <div style={{fontWeight:600,fontSize:12}}>{users[u]?.business||u} <span style={{fontSize:15,color:'var(--text3)'}}>@{u}</span></div>
-                      <div style={{fontSize:16,color:'var(--text3)'}}>Until: {s.paidUntil?new Date(s.paidUntil).toLocaleDateString('en-GH'):'—'}</div>
-                    </div>
-                    <div>
-                      <div style={{fontFamily:'var(--fd)',fontWeight:700,color:'var(--green)',fontSize:13}}>{PLANS[s.plan]?.label||'—'}</div>
-                      <span className={`tag tag-green`} style={{fontSize:7}}>ACTIVE</span>
-                    </div>
-                  </div>
-                );
-              })
-            }
-          </div>
-          <div className="card">
-            <div className="sec-title">Pending Requests ({pending.length})</div>
-            {pending.length===0?<div style={{fontSize:15,color:'var(--text3)'}}>No pending payments.</div>
-              :pending.map(p=>(
-                <div key={p.id} style={{display:'flex',justifyContent:'space-between',padding:'9px 0',borderBottom:'1px solid var(--border2)'}}>
+            <div className="sec-title">📋 Activation History (Last 50)</div>
+            {history.length===0&&<div style={{fontSize:14,color:'var(--text3)'}}>No activation history yet.</div>}
+            {history.map((h,i)=>(
+              <div key={i} style={{padding:'10px 0',borderBottom:'1px solid var(--border2)'}}>
+                <div style={{display:'flex',justifyContent:'space-between',marginBottom:6,flexWrap:'wrap',gap:6}}>
                   <div>
-                    <div style={{fontWeight:600,fontSize:12}}>{p.username}</div>
-                    <div style={{fontSize:16,color:'var(--text3)'}}>{PLANS[p.plan]?.label||p.plan} · {new Date(p.requestedAt).toLocaleDateString()}</div>
+                    <div style={{fontWeight:600,fontSize:13,marginBottom:2}}>{h.business||h.username} <span style={{color:'var(--text3)',fontSize:12}}>@{h.username}</span></div>
+                    <div style={{display:'flex',gap:6,flexWrap:'wrap',alignItems:'center'}}>
+                      <span className="tag tag-green">{(h.plan||'').toUpperCase()} · {h.days}d</span>
+                      <span style={{fontFamily:'var(--fd)',fontSize:12,color:'var(--green)',fontWeight:700}}>{fmt(h.amount)}</span>
+                      <span style={{fontSize:11,color:'var(--text3)'}}>{h.activatedAt?new Date(h.activatedAt).toLocaleDateString('en-GH'):'—'}</span>
+                    </div>
                   </div>
-                  <div style={{display:'flex',gap:6}}>
-                    <button className="btn-sm" style={{fontSize:11}} onClick={()=>activate(p.username,p.plan,30)}>Activate</button>
-                  </div>
-                </div>
-              ))
-            }
-          </div>
-          <div className="card">
-            <div className="sec-title">Revenue Summary</div>
-            {Object.values(PLANS).map(plan=>{
-              const count=payingUsers.filter(u=>subStatus(u).plan===plan.id).length;
-              return(
-                <div key={plan.id} style={{display:'flex',justifyContent:'space-between',padding:'8px 0',borderBottom:'1px solid var(--border2)'}}>
-                  <span style={{fontSize:16,color:'var(--text2)'}}>{plan.name} ({plan.label})</span>
-                  <div style={{textAlign:'right'}}>
-                    <div style={{fontWeight:700,color:'var(--green)',fontFamily:'var(--fd)',fontSize:12}}>{fmt(count*plan.price)}</div>
-                    <div style={{fontSize:15,color:'var(--text3)'}}>{count} user{count!==1?'s':''}</div>
+                  <div style={{textAlign:'right',fontSize:11,color:'var(--text3)'}}>
+                    Until: {h.paidUntil?new Date(h.paidUntil).toLocaleDateString('en-GH'):'—'}
                   </div>
                 </div>
-              );
-            })}
-            <div style={{display:'flex',justifyContent:'space-between',padding:'10px 0'}}>
-              <span style={{fontWeight:700,fontSize:13}}>Total Monthly</span>
-              <span style={{fontWeight:800,color:'var(--green)',fontFamily:'var(--fd)',fontSize:15}}>{fmt(revenue)}</span>
-            </div>
+                {/* Payment reference display in history */}
+                {(h.reference||h.txnId)&&(
+                  <div style={{display:'flex',gap:8,flexWrap:'wrap',alignItems:'center'}}>
+                    {h.reference&&h.reference!=='—'&&(
+                      <span className="ref-badge" onClick={()=>copyText(h.reference,'Reference')}>{I.copy} {h.reference}</span>
+                    )}
+                    {h.txnId&&h.txnId!=='—'&&(
+                      <span className="txn-badge" onClick={()=>copyText(h.txnId,'TxnID')}>{I.copy} {h.txnId}</span>
+                    )}
+                    {h.momoPhone&&h.momoPhone!=='—'&&(
+                      <span style={{fontSize:11,color:'var(--text3)',fontFamily:'var(--fd)'}}>{h.momoNetwork?.toUpperCase()} {h.momoPhone}</span>
+                    )}
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       )}
 
+      {/* ── SETTINGS TAB ───────────────────────────────────────────── */}
       {tab==='settings'&&(
         <div>
           <div className="card">
-            <div className="sec-title">Developer Account</div>
-            <div style={{fontSize:16,color:'var(--text2)',lineHeight:2}}>
-              <div>Username: <span style={{color:'var(--green)',fontFamily:'var(--fd)'}}>{DEV_U}</span><span className="dev-pill" style={{marginLeft:8}}>ADMIN</span></div>
-              <div>Business: <span style={{color:'var(--text)'}}>AMIN REAL ESTATES</span></div>
-              <div>Access: <span style={{color:'var(--green)'}}>Unlimited · Premium · Never expires</span></div>
+            <div className="sec-title">Payment Reference</div>
+            <div className="notice notice-purple">
+              <div style={{fontWeight:700,marginBottom:6}}>📌 Clients must use this reference when paying</div>
+              <div style={{fontFamily:'var(--fd)',fontSize:22,letterSpacing:3,color:'var(--purple)',fontWeight:800,marginBottom:6,cursor:'pointer'}} onClick={()=>copyText('fleetsales','Reference')}>
+                fleetsales {I.copy}
+              </div>
+              <div style={{fontSize:12,opacity:.8}}>This reference helps identify RentLedger subscription payments in your MoMo history. Click to copy.</div>
             </div>
           </div>
           <div className="card">
@@ -1287,26 +1448,22 @@ function VAdmin(){
             <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10}}>
               <div style={{background:'#f59e0b22',border:'1px solid #f59e0b44',borderRadius:8,padding:12,textAlign:'center'}}>
                 <div style={{fontSize:11,letterSpacing:2,color:'var(--amber)',fontWeight:700,marginBottom:3}}>MTN MOMO</div>
-                <div style={{fontSize:16,fontWeight:800,color:'var(--amber)',fontFamily:'var(--fd)'}}>{OWNER.mtn}</div>
+                <div style={{fontSize:16,fontWeight:800,color:'var(--amber)',fontFamily:'var(--fd)',cursor:'pointer'}} onClick={()=>copyText(OWNER.mtn,'Number')}>{OWNER.mtn} {I.copy}</div>
                 <div style={{fontSize:15,color:'var(--text3)',marginTop:2}}>{OWNER.name}</div>
               </div>
               <div style={{background:'#ef444422',border:'1px solid #ef444444',borderRadius:8,padding:12,textAlign:'center'}}>
                 <div style={{fontSize:11,letterSpacing:2,color:'var(--red)',fontWeight:700,marginBottom:3}}>TELECEL</div>
-                <div style={{fontSize:16,fontWeight:800,color:'var(--red)',fontFamily:'var(--fd)'}}>{OWNER.telecel}</div>
+                <div style={{fontSize:16,fontWeight:800,color:'var(--red)',fontFamily:'var(--fd)',cursor:'pointer'}} onClick={()=>copyText(OWNER.telecel,'Number')}>{OWNER.telecel} {I.copy}</div>
                 <div style={{fontSize:15,color:'var(--text3)',marginTop:2}}>{OWNER.name}</div>
               </div>
             </div>
           </div>
           <div className="card">
-            <div className="sec-title">Plans</div>
-            <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:8}}>
-              {Object.values(PLANS).map(p=>(
-                <div key={p.id} style={{background:'var(--bg)',border:'1px solid var(--border)',borderRadius:8,padding:12,textAlign:'center'}}>
-                  <div style={{fontSize:15,color:p.color,letterSpacing:2,textTransform:'uppercase',marginBottom:4}}>{p.name}</div>
-                  <div style={{fontFamily:'var(--fd)',fontWeight:700,color:'var(--text)',fontSize:15,marginBottom:3}}>{p.label}</div>
-                  <div style={{fontSize:15,color:'var(--text3)'}}>{p.rooms===999?'Unlimited':p.rooms} rooms</div>
-                </div>
-              ))}
+            <div className="sec-title">Developer Account</div>
+            <div style={{fontSize:14,color:'var(--text2)',lineHeight:2}}>
+              <div>Username: <span style={{color:'var(--green)',fontFamily:'var(--fd)'}}>{DEV_U}</span><span className="dev-pill" style={{marginLeft:8}}>ADMIN</span></div>
+              <div>Business: <span style={{color:'var(--text)'}}>AMIN REAL ESTATES</span></div>
+              <div>Access: <span style={{color:'var(--green)'}}>Unlimited · Premium · Never expires</span></div>
             </div>
           </div>
           <div className="card">
@@ -1314,10 +1471,88 @@ function VAdmin(){
             <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10}}>
               {[['Total Users',allUsers.length],['Paying',payingUsers.length],['On Trial',trialUsers.length],['Expired',allUsers.length-payingUsers.length-trialUsers.length],['Pending',pending.length],['Revenue',fmt(revenue)]].map(([l,v])=>(
                 <div key={l} style={{textAlign:'center',padding:10,background:'var(--bg)',borderRadius:8,border:'1px solid var(--border)'}}>
-                  <div style={{fontSize:11,color:'var(--text3)',letterSpacing:1,marginBottom:4,textTransform:'uppercase'}}>{l}</div>
+                  <div style={{fontSize:10,color:'var(--text3)',letterSpacing:1,marginBottom:4,textTransform:'uppercase'}}>{l}</div>
                   <div style={{fontWeight:700,color:'var(--green)',fontFamily:'var(--fd)'}}>{v}</div>
                 </div>
               ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── FULL DETAIL MODAL ─────────────────────────────────────── */}
+      {detailModal&&(
+        <div className="modal-ov" onClick={()=>setDetailModal(null)}>
+          <div className="modal-box" onClick={e=>e.stopPropagation()}>
+            <div className="modal-hdr">
+              <span style={{fontWeight:700}}>🔍 Payment Details — {detailModal.username}</span>
+              <button style={{background:'none',border:'none',color:'var(--text3)',cursor:'pointer',fontSize:18}} onClick={()=>setDetailModal(null)}>✕</button>
+            </div>
+            <div className="modal-body">
+              {/* Client info */}
+              <div style={{marginBottom:16}}>
+                <div style={{fontSize:11,letterSpacing:2,color:'var(--text3)',marginBottom:8,textTransform:'uppercase'}}>Client</div>
+                <div style={{fontWeight:700,fontSize:15,marginBottom:2}}>{users[detailModal.username]?.business||detailModal.username}</div>
+                <div style={{fontSize:13,color:'var(--text3)'}}>@{detailModal.username}</div>
+              </div>
+              {/* Subscription */}
+              <div style={{background:'var(--bg)',border:'1px solid var(--border)',borderRadius:8,padding:12,marginBottom:14}}>
+                <div style={{fontSize:11,letterSpacing:2,color:'var(--text3)',marginBottom:8,textTransform:'uppercase'}}>Subscription Requested</div>
+                <div style={{display:'flex',justifyContent:'space-between',marginBottom:6}}>
+                  <span style={{color:'var(--text2)'}}>Plan</span>
+                  <span className="tag tag-amber">{PLANS[detailModal.plan]?.name||detailModal.plan}</span>
+                </div>
+                <div style={{display:'flex',justifyContent:'space-between',marginBottom:6}}>
+                  <span style={{color:'var(--text2)'}}>Amount</span>
+                  <span style={{fontFamily:'var(--fd)',fontWeight:700,color:'var(--green)'}}>{fmt(detailModal.amount)}</span>
+                </div>
+                <div style={{display:'flex',justifyContent:'space-between'}}>
+                  <span style={{color:'var(--text2)'}}>Requested</span>
+                  <span style={{color:'var(--text3)',fontSize:13}}>{detailModal.requestedAt?new Date(detailModal.requestedAt).toLocaleString('en-GH'):'—'}</span>
+                </div>
+              </div>
+              {/* Payment Reference */}
+              <div style={{background:'var(--bg)',border:'1px solid var(--border)',borderRadius:8,padding:12,marginBottom:14}}>
+                <div style={{fontSize:11,letterSpacing:2,color:'var(--text3)',marginBottom:10,textTransform:'uppercase'}}>Payment Reference Details</div>
+                {detailModal.txnId?(
+                  <>
+                    <div style={{marginBottom:10}}>
+                      <div style={{fontSize:11,color:'var(--text3)',marginBottom:4}}>REFERENCE</div>
+                      <div style={{display:'flex',alignItems:'center',gap:8}}>
+                        <span className="ref-badge" style={{fontSize:13,padding:'5px 12px'}} onClick={()=>copyText(detailModal.reference,'Reference')}>{I.copy} {detailModal.reference}</span>
+                        {detailModal.reference?.toLowerCase().includes('fleetsales')
+                          ?<span className="tag tag-green">✓ CORRECT</span>
+                          :<span className="tag tag-amber">⚠️ VERIFY</span>
+                        }
+                      </div>
+                    </div>
+                    <div style={{marginBottom:10}}>
+                      <div style={{fontSize:11,color:'var(--text3)',marginBottom:4}}>TRANSACTION ID</div>
+                      <span className="txn-badge" style={{fontSize:13,padding:'5px 12px'}} onClick={()=>copyText(detailModal.txnId,'Transaction ID')}>{I.copy} {detailModal.txnId}</span>
+                    </div>
+                    <div style={{marginBottom:6}}>
+                      <div style={{fontSize:11,color:'var(--text3)',marginBottom:4}}>MOMO DETAILS</div>
+                      <div style={{fontSize:13,fontFamily:'var(--fd)',color:'var(--text2)'}}>{detailModal.momoNetwork?.toUpperCase()||'—'} · {detailModal.momoPhone||'—'}</div>
+                    </div>
+                  </>
+                ):(
+                  <div className="notice notice-warn">⏳ Client has not submitted payment reference yet.</div>
+                )}
+              </div>
+              {/* Activate controls */}
+              <div>
+                <div style={{fontSize:11,letterSpacing:2,color:'var(--text3)',marginBottom:8,textTransform:'uppercase'}}>Activate</div>
+                <div style={{display:'flex',gap:8,flexWrap:'wrap',alignItems:'center'}}>
+                  <input type="number" value={customDays[detailModal.id]||30} onChange={e=>setCustomDays(c=>({...c,[detailModal.id]:parseInt(e.target.value)||30}))} style={{width:65,padding:'6px 10px',background:'var(--bg)',border:'1px solid var(--border)',borderRadius:6,color:'var(--text)',fontSize:13}} min="1" max="365"/>
+                  <span style={{fontSize:13,color:'var(--text3)'}}>days</span>
+                  <button className="btn-sm" onClick={()=>activate(detailModal.username,'basic',customDays[detailModal.id]||30,detailModal)}>Basic</button>
+                  <button className="btn-sm" onClick={()=>activate(detailModal.username,'standard',customDays[detailModal.id]||30,detailModal)}>Standard</button>
+                  <button className="btn-sm" onClick={()=>activate(detailModal.username,'premium',customDays[detailModal.id]||30,detailModal)}>Premium</button>
+                </div>
+              </div>
+            </div>
+            <div className="modal-foot">
+              <button className="btn-outline" onClick={()=>setDetailModal(null)}>Close</button>
             </div>
           </div>
         </div>
@@ -1326,7 +1561,7 @@ function VAdmin(){
   );
 }
 
-// ── DASHBOARD COMPONENT ────────────────────────────────────────────
+// ── MAIN DASHBOARD ─────────────────────────────────────────────────
 function Dashboard({session,onLogout}){
   const [view,setView]=useState('dashboard');
   const [properties,setProperties]=useState([]);
@@ -1337,18 +1572,14 @@ function Dashboard({session,onLogout}){
   const saveTimer=useRef(null);
   const u=session.username;
 
-  // Load data
   useEffect(()=>{
     async function init(){
-      // Load from Firestore first, fallback to localStorage
       if(db){
         try{
           const snap=await db.collection('rlg_data').doc(u).get();
           if(snap.exists){
             const d=snap.data();
-            setProperties(d.properties||[]);
-            setTenants(d.tenants||[]);
-            setPayments(d.payments||[]);
+            setProperties(d.properties||[]);setTenants(d.tenants||[]);setPayments(d.payments||[]);
             setLoaded(true);return;
           }
         }catch{}
@@ -1360,7 +1591,6 @@ function Dashboard({session,onLogout}){
     init();
   },[u]);
 
-  // Real-time listener
   useEffect(()=>{
     if(!db||!loaded)return;
     const unsub=db.collection('rlg_data').doc(u).onSnapshot(snap=>{
@@ -1372,7 +1602,6 @@ function Dashboard({session,onLogout}){
     return unsub;
   },[u,loaded]);
 
-  // Auto-save
   function doSave(p,t,pay){
     clearTimeout(saveTimer.current);
     setSyncState('saving');
@@ -1402,13 +1631,11 @@ function Dashboard({session,onLogout}){
 
   return(
     <div className="app">
-      {/* Sidebar */}
       <div className="sidebar">
         <div className="sb-logo">
           <div style={{fontSize:30,marginBottom:6}}>🏠</div>
           <div className="sb-logo-main">RentLedger</div>
           <div className="sb-logo-sub">{session.business}</div>
-          <div style={{fontSize:7,letterSpacing:2,color:'var(--text3)',marginTop:3,textTransform:'uppercase'}}>Rent Management System</div>
         </div>
         <div className="sb-nav">
           {NAV.map(n=>(
@@ -1425,8 +1652,6 @@ function Dashboard({session,onLogout}){
           <button className="sb-item" style={{color:'var(--red)'}} onClick={onLogout}>{I.logout}Sign Out</button>
         </div>
       </div>
-
-      {/* Main */}
       <div className="main">
         <div className="topbar">
           <div style={{display:'flex',alignItems:'center',gap:8}}>
@@ -1452,7 +1677,6 @@ function Dashboard({session,onLogout}){
           </div>
         </div>
       </div>
-
       <MobileNav NAV={NAV} view={view} setView={setView} onLogout={onLogout} session={session} syncState={syncState}/>
     </div>
   );
@@ -1464,11 +1688,9 @@ function App(){
   const [ready,setReady]=useState(false);
 
   useEffect(()=>{
-    // Init dev account
     const users=lsGet('rlg-users')||{};
-    users[DEV_U]={hash:hashStr(DEV_P),business:'AMIN REAL ESTATES',isDev:true,vehicleType:'pragya',created:0};
+    users[DEV_U]={hash:hashStr(DEV_P),business:'AMIN REAL ESTATES',isDev:true,created:0};
     lsSet('rlg-users',users);
-    // Restore session
     const s=lsGet('rlg-session');
     if(s?.username)setSession(s);
     setReady(true);
@@ -1479,10 +1701,8 @@ function App(){
 
   if(!ready)return<div className="loading"><div className="spinner"/><div style={{fontSize:16,letterSpacing:3,color:'var(--text3)'}}>LOADING…</div></div>;
   if(!session)return<Auth onLogin={login}/>;
-
   const status=subStatus(session.username);
   if(!status.active)return<SubWall username={session.username} onActivated={()=>{const s=lsGet('rlg-session');setSession({...s});}} />;
-
   return<Dashboard session={session} onLogout={logout}/>;
 }
 
